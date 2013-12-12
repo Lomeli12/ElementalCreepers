@@ -22,16 +22,16 @@ public class Config {
     }
 
     private static void loadID() {
-        ECVars.fireCreeperID = setGetInt("fireCreeperID", 120);
-        ECVars.waterCreeperID = setGetInt("waterCreeperID", 121);
-        ECVars.electricCreeperID = setGetInt("electricCreeperID", 122);
-        ECVars.cookieCreeperID = setGetInt("cookieCreeperID", 123);
-        ECVars.darkCreeperID = setGetInt("darkCreeperID", 124);
-        ECVars.lightCreeperID = setGetInt("lightCreeperID", 125);
-        ECVars.earthCreeperID = setGetInt("earthCreeperID", 126);
-        ECVars.magmaCreeperID = setGetInt("magmaCreeperID", 127);
-        ECVars.reverseCreeperID = setGetInt("reverseCreeperID", 128);
-        ECVars.iceCreeperID = setGetInt("iceCreeperID", 129);
+        ECVars.fireCreeperID = setGetInt("fireCreeperID", 40);
+        ECVars.waterCreeperID = setGetInt("waterCreeperID", 41);
+        ECVars.electricCreeperID = setGetInt("electricCreeperID", 42);
+        ECVars.cookieCreeperID = setGetInt("cookieCreeperID", 43);
+        ECVars.darkCreeperID = setGetInt("darkCreeperID", 44);
+        ECVars.lightCreeperID = setGetInt("lightCreeperID", 45);
+        ECVars.earthCreeperID = setGetInt("earthCreeperID", 46);
+        ECVars.magmaCreeperID = setGetInt("magmaCreeperID", 47);
+        ECVars.reverseCreeperID = setGetInt("reverseCreeperID", 48);
+        ECVars.iceCreeperID = setGetInt("iceCreeperID", 49);
     }
 
     private static void loadCreeperOptions() {

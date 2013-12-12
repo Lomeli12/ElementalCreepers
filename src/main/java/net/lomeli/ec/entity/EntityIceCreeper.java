@@ -1,7 +1,6 @@
 package net.lomeli.ec.entity;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityIceCreeper extends EntityBaseCreeper {
@@ -14,17 +13,14 @@ public class EntityIceCreeper extends EntityBaseCreeper {
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
-        int i = MathHelper.floor_double(this.posX);
-        int j = MathHelper.floor_double(this.posZ);
-        for (i = 0; i < 4; i++) {
-
-            j = MathHelper.floor_double(this.posX + (double) ((float) (i % 2 * 2 - 1) * 0.25F));
-            int k = MathHelper.floor_double(this.posY);
-            int l = MathHelper.floor_double(this.posZ + (double) ((float) (i / 2 % 2 * 2 - 1) * 0.25F));
-
-            if (this.worldObj.getBlockId(j, k, l) == 0 && this.worldObj.getBiomeGenForCoords(j, l).getFloatTemperature() < 0.8F
-                    && Block.snow.canPlaceBlockAt(this.worldObj, j, k, l))
-                this.worldObj.setBlock(j, k, l, Block.snow.blockID);
+        if (!worldObj.isRemote) {
+            for (int i = 0; i < 4; i++) {
+                if ((int) Math.round(posX + 0.5F) != (int) Math.round(prevPosX + 0.5F) || (int) Math.round(posY) != (int) Math.round(prevPosY)
+                        || (int) Math.round(posZ + 0.5F) != (int) Math.round(prevPosZ + 0.5F)){
+                    if(Block.snow.canPlaceBlockAt(worldObj, (int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ)))
+                            worldObj.setBlock((int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ), Block.snow.blockID);
+                }
+            }
         }
     }
 
@@ -37,9 +33,11 @@ public class EntityIceCreeper extends EntityBaseCreeper {
                     int id = worldObj.getBlockId((int) posX + x, (int) posY + y, (int) posZ + z);
                     if (id == Block.waterStill.blockID || id == Block.waterMoving.blockID)
                         worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Block.ice.blockID);
+                    else if (id == Block.lavaStill.blockID || id == Block.lavaMoving.blockID)
+                        worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Block.obsidian.blockID);
 
-                    if (Block.snow.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z)
-                            && !Block.snow.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y - 1, (int) posZ + z)) {
+                    if (Block.dirt.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z) &&
+                        !Block.dirt.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y - 1, (int) posZ + z)) {
                         if (rand.nextBoolean())
                             worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Block.snow.blockID);
                     }

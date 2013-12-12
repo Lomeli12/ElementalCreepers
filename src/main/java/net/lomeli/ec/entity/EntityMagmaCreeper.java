@@ -13,9 +13,11 @@ public class EntityMagmaCreeper extends EntityBaseCreeper {
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
-        if ((int) Math.round(posX + 0.5F) != (int) Math.round(prevPosX + 0.5F) || (int) Math.round(posY) != (int) Math.round(prevPosY)
-                || (int) Math.round(posZ + 0.5F) != (int) Math.round(prevPosZ + 0.5F))
-            worldObj.setBlock((int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ), Block.fire.blockID);
+        if (!worldObj.isRemote) {
+            if ((int) Math.round(posX + 0.5F) != (int) Math.round(prevPosX + 0.5F) || (int) Math.round(posY) != (int) Math.round(prevPosY)
+                    || (int) Math.round(posZ + 0.5F) != (int) Math.round(prevPosZ + 0.5F))
+                worldObj.setBlock((int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ), Block.fire.blockID);
+        }
     }
 
     @Override

@@ -9,17 +9,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderBasicCreeper extends RenderCreeper {
-    
+
     public ResourceLocation entityTexture;
 
-    public RenderCreeper setTexture(String entity){
+    public RenderCreeper setTexture(String entity) {
         entityTexture = ResourceUtil.getEntityTexture(Strings.MOD_ID.toLowerCase(), entity + ".png");
         return this;
     }
-    
+
     @Override
     protected ResourceLocation getEntityTexture(Entity entity) {
-        return entityTexture; 
+        return entityTexture;
     }
 
 }

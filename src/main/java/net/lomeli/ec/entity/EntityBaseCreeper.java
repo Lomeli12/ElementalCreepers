@@ -49,11 +49,14 @@ public class EntityBaseCreeper extends EntityCreeper {
 
                     if (this.getPowered())
                         this.explosion(2, flag);
-                    else 
+                    else
                         this.explosion(1, flag);
 
-                    if(this.diesAfterExplosion())
+                    if (this.diesAfterExplosion())
                         this.setDead();
+
+                    worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 4F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+                    spawnExplosionParticle();
                 }
             }
         }
@@ -64,8 +67,8 @@ public class EntityBaseCreeper extends EntityCreeper {
     public void explosion(int power, boolean flag) {
 
     }
-    
-    public boolean diesAfterExplosion(){
+
+    public boolean diesAfterExplosion() {
         return true;
     }
 
@@ -91,7 +94,7 @@ public class EntityBaseCreeper extends EntityCreeper {
         super.readEntityFromNBT(par1NBTTagCompound);
         this.dataWatcher.updateObject(17, Byte.valueOf((byte) (par1NBTTagCompound.getBoolean("powered") ? 1 : 0)));
 
-        if (par1NBTTagCompound.hasKey("Fuse")) 
+        if (par1NBTTagCompound.hasKey("Fuse"))
             this.fuseTime = par1NBTTagCompound.getShort("Fuse");
 
         if (par1NBTTagCompound.hasKey("ExplosionRadius"))

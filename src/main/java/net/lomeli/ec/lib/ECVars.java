@@ -17,14 +17,14 @@ public class ECVars {
     public static int darkCreeperID;
     public static int reverseCreeperID;
     public static int spiderCreeperID;
-    
+
     public static int magmaIllusionCreeperID;
     public static int windCreeperID;
     public static int stoneCreeperID;
     public static int sandStoneCreeperID;
     public static int enderCreeperID;
     public static int zombieCreeperID;
-    
+
     public static int waterCreeperSpawn;
     public static int fireCreeperSpawn;
     public static int iceCreeperSpawn;
@@ -39,7 +39,7 @@ public class ECVars {
     public static int darkCreeperSpawn;
     public static int reverseCreeperSpawn;
     public static int spiderCreeperSpawn;
-    
+
     public static int magmaIllusionCreeperSpawn;
     public static int windCreeperSpawn;
     public static int stoneCreeperSpawn;

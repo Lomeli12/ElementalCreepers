@@ -1,3 +1,10 @@
 entity.elementalcreepers:FireCreeper.name=Fire Creeper
 entity.elementalcreepers:WaterCreeper.name=Water Creeper
 entity.elementalcreepers:ElectricCreeper.name=Electric Creeper
+entity.elementalcreepers:CookieCreeper.name=Cookie Creeper
+entity.elementalcreepers:DarkCreeper.name=Dark Creeper
+entity.elementalcreepers:LightCreeper.name=Light Creeper
+entity.elementalcreepers:EarthCreeper.name=Earth Creeper
+entity.elementalcreepers:MagmaCreeper.name=Magma Creeper
+entity.elementalcreepers:ReverseCreeper.name=Reverse Creeper
+entity.elementalcreepers:IceCreeper.name=Ice Creeper

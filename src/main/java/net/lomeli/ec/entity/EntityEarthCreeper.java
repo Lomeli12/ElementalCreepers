@@ -3,9 +3,9 @@ package net.lomeli.ec.entity;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
-public class EntityWaterCreeper extends EntityBaseCreeper {
+public class EntityEarthCreeper extends EntityBaseCreeper {
 
-    public EntityWaterCreeper(World par1World) {
+    public EntityEarthCreeper(World par1World) {
         super(par1World);
     }
 
@@ -15,11 +15,12 @@ public class EntityWaterCreeper extends EntityBaseCreeper {
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {
-                    if (Block.waterStill.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z)
-                            && !Block.waterStill.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y - 1, (int) posZ + z)) {
+                    if (Block.dirt.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z)
+                            && !Block.dirt.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y - 1, (int) posZ + z)) {
                         if (rand.nextBoolean())
-                            worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Block.waterMoving.blockID);
+                            worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Block.dirt.blockID);
                     }
                 }
+
     }
 }

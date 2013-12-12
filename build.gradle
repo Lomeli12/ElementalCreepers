@@ -1,0 +1,73 @@
+def loadProperties(String sourceFileName) {
+    def config = new Properties()
+        def propFile = new File(sourceFileName)
+            if (propFile.canRead()) {
+                config.load(new FileInputStream(propFile))
+                    for (Map.Entry property in config) {
+                        ext[property.key] = property.value;
+                    }
+            }
+}
+
+loadProperties 'build.properties'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
+    }
+}
+
+repositories {
+//Some of these I had to host myself because gradle keep having a hissy fit >.< Sorry for anyone who doesn't want their mod rehosted, so an official deobfuscated jar would be nice for this
+    ivy {
+        name 'LomLib'
+        artifactPattern "http://anthony-lomeli.net/MinecraftMods/LomLib/dev/[module]-dev-[revision].[ext]"
+    }
+    ivy {
+        name 'Morph'
+        artifactPattern "http://anthony-lomeli.net/ProjectFiles/DevLibraries/[module]-Beta-[revision].[ext]"
+    }
+}
+
+apply plugin: "forge"
+
+dependencies {
+    compile name: 'LomLib', version: '1-1.0.9', ext: 'jar'
+    compile name: 'Morph', version: '0.4.0', ext: 'zip'
+}
+
+
+group = 'net.lomeli.ec'
+archivesBaseName = 'Elemental Creepers'
+version = "$releaseVersion"
+
+minecraft {
+    version = "$mcVersion-$forgeVersion" // grab latest forge
+    assetDir = "build/vanilla/assets"
+}
+
+processResources {
+    exclude '**/xcf/**'
+
+    from(sourceSets.main.resources.srcDirs) {
+        include '**/*.info'
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude '**/*.info'
+    }
+}
+
+repositories {
+	mavenCentral()
+}
+
+jar {
+	appendix = 'universal'
+}

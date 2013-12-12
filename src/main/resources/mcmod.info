@@ -1,0 +1,21 @@
+[
+{
+  "modid" : "ElementalCreepers",
+  "name" : "Elemental Creepers",
+  "version" : "4.0.0",
+  "url" : "http://www.anthony-lomeli.net/",
+  "credits" : "",
+  "authors": [
+    "Lomeli12"
+  ],
+  "description": "A complete rewrite of xSmallDeadGuyx's Elemental Creepers.",
+  "logoFile" : "",
+  "updateUrl" : "",
+  "parent" : "",
+  "screenshots": [
+  ],
+  "dependencies": [
+    "Forge"
+  ]
+}
+]

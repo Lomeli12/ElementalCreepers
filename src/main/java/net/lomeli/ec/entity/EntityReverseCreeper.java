@@ -1,5 +1,7 @@
 package net.lomeli.ec.entity;
 
+import net.lomeli.ec.lib.ECVars;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -7,6 +9,7 @@ public class EntityReverseCreeper extends EntityBaseCreeper {
 
     public EntityReverseCreeper(World par1World) {
         super(par1World);
+        this.explosionRadius = ECVars.reverseCreeperRadius;
     }
 
     @Override

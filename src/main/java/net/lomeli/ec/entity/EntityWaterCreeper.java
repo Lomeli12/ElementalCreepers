@@ -1,5 +1,7 @@
 package net.lomeli.ec.entity;
 
+import net.lomeli.ec.lib.ECVars;
+
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
@@ -7,6 +9,7 @@ public class EntityWaterCreeper extends EntityBaseCreeper {
 
     public EntityWaterCreeper(World par1World) {
         super(par1World);
+        this.explosionRadius = ECVars.waterCreeperRadius;
     }
 
     @Override

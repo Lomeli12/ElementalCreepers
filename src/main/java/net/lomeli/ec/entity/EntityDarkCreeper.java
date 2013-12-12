@@ -1,5 +1,7 @@
 package net.lomeli.ec.entity;
 
+import net.lomeli.ec.lib.ECVars;
+
 import net.minecraft.block.Block;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -8,7 +10,7 @@ public class EntityDarkCreeper extends EntityBaseCreeper {
 
     public EntityDarkCreeper(World par1World) {
         super(par1World);
-        this.isImmuneToFire = true;
+        this.explosionRadius = ECVars.darkCreeperRadius;
     }
 
     @Override

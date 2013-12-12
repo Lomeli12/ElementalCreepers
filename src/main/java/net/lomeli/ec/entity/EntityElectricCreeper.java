@@ -2,6 +2,8 @@ package net.lomeli.ec.entity;
 
 import java.util.List;
 
+import net.lomeli.ec.lib.ECVars;
+
 import net.lomeli.lomlib.entity.EntityUtil;
 
 import net.minecraft.entity.EntityLivingBase;
@@ -13,6 +15,7 @@ public class EntityElectricCreeper extends EntityBaseCreeper {
 
     public EntityElectricCreeper(World par1World) {
         super(par1World);
+        this.explosionRadius = ECVars.electricCreeperRadius;
     }
 
     @Override

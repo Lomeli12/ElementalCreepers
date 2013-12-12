@@ -17,6 +17,8 @@ public class Config {
 
         loadID();
         loadCreeperOptions();
+        loadSpawnRates();
+        loadBlastRadius();
 
         config.saveXML();
     }
@@ -36,6 +38,36 @@ public class Config {
 
     private static void loadCreeperOptions() {
         ECVars.cookieCreeperAmount = config.getInt("cookiesDropped", 4, "The number of cookies a Cookie Creeper drops", ConfigEnum.OTHER);
+    }
+
+    private static void loadSpawnRates() {
+        ECVars.fireCreeperSpawn = setGetInt("fireCreeperSpawn", 5);
+        ECVars.waterCreeperSpawn = setGetInt("waterCreeperSpawn", 5);
+        ECVars.electricCreeperSpawn = setGetInt("electricCreeperSpawn", 5);
+        ECVars.cookieCreeperSpawn = setGetInt("cookieCreeperSpawn", 5);
+        ECVars.darkCreeperSpawn = setGetInt("darkCreeperSpawn", 5);
+        ECVars.lightCreeperSpawn = setGetInt("lightCreeperSpawn", 2);
+        ECVars.earthCreeperSpawn = setGetInt("earthCreeperSpawn", 5);
+        ECVars.magmaCreeperSpawn = setGetInt("magmaCreeperSpawn", 3);
+        ECVars.reverseCreeperSpawn = setGetInt("reverseCreeperSpawn", 3);
+        ECVars.iceCreeperSpawn = setGetInt("iceCreeperSpawn", 5);
+    }
+
+    private static void loadBlastRadius() {
+        ECVars.waterCreeperRadius = setGetInt("waterCreeperRadius", 4);
+        ECVars.fireCreeperRadius = setGetInt("fireCreeperRadius", 6);
+        ECVars.iceCreeperRadius = setGetInt("iceCreeperRadius", 12);
+        ECVars.electricCreeperRadius = setGetInt("electricCreeperRadius", 5);
+        ECVars.earthCreeperRadius = setGetInt("earthCreeperRadius", 8);
+        ECVars.psychicCreeperRadius = setGetInt("psychicCreeperRadius", 5);
+        ECVars.psychicCreeperPower = setGetInt("psychicCreeperPower", 8);
+        ECVars.cookieCreeperAmount = setGetInt("cookieCreeperAmount", 5);
+        ECVars.magmaCreeperRadius = setGetInt("magmaCreeperRadius", 3);
+        ECVars.ghostCreeperRadius = setGetInt("ghostCreeperRadius", 5);
+        ECVars.ghostCreeperChance = setGetInt("ghostCreeperChance", 35);
+        ECVars.lightCreeperRadius = setGetInt("lightCreeperRadius", 4);
+        ECVars.darkCreeperRadius = setGetInt("darkCreeperRadius", 12);
+        ECVars.reverseCreeperRadius = setGetInt("reverseCreeperRadius", 8);
     }
 
     private static int setGetInt(String tag, int id) {

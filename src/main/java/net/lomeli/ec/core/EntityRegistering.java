@@ -38,17 +38,26 @@ public class EntityRegistering {
         registerEntity(EntityLightCreeper.class, getCreeperName("LightCreeper"), ECVars.lightCreeperID, new Color(894731).getRGB(), new Color(255, 244, 125).getRGB());
         registerEntity(EntityEarthCreeper.class, getCreeperName("EarthCreeper"), ECVars.earthCreeperID, new Color(894731).getRGB(), new Color(93, 50, 0).getRGB());
         registerEntity(EntityMagmaCreeper.class, getCreeperName("MagmaCreeper"), ECVars.magmaCreeperID, new Color(894731).getRGB(), new Color(165, 0, 16).getRGB());
-        registerEntity(EntityReverseCreeper.class, getCreeperName("ReverseCreeper"), ECVars.magmaCreeperID, Color.black.getRGB(),  new Color(894731).getRGB());
+        registerEntity(EntityReverseCreeper.class, getCreeperName("ReverseCreeper"), ECVars.magmaCreeperID, Color.black.getRGB(), new Color(894731).getRGB());
         registerEntity(EntityIceCreeper.class, getCreeperName("IceCreeper"), ECVars.iceCreeperID, new Color(894731).getRGB(), Color.white.getRGB());
 
         loadSpawn();
     }
 
     private static void loadSpawn() {
-        addOverWorldSpawn(EntityFireCreeper.class, 2, 1, 3);
-        addNetherSpawn(EntityMagmaCreeper.class, 3, 1, 2);
+        addOverWorldSpawn(EntityFireCreeper.class, ECVars.fireCreeperSpawn, 1, 3);
+        addOverWorldSpawn(EntityWaterCreeper.class, ECVars.fireCreeperSpawn, 1, 3);
+        addOverWorldSpawn(EntityElectricCreeper.class, ECVars.fireCreeperSpawn, 1, 3);
+        addOverWorldSpawn(EntityCookieCreeper.class, ECVars.fireCreeperSpawn, 1, 2);
+        addOverWorldSpawn(EntityDarkCreeper.class, ECVars.fireCreeperSpawn, 1, 3);
+        addOverWorldSpawn(EntityLightCreeper.class, ECVars.fireCreeperSpawn, 1, 3);
+        addOverWorldSpawn(EntityEarthCreeper.class, ECVars.fireCreeperSpawn, 1, 3);
+        addNetherSpawn(EntityMagmaCreeper.class, ECVars.magmaCreeperSpawn, 1, 2);
+        addOverWorldSpawn(EntityReverseCreeper.class, ECVars.fireCreeperSpawn, 1, 3);
+        addOverWorldSpawn(EntityIceCreeper.class, ECVars.fireCreeperSpawn, 1, 3);
     }
 
+    @SuppressWarnings("unused")
     private static void addOverWorldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max, EnumCreatureType type) {
         for (int i = 0; i < typeList.length; i++) {
             EntityRegistry.addSpawn(entityClass, spawnprob, min, max, type, BiomeDictionary.getBiomesForType(typeList[i]));
@@ -65,6 +74,7 @@ public class EntityRegistering {
         EntityRegistry.addSpawn(entityClass, spawnprob, min, max, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.NETHER));
     }
 
+    @SuppressWarnings("unused")
     private static void addEndSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max) {
         EntityRegistry.addSpawn(entityClass, spawnprob, min, max, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.END));
     }

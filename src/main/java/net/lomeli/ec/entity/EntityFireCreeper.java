@@ -2,6 +2,8 @@ package net.lomeli.ec.entity;
 
 import java.util.List;
 
+import net.lomeli.ec.lib.ECVars;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.AxisAlignedBB;
@@ -12,6 +14,7 @@ public class EntityFireCreeper extends EntityBaseCreeper {
     public EntityFireCreeper(World par1World) {
         super(par1World);
         this.isImmuneToFire = true;
+        this.explosionRadius = ECVars.fireCreeperRadius;
     }
 
     @Override

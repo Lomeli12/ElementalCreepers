@@ -1,5 +1,6 @@
 package net.lomeli.ec.core;
 
+import net.lomeli.ec.entity.EntityDarkCreeper;
 import net.lomeli.ec.entity.EntityFireCreeper;
 import net.lomeli.ec.entity.EntityMagmaCreeper;
 import net.lomeli.ec.entity.EntityWaterCreeper;
@@ -18,5 +19,6 @@ public class MorphAddon {
         Ability.mapAbilities(EntityFireCreeper.class, Ability.getNewAbilityFireImmunity(), Ability.getNewAbilityHostile());
         Ability.mapAbilities(EntityMagmaCreeper.class, Ability.getNewAbilityFireImmunity(), Ability.getNewAbilityHostile());
         Ability.mapAbilities(EntityWaterCreeper.class, Ability.getNewAbilitySwim(true), Ability.getNewAbilityHostile());
+        Ability.mapAbilities(EntityDarkCreeper.class, Ability.getNewAbilitySunburn(), Ability.getNewAbilityHostile());
     }
 }

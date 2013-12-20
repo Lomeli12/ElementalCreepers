@@ -7,6 +7,8 @@ import net.lomeli.ec.entity.EntityDarkCreeper;
 import net.lomeli.ec.entity.EntityEarthCreeper;
 import net.lomeli.ec.entity.EntityElectricCreeper;
 import net.lomeli.ec.entity.EntityFireCreeper;
+//import net.lomeli.ec.entity.EntityFriendlyCreeper;
+import net.lomeli.ec.entity.EntityGhostCreeper;
 import net.lomeli.ec.entity.EntityIceCreeper;
 import net.lomeli.ec.entity.EntityLightCreeper;
 import net.lomeli.ec.entity.EntityMagmaCreeper;
@@ -40,6 +42,8 @@ public class EntityRegistering {
         registerEntity(EntityMagmaCreeper.class, getCreeperName("MagmaCreeper"), ECVars.magmaCreeperID, new Color(894731).getRGB(), new Color(165, 0, 16).getRGB());
         registerEntity(EntityReverseCreeper.class, getCreeperName("ReverseCreeper"), ECVars.reverseCreeperID, Color.black.getRGB(), new Color(894731).getRGB());
         registerEntity(EntityIceCreeper.class, getCreeperName("IceCreeper"), ECVars.iceCreeperID, new Color(894731).getRGB(), Color.white.getRGB());
+        //registerEntity(EntityFriendlyCreeper.class, getCreeperName("FriendlyCreeper"), ECVars.friendlyCreeperID, new Color(894731).getRGB(), new Color(215, 113, 211).getRGB());
+        registerEntity(EntityGhostCreeper.class, getCreeperName("GhostCreeper"), ECVars.ghostCreeperID, 99999, 99999);
 
         loadSpawn();
     }
@@ -88,6 +92,7 @@ public class EntityRegistering {
         EntityRegistry.instance();
 
         EntityRegistry.registerGlobalEntityID(entityClass, entityName, id);
-        EntityList.entityEggs.put(Integer.valueOf(id), new EntityEggInfo(id, bkEggColor, fgEggColor));
+        if (bkEggColor != 99999 && fgEggColor != 99999)
+            EntityList.entityEggs.put(Integer.valueOf(id), new EntityEggInfo(id, bkEggColor, fgEggColor));
     }
 }

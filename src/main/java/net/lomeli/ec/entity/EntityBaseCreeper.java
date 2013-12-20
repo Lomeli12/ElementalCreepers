@@ -100,5 +100,4 @@ public class EntityBaseCreeper extends EntityCreeper {
         if (par1NBTTagCompound.hasKey("ExplosionRadius"))
             this.explosionRadius = par1NBTTagCompound.getByte("ExplosionRadius");
     }
-
 }

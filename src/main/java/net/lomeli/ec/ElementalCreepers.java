@@ -57,10 +57,10 @@ public class ElementalCreepers {
     @ForgeSubscribe
     public void onEntityDeath(LivingDeathEvent event) {
         boolean activate = false;
-        
+
         if (event.source.getDamageType().equals("player"))
             activate = true;
-        
+
         if (event.source.getSourceOfDamage() instanceof EntityArrow) {
             if (((EntityArrow) event.source.getSourceOfDamage()).shootingEntity != null) {
                 if (((EntityArrow) event.source.getSourceOfDamage()).shootingEntity instanceof EntityPlayer)
@@ -72,7 +72,8 @@ public class ElementalCreepers {
                 && !((event.entityLiving instanceof IIllusion) || (event.entityLiving instanceof EntityGhostCreeper))) {
             if (event.entityLiving.worldObj.rand.nextInt(100) < ECVars.ghostCreeperChance) {
                 EntityGhostCreeper ghost = new EntityGhostCreeper(event.entityLiving.worldObj);
-                ghost.setLocationAndAngles(event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, event.entityLiving.worldObj.rand.nextFloat() * 360F, 0F);
+                ghost.setLocationAndAngles(event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, event.entityLiving.rotationYaw,
+                        event.entityLiving.rotationPitch);
                 event.entityLiving.worldObj.spawnEntityInWorld(ghost);
             }
         }

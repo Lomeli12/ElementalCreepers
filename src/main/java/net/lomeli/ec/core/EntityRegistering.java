@@ -6,10 +6,12 @@ import net.lomeli.ec.entity.EntityCookieCreeper;
 import net.lomeli.ec.entity.EntityDarkCreeper;
 import net.lomeli.ec.entity.EntityEarthCreeper;
 import net.lomeli.ec.entity.EntityElectricCreeper;
+import net.lomeli.ec.entity.EntityFakeIllusionCreeper;
 import net.lomeli.ec.entity.EntityFireCreeper;
 //import net.lomeli.ec.entity.EntityFriendlyCreeper;
 import net.lomeli.ec.entity.EntityGhostCreeper;
 import net.lomeli.ec.entity.EntityIceCreeper;
+import net.lomeli.ec.entity.EntityIllusionCreeper;
 import net.lomeli.ec.entity.EntityLightCreeper;
 import net.lomeli.ec.entity.EntityMagmaCreeper;
 import net.lomeli.ec.entity.EntityReverseCreeper;
@@ -44,6 +46,8 @@ public class EntityRegistering {
         registerEntity(EntityIceCreeper.class, getCreeperName("IceCreeper"), ECVars.iceCreeperID, new Color(894731).getRGB(), Color.white.getRGB());
         //registerEntity(EntityFriendlyCreeper.class, getCreeperName("FriendlyCreeper"), ECVars.friendlyCreeperID, new Color(894731).getRGB(), new Color(215, 113, 211).getRGB());
         registerEntity(EntityGhostCreeper.class, getCreeperName("GhostCreeper"), ECVars.ghostCreeperID, 99999, 99999);
+        registerEntity(EntityFakeIllusionCreeper.class, getCreeperName("IllusionCreeper"), ECVars.fakeIllusionCreeperID, 99999, 99999);
+        registerEntity(EntityIllusionCreeper.class, getCreeperName("IllusionCreeper"), ECVars.illusionCreeperID, new Color(894731).getRGB(), new Color(158, 158, 158).getRGB());
 
         loadSpawn();
     }

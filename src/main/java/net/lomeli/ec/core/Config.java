@@ -36,6 +36,8 @@ public class Config {
         ECVars.iceCreeperID = setGetInt("iceCreeperID", 79);
         ECVars.friendlyCreeperID = setGetInt("friendlyCreeperID", 80);
         ECVars.ghostCreeperID = setGetInt("ghostCreeperID", 81);
+        ECVars.fakeIllusionCreeperID = setGetInt("fakeIllusionCreeper", 82);
+        ECVars.illusionCreeperID = setGetInt("illusionCreeper", 83);
     }
 
     private static void loadCreeperOptions() {

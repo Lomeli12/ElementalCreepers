@@ -24,7 +24,7 @@ public class Config {
     }
 
     private static void loadID() {
-        ECVars.fireCreeperID = setGetInt("fireCreeperID", 70);
+        ECVars.fireCreeperID = config.getInt("fireCreeperID", 70, "Creeper IDs", ConfigEnum.GENERAL_CONFIG);
         ECVars.waterCreeperID = setGetInt("waterCreeperID", 71);
         ECVars.electricCreeperID = setGetInt("electricCreeperID", 72);
         ECVars.cookieCreeperID = setGetInt("cookieCreeperID", 73);
@@ -36,8 +36,8 @@ public class Config {
         ECVars.iceCreeperID = setGetInt("iceCreeperID", 79);
         ECVars.friendlyCreeperID = setGetInt("friendlyCreeperID", 80);
         ECVars.ghostCreeperID = setGetInt("ghostCreeperID", 81);
-        ECVars.fakeIllusionCreeperID = setGetInt("fakeIllusionCreeper", 82);
-        ECVars.illusionCreeperID = setGetInt("illusionCreeper", 83);
+        ECVars.fakeIllusionCreeperID = setGetInt("fakeIllusionCreeperID", 82);
+        ECVars.illusionCreeperID = setGetInt("illusionCreeperID", 83);
     }
 
     private static void loadCreeperOptions() {
@@ -45,7 +45,7 @@ public class Config {
     }
 
     private static void loadSpawnRates() {
-        ECVars.fireCreeperSpawn = setGetInt("fireCreeperSpawn", 50);
+        ECVars.fireCreeperSpawn = config.getInt("fireCreeperSpawn", 50, "Creeper Spawn Rates", ConfigEnum.GENERAL_CONFIG);
         ECVars.waterCreeperSpawn = setGetInt("waterCreeperSpawn", 50);
         ECVars.electricCreeperSpawn = setGetInt("electricCreeperSpawn", 50);
         ECVars.cookieCreeperSpawn = setGetInt("cookieCreeperSpawn", 50);
@@ -58,7 +58,7 @@ public class Config {
     }
 
     private static void loadBlastRadius() {
-        ECVars.waterCreeperRadius = setGetInt("waterCreeperRadius", 4);
+        ECVars.waterCreeperRadius = config.getInt("waterCreeperRadius", 4, "Creeper Explosion Radius", ConfigEnum.GENERAL_CONFIG);
         ECVars.fireCreeperRadius = setGetInt("fireCreeperRadius", 6);
         ECVars.iceCreeperRadius = setGetInt("iceCreeperRadius", 12);
         ECVars.electricCreeperRadius = setGetInt("electricCreeperRadius", 5);

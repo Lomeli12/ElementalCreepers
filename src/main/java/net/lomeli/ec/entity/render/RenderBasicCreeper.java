@@ -2,7 +2,7 @@ package net.lomeli.ec.entity.render;
 
 import net.lomeli.ec.lib.Strings;
 
-import net.lomeli.lomlib.util.ResourceUtil;
+import net.lomeli.lomlib.client.ResourceUtil;
 
 import net.minecraft.client.renderer.entity.RenderCreeper;
 import net.minecraft.entity.Entity;

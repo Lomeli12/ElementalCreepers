@@ -16,6 +16,7 @@ import net.lomeli.ec.entity.EntityLightCreeper;
 import net.lomeli.ec.entity.EntityMagmaCreeper;
 import net.lomeli.ec.entity.EntityReverseCreeper;
 import net.lomeli.ec.entity.EntityWaterCreeper;
+import net.lomeli.ec.entity.EntityWindCreeper;
 import net.lomeli.ec.lib.ECVars;
 
 import net.minecraft.entity.Entity;
@@ -49,6 +50,8 @@ public class EntityRegistering {
         registerEntity(EntityFakeIllusionCreeper.class, getCreeperName("IllusionCreeper"), ECVars.fakeIllusionCreeperID, 99999, 99999);
         registerEntity(EntityIllusionCreeper.class, getCreeperName("IllusionCreeper"), ECVars.illusionCreeperID, new Color(894731).getRGB(), new Color(158, 158, 158).getRGB());
 
+        registerEntity(EntityWindCreeper.class, getCreeperName("WindCreeper"), ECVars.windCreeperID, new Color(894731).getRGB(), new Color(95, 250, 203).getRGB());
+        
         loadSpawn();
     }
 
@@ -63,6 +66,8 @@ public class EntityRegistering {
         addNetherSpawn(EntityMagmaCreeper.class, ECVars.magmaCreeperSpawn, 1, 2);
         addOverWorldSpawn(EntityReverseCreeper.class, ECVars.reverseCreeperSpawn, 1, 3);
         addOverWorldSpawn(EntityIceCreeper.class, ECVars.iceCreeperSpawn, 1, 3);
+        
+        addOverWorldSpawn(EntityWindCreeper.class, ECVars.windCreeperSpawn, 1, 2);
     }
 
     @SuppressWarnings("unused")

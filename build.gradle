@@ -51,7 +51,7 @@ repositories {
 apply plugin: "forge"
 
 dependencies {
-    compile name: 'LomLib', version: '1.0.9', ext: 'jar'
+    compile name: 'LomLib', version: '1.1.0', ext: 'jar'
     compile name: 'Morph', version: '0.5.0', ext: 'zip'
     compile name: 'ThermalExpansion', version: '3.0.0.b11b', ext: 'jar'
     compile name: 'CoFHCore', version: '2.0.0.b11b', ext: 'jar'

@@ -27,7 +27,7 @@ import net.lomeli.ec.entity.IIllusion;
 import net.lomeli.ec.lib.ECVars;
 import net.lomeli.ec.lib.Strings;
 
-@Mod(modid = Strings.MOD_ID, name = Strings.MOD_NAME, version = Strings.VERSION, dependencies = "required-after:LomLib@[1.1.0,)")
+@Mod(modid = Strings.MOD_ID, name = Strings.MOD_NAME, version = Strings.VERSION, dependencies = "required-after:LomLibCore@[1.1.0,)")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ElementalCreepers {
 

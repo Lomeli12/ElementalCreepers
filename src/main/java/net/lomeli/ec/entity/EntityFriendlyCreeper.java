@@ -20,7 +20,7 @@ import net.minecraft.entity.ai.EntityAIOwnerHurtTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityOcelot;
@@ -40,11 +40,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityFriendlyCreeper extends EntityTameable {
     protected EntityLivingBase owner;
+    protected ItemStack armor;
 
     protected int lastActiveTime;
     protected int timeSinceIgnited;
     protected int fuseTime = 30;
     protected int explosionRadius = 3;
+    protected int coolDownTime;
     protected boolean explosionSound;
 
     private float field_70926_e;
@@ -89,11 +91,10 @@ public class EntityFriendlyCreeper extends EntityTameable {
     public void setAttackTarget(EntityLivingBase par1EntityLivingBase) {
         super.setAttackTarget(par1EntityLivingBase);
 
-        if (par1EntityLivingBase == null) {
+        if (par1EntityLivingBase == null)
             this.setAngry(false);
-        } else if (!this.isTamed()) {
+        else if (!this.isTamed())
             this.setAngry(true);
-        }
     }
 
     @Override
@@ -179,7 +180,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
                 if (!this.worldObj.isRemote) {
                     boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 
-                    doFriendlyExplosion(false, flag);
+                    doFriendlyExplosion(flag);
                 }
             }
         }
@@ -198,19 +199,15 @@ public class EntityFriendlyCreeper extends EntityTameable {
             this.numTicksToChaseTarget = 10;
     }
 
-    public void doFriendlyExplosion(boolean powered, boolean flag) {
+    public void doFriendlyExplosion(boolean flag) {
         if (!isTamed()) {
-            if (powered)
-                worldObj.createExplosion(this, this.posX, this.posY, this.posZ, this.explosionRadius * 2, flag);
-            else
-                worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (this.explosionRadius), flag);
-
+            worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (this.explosionRadius), flag);
             this.setDead();
         } else {
-            if (powered)
-                createFriendlyExplosion(this.posX, this.posY, this.posZ, this.explosionRadius * 2);
-            else
+            if (++coolDownTime == 30) {
                 createFriendlyExplosion(this.posX, this.posY, this.posZ, (this.explosionRadius));
+                coolDownTime = 0;
+            }
         }
     }
 
@@ -267,7 +264,6 @@ public class EntityFriendlyCreeper extends EntityTameable {
     @Override
     public boolean interact(EntityPlayer par1EntityPlayer) {
         ItemStack itemstack = par1EntityPlayer.inventory.getCurrentItem();
-        System.out.println(par1EntityPlayer.username);
 
         if (this.isTamed()) {
             if (itemstack != null) {
@@ -287,7 +283,8 @@ public class EntityFriendlyCreeper extends EntityTameable {
                 }
             }
             if (par1EntityPlayer.username.equalsIgnoreCase(this.getOwnerName()) && !this.worldObj.isRemote && !this.isBreedingItem(itemstack)) {
-                this.aiSit.setSitting(!this.isSitting());
+                System.out.println(this.isSitting());
+                this.setSitting(!this.isSitting());
                 this.isJumping = false;
                 this.setPathToEntity((PathEntity) null);
                 this.setTarget((Entity) null);
@@ -301,7 +298,6 @@ public class EntityFriendlyCreeper extends EntityTameable {
                 par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack) null);
 
             if (!this.worldObj.isRemote) {
-                System.out.println("Right food!");
                 if (this.rand.nextInt(3) == 0) {
                     this.setTamed(true);
                     this.setPathToEntity((PathEntity) null);
@@ -377,30 +373,26 @@ public class EntityFriendlyCreeper extends EntityTameable {
         return (this.lastActiveTime + (this.timeSinceIgnited - this.lastActiveTime) * par1) / (this.fuseTime - 2);
     }
 
-    public boolean getPowered() {
-        return this.dataWatcher.getWatchableObjectByte(17) == 1;
-    }
-
     @Override
     public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
         super.writeEntityToNBT(par1NBTTagCompound);
 
-        par1NBTTagCompound.setBoolean("powered", getPowered());
-
         par1NBTTagCompound.setShort("Fuse", (short) this.fuseTime);
         par1NBTTagCompound.setByte("ExplosionRadius", (byte) this.explosionRadius);
+        par1NBTTagCompound.setInteger("coolDown", this.coolDownTime);
     }
 
     @Override
     public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
         super.readEntityFromNBT(par1NBTTagCompound);
-        this.dataWatcher.updateObject(17, Byte.valueOf((byte) (par1NBTTagCompound.getBoolean("powered") ? 1 : 0)));
 
         if (par1NBTTagCompound.hasKey("Fuse"))
             this.fuseTime = par1NBTTagCompound.getShort("Fuse");
 
         if (par1NBTTagCompound.hasKey("ExplosionRadius"))
             this.explosionRadius = par1NBTTagCompound.getByte("ExplosionRadius");
+        if (par1NBTTagCompound.hasKey("coolDown"))
+            this.coolDownTime = par1NBTTagCompound.getInteger("coolDown");
     }
 
     @SideOnly(Side.CLIENT)
@@ -408,14 +400,46 @@ public class EntityFriendlyCreeper extends EntityTameable {
         return (this.field_70924_f + (this.field_70926_e - this.field_70924_f) * par1) * 0.15F * (float) Math.PI;
     }
 
-    @Override
-    public void onStruckByLightning(EntityLightningBolt par1EntityLightningBolt) {
-        super.onStruckByLightning(par1EntityLightningBolt);
-        this.dataWatcher.updateObject(17, Byte.valueOf((byte) 1));
-    }
-
     @SideOnly(Side.CLIENT)
     public String tamedTexture() {
         return this.isTamed() ? "textures/entities/friendlycreeper1.png" : "textures/entities/friendlycreeper0.png";
+    }
+
+    public ItemStack getArmorSlot() {
+        return armor;
+    }
+
+    private void setArmorSlot(EntityPlayer player) {
+        ItemStack itemstack = player.getCurrentEquippedItem();
+        if (itemstack != null) {
+            if (armor != null) {
+                EntityItem item = new EntityItem(worldObj, posX, posY, posZ, armor);
+                worldObj.spawnEntityInWorld(item);
+                armor = null;
+            } else {
+                ItemStack copy = itemstack.copy();
+                copy.stackSize = 1;
+                if (!player.capabilities.isCreativeMode)
+                    --itemstack.stackSize;
+                if (itemstack.stackSize <= 0)
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                armor = copy;
+            }
+        } else {
+            if (armor != null) {
+                EntityItem item = new EntityItem(worldObj, posX, posY, posZ, armor);
+                worldObj.spawnEntityInWorld(item);
+                armor = null;
+            }
+        }
+    }
+
+    public void setArmor(ItemStack stack) {
+        if (armor != null) {
+            EntityItem item = new EntityItem(worldObj, posX, posY, posZ, armor);
+            worldObj.spawnEntityInWorld(item);
+            armor = null;
+        }
+        armor = stack;
     }
 }

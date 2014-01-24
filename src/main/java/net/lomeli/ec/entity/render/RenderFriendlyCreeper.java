@@ -63,38 +63,6 @@ public class RenderFriendlyCreeper extends RenderLiving {
         }
     }
 
-    protected int renderCreeperPassModel(EntityFriendlyCreeper par1EntityCreeper, int par2, float par3) {
-        if (par1EntityCreeper.getPowered()) {
-            if (par2 == 1) {
-                float var4 = (float) par1EntityCreeper.ticksExisted + par3;
-                this.bindTexture(armoredCreeperTextures);
-                GL11.glMatrixMode(GL11.GL_TEXTURE);
-                GL11.glLoadIdentity();
-                float var5 = var4 * 0.01F;
-                float var6 = var4 * 0.01F;
-                GL11.glTranslatef(var5, var6, 0.0F);
-                this.setRenderPassModel(this.creeperModel);
-                GL11.glMatrixMode(GL11.GL_MODELVIEW);
-                GL11.glEnable(GL11.GL_BLEND);
-                float var7 = 0.5F;
-                GL11.glColor4f(var7, var7, var7, 1.0F);
-                GL11.glDisable(GL11.GL_LIGHTING);
-                GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-                return 1;
-            }
-
-            if (par2 == 2) {
-                GL11.glMatrixMode(GL11.GL_TEXTURE);
-                GL11.glLoadIdentity();
-                GL11.glMatrixMode(GL11.GL_MODELVIEW);
-                GL11.glEnable(GL11.GL_LIGHTING);
-                GL11.glDisable(GL11.GL_BLEND);
-            }
-        }
-
-        return -1;
-    }
-
     protected int func_77061_b(EntityFriendlyCreeper par1EntityCreeper, int par2, float par3) {
         return -1;
     }
@@ -108,7 +76,7 @@ public class RenderFriendlyCreeper extends RenderLiving {
     }
 
     protected int shouldRenderPass(EntityLiving par1EntityLiving, int par2, float par3) {
-        return this.renderCreeperPassModel((EntityFriendlyCreeper) par1EntityLiving, par2, par3);
+        return -1;
     }
 
     protected int inheritRenderPass(EntityLiving par1EntityLiving, int par2, float par3) {

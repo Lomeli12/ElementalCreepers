@@ -19,9 +19,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.ChunkPosition;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
-public class ExplosionFriendly {
+public class ExplosionFriendly extends Explosion{
     /** whether or not the explosion sets fire to blocks around it */
     public boolean isFlaming;
 
@@ -43,6 +44,7 @@ public class ExplosionFriendly {
     private Map field_77288_k = new HashMap();
 
     public ExplosionFriendly(World world, EntityFriendlyCreeper entity, double xPos, double yPos, double zPos, float size) {
+        super(world, entity, xPos, yPos, zPos, size);
         this.worldObj = world;
         this.exploder = entity;
         this.explosionSize = size;
@@ -124,12 +126,12 @@ public class ExplosionFriendly {
                             else
                                 hurtEntity = false;
                         } else
-                            hurtEntity = ((EntityTameable) entity).getAttackTarget().equals(exploder.getOwner()) || ((EntityTameable) entity).getAttackTarget().equals(exploder);
+                            hurtEntity = ((EntityTameable) entity).getAttackTarget() != null ? ((EntityTameable) entity).getAttackTarget().equals(exploder.getOwner()) || ((EntityTameable) entity).getAttackTarget().equals(exploder) : false;
                     }
                     if (exploder.getOwner().equals(entity))
                         hurtEntity = false;
                     if (hurtEntity) {
-                        entity.attackEntityFrom(DamageSource.generic, 0.0001F);
+                        entity.attackEntityFrom(DamageSource.setExplosionSource(this), (float)((int)((d10 * d10 + d10) / 2.0D * 8.0D * (double)this.explosionSize + 1.0D)));
                         entity.motionX += (d0 * d11);
                         entity.motionY += (d1 * d11);
                         entity.motionZ += (d2 * d11);

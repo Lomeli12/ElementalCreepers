@@ -17,7 +17,7 @@ public class MorphAddon {
 
     private static void registerAbilities() {
         Ability.mapAbilities(EntityFireCreeper.class, Ability.getNewAbilityFireImmunity(), Ability.getNewAbilityHostile());
-        Ability.mapAbilities(EntityMagmaCreeper.class, Ability.getNewAbilityFireImmunity(), Ability.getNewAbilityHostile());
+        Ability.mapAbilities(EntityMagmaCreeper.class, Ability.getNewAbilityFireImmunity(), Ability.getNewAbilityHostile(), Ability.getNewAbilityWaterAllergy());
         Ability.mapAbilities(EntityWaterCreeper.class, Ability.getNewAbilitySwim(true), Ability.getNewAbilityHostile());
         Ability.mapAbilities(EntityDarkCreeper.class, Ability.getNewAbilitySunburn(), Ability.getNewAbilityHostile());
     }

@@ -55,8 +55,8 @@ public class ECVars {
     public static int iceCreeperRadius;
     public static int electricCreeperRadius;
     public static int earthCreeperRadius;
-    public static int psychicCreeperRadius;
     public static int psychicCreeperPower;
+    public static int psychicCreeperRadius;
     public static int cookieCreeperAmount;
     public static int magmaCreeperRadius;
     public static int ghostCreeperRadius;
@@ -67,6 +67,7 @@ public class ECVars {
     public static int spiderCreeperRadius;
 
     public static int magmaIllusionCreeperRadius;
+    public static int windCreeperPower;
     public static int windCreeperRadius;
     public static int stoneCreeperRadius;
     public static int sandStoneCreeperRadius;

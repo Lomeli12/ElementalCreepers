@@ -13,9 +13,16 @@ public class EntityBaseCreeper extends EntityCreeper {
     protected int timeSinceIgnited;
     protected int fuseTime = 30;
     protected int explosionRadius = 3;
+    protected boolean explosionSound;
 
     public EntityBaseCreeper(World par1World) {
         super(par1World);
+        explosionSound = true;
+    }
+
+    public EntityBaseCreeper(World par1World, boolean playSound) {
+        super(par1World);
+        explosionSound = playSound;
     }
 
     @Override
@@ -55,7 +62,9 @@ public class EntityBaseCreeper extends EntityCreeper {
                     if (this.diesAfterExplosion())
                         this.setDead();
 
-                    worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 4F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+                    if (explosionSound)
+                        worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 4F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+
                     spawnExplosionParticle();
                 }
             }

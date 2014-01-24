@@ -2,28 +2,27 @@ package net.lomeli.ec.entity.ai;
 
 import net.lomeli.ec.entity.EntityFriendlyCreeper;
 
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.Entity;
 
 public class EntityAIFriendlyCreeperSwell extends EntityAIBase {
+    EntityFriendlyCreeper swellingCreeper;
 
-    private EntityFriendlyCreeper swellingCreeper;
-
-    private EntityLiving creeperAttackTarget;
+    Entity creeperAttackTarget;
 
     public EntityAIFriendlyCreeperSwell(EntityFriendlyCreeper par1EntityCreeper) {
         swellingCreeper = par1EntityCreeper;
         setMutexBits(1);
     }
 
-    @Override
     public boolean shouldExecute() {
-        EntityLiving var1 = (EntityLiving) swellingCreeper.getAttackTarget();
+        Entity var1 = swellingCreeper.getAttackTarget();
         return swellingCreeper.getCreeperState() > 0 || var1 != null && swellingCreeper.getDistanceSqToEntity(var1) < 9.0D;
     }
 
     public void startExecuting() {
-        creeperAttackTarget = (EntityLiving) swellingCreeper.getAttackTarget();
+        //swellingCreeper.getNavigator().clearPathEntity();
+        creeperAttackTarget = swellingCreeper.getAttackTarget();
     }
 
     public void resetTask() {
@@ -31,15 +30,14 @@ public class EntityAIFriendlyCreeperSwell extends EntityAIBase {
     }
 
     public void updateTask() {
-        creeperAttackTarget = (EntityLiving) swellingCreeper.getAttackTarget();
-        if (creeperAttackTarget == null)
+        creeperAttackTarget = swellingCreeper.getAttackTarget();
+        if(creeperAttackTarget == null)
             swellingCreeper.setCreeperState(-1);
-        else if (swellingCreeper.getDistanceSqToEntity(creeperAttackTarget) > 49.0D)
+        else if(swellingCreeper.getDistanceSqToEntity(creeperAttackTarget) > 49.0D)
             swellingCreeper.setCreeperState(-1);
-        else if (!swellingCreeper.getEntitySenses().canSee(creeperAttackTarget))
+        else if(!swellingCreeper.getEntitySenses().canSee(creeperAttackTarget))
             swellingCreeper.setCreeperState(-1);
         else
             swellingCreeper.setCreeperState(1);
     }
-
 }

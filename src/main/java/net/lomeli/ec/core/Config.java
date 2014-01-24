@@ -24,22 +24,23 @@ public class Config {
     }
 
     private static void loadID() {
-        ECVars.fireCreeperID = config.getInt("fireCreeperID", 70, "Creeper IDs", ConfigEnum.GENERAL_CONFIG);
-        ECVars.waterCreeperID = setGetInt("waterCreeperID", 71);
-        ECVars.electricCreeperID = setGetInt("electricCreeperID", 72);
-        ECVars.cookieCreeperID = setGetInt("cookieCreeperID", 73);
-        ECVars.darkCreeperID = setGetInt("darkCreeperID", 74);
-        ECVars.lightCreeperID = setGetInt("lightCreeperID", 75);
-        ECVars.earthCreeperID = setGetInt("earthCreeperID", 76);
-        ECVars.magmaCreeperID = setGetInt("magmaCreeperID", 77);
-        ECVars.reverseCreeperID = setGetInt("reverseCreeperID", 78);
-        ECVars.iceCreeperID = setGetInt("iceCreeperID", 79);
-        ECVars.friendlyCreeperID = setGetInt("friendlyCreeperID", 40);
-        ECVars.ghostCreeperID = setGetInt("ghostCreeperID", 41);
-        ECVars.fakeIllusionCreeperID = setGetInt("fakeIllusionCreeperID", 42);
-        ECVars.illusionCreeperID = setGetInt("illusionCreeperID", 43);
+        ECVars.fireCreeperID = config.getInt("fireCreeperID", 121, "Creeper IDs - Can be between -127 to 127, check for http://minecraft.gamepedia.com/Data_values/Entity_IDs open IDs", ConfigEnum.GENERAL_CONFIG);
+        ECVars.waterCreeperID = setGetInt("waterCreeperID", 122);
+        ECVars.electricCreeperID = setGetInt("electricCreeperID", 123);
+        ECVars.cookieCreeperID = setGetInt("cookieCreeperID", 124);
+        ECVars.darkCreeperID = setGetInt("darkCreeperID", 125);
+        ECVars.lightCreeperID = setGetInt("lightCreeperID", 126);
+        ECVars.earthCreeperID = setGetInt("earthCreeperID", 127);
+        ECVars.magmaCreeperID = setGetInt("magmaCreeperID", 101);
+        ECVars.reverseCreeperID = setGetInt("reverseCreeperID", 102);
+        ECVars.iceCreeperID = setGetInt("iceCreeperID", 103);
+        ECVars.friendlyCreeperID = setGetInt("friendlyCreeperID", 104);
+        ECVars.ghostCreeperID = setGetInt("ghostCreeperID", 105);
+        ECVars.fakeIllusionCreeperID = setGetInt("fakeIllusionCreeperID", 106);
+        ECVars.illusionCreeperID = setGetInt("illusionCreeperID", 107);
+        ECVars.psychicCreeperID = setGetInt("psychicCreeperID", 108);
         
-        ECVars.windCreeperID = setGetInt("windCreeperID", 47);
+        ECVars.windCreeperID = setGetInt("windCreeperID", 114);
     }
 
     private static void loadCreeperOptions() {
@@ -57,6 +58,7 @@ public class Config {
         ECVars.magmaCreeperSpawn = setGetInt("magmaCreeperSpawn", 30);
         ECVars.reverseCreeperSpawn = setGetInt("reverseCreeperSpawn", 30);
         ECVars.iceCreeperSpawn = setGetInt("iceCreeperSpawn", 50);
+        ECVars.psychicCreeperSpawn = setGetInt("psychicCreeperSpawn", 5);
         
         ECVars.windCreeperSpawn = setGetInt("windCreeperSpawn", 30);
     }
@@ -67,8 +69,8 @@ public class Config {
         ECVars.iceCreeperRadius = setGetInt("iceCreeperRadius", 12);
         ECVars.electricCreeperRadius = setGetInt("electricCreeperRadius", 5);
         ECVars.earthCreeperRadius = setGetInt("earthCreeperRadius", 8);
+        ECVars.psychicCreeperPower = setGetInt("psychicCreeperPower", 2);
         ECVars.psychicCreeperRadius = setGetInt("psychicCreeperRadius", 5);
-        ECVars.psychicCreeperPower = setGetInt("psychicCreeperPower", 8);
         ECVars.cookieCreeperAmount = setGetInt("cookieCreeperAmount", 5);
         ECVars.magmaCreeperRadius = setGetInt("magmaCreeperRadius", 3);
         ECVars.ghostCreeperRadius = setGetInt("ghostCreeperRadius", 5);
@@ -77,6 +79,7 @@ public class Config {
         ECVars.darkCreeperRadius = setGetInt("darkCreeperRadius", 12);
         ECVars.reverseCreeperRadius = setGetInt("reverseCreeperRadius", 8);
         
+        ECVars.windCreeperPower = setGetInt("windCreeperPower", 3);
         ECVars.windCreeperRadius = setGetInt("windCreeperRadius", 5);
     }
 

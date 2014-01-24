@@ -6,6 +6,7 @@ public class EntityFakeIllusionCreeper extends EntityBaseCreeper implements IIll
 
     public EntityFakeIllusionCreeper(World par1World) {
         super(par1World);
+        this.setSize(1.0F, 2.0F);
     }
 
 }

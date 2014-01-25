@@ -51,6 +51,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
     private float field_70926_e;
     private float field_70924_f;
+    public boolean useExplosion;
 
     public EntityFriendlyCreeper(World par1World) {
         super(par1World);
@@ -69,6 +70,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
         this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
         this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true));
+        this.setAttackTarget(null);
     }
 
     @Override
@@ -173,19 +175,20 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
             if (this.timeSinceIgnited < 0)
                 this.timeSinceIgnited = 0;
-
+            
             if (this.timeSinceIgnited >= this.fuseTime) {
                 this.timeSinceIgnited = this.fuseTime;
-
                 if (!this.worldObj.isRemote) {
                     boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
-
                     doFriendlyExplosion(flag);
                 }
             }
         }
-        if (isSitting())
+        if (isSitting()) {
+            this.motionX = 0;
+            this.motionZ = 0;
             this.rotationPitch = 45.0F;
+        }
 
         super.onUpdate();
         this.field_70924_f = this.field_70926_e;
@@ -200,7 +203,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
     }
 
     public void doFriendlyExplosion(boolean flag) {
-        if (!isTamed()) {
+        if (!this.useExplosion) {
             worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (this.explosionRadius), flag);
             this.setDead();
         } else {
@@ -264,12 +267,12 @@ public class EntityFriendlyCreeper extends EntityTameable {
     @Override
     public boolean interact(EntityPlayer par1EntityPlayer) {
         ItemStack itemstack = par1EntityPlayer.inventory.getCurrentItem();
-
+        System.out.println(this.isTamed());
         if (this.isTamed()) {
             if (itemstack != null) {
                 if (Item.itemsList[itemstack.itemID] instanceof ItemFood) {
                     ItemFood itemfood = (ItemFood) Item.itemsList[itemstack.itemID];
-                    if (this.dataWatcher.getWatchableObjectInt(18) < 20) {
+                    if (this.getHealth() < 20) {
                         if (!par1EntityPlayer.capabilities.isCreativeMode)
                             --itemstack.stackSize;
 
@@ -283,7 +286,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
                 }
             }
             if (par1EntityPlayer.username.equalsIgnoreCase(this.getOwnerName()) && !this.worldObj.isRemote && !this.isBreedingItem(itemstack)) {
-                System.out.println(this.isSitting());
+               
                 this.setSitting(!this.isSitting());
                 this.isJumping = false;
                 this.setPathToEntity((PathEntity) null);
@@ -306,6 +309,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
                     this.owner = par1EntityPlayer;
                     this.playTameEffect(true);
                     this.worldObj.setEntityState(this, (byte) 7);
+                    this.useExplosion = true;
                 } else {
                     this.playTameEffect(false);
                     this.worldObj.setEntityState(this, (byte) 6);
@@ -380,6 +384,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
         par1NBTTagCompound.setShort("Fuse", (short) this.fuseTime);
         par1NBTTagCompound.setByte("ExplosionRadius", (byte) this.explosionRadius);
         par1NBTTagCompound.setInteger("coolDown", this.coolDownTime);
+        par1NBTTagCompound.setBoolean("useExplosion", useExplosion);
     }
 
     @Override
@@ -391,8 +396,12 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
         if (par1NBTTagCompound.hasKey("ExplosionRadius"))
             this.explosionRadius = par1NBTTagCompound.getByte("ExplosionRadius");
+        
         if (par1NBTTagCompound.hasKey("coolDown"))
             this.coolDownTime = par1NBTTagCompound.getInteger("coolDown");
+        
+        if (par1NBTTagCompound.hasKey("useExplosion"))
+            this.useExplosion = par1NBTTagCompound.getBoolean("useExplosion");
     }
 
     @SideOnly(Side.CLIENT)

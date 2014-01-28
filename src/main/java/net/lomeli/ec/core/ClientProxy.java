@@ -8,6 +8,7 @@ import net.lomeli.ec.entity.EntityFakeIllusionCreeper;
 import net.lomeli.ec.entity.EntityFireCreeper;
 import net.lomeli.ec.entity.EntityFriendlyCreeper;
 import net.lomeli.ec.entity.EntityGhostCreeper;
+import net.lomeli.ec.entity.EntityHydrogenCreeper;
 import net.lomeli.ec.entity.EntityIceCreeper;
 import net.lomeli.ec.entity.EntityIllusionCreeper;
 import net.lomeli.ec.entity.EntityLightCreeper;
@@ -43,5 +44,6 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityPsyhicCreeper.class, new RenderBasicCreeper().setTexture("psychiccreeper"));
         
         RenderingRegistry.registerEntityRenderingHandler(EntityWindCreeper.class, new RenderBasicCreeper().setTexture("windcreeper"));
+        RenderingRegistry.registerEntityRenderingHandler(EntityHydrogenCreeper.class, new RenderBasicCreeper().setTexture("hydrogencreeper"));
     }
 }

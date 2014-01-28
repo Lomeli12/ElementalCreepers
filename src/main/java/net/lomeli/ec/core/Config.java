@@ -41,6 +41,7 @@ public class Config {
         ECVars.psychicCreeperID = setGetInt("psychicCreeperID", 108);
         
         ECVars.windCreeperID = setGetInt("windCreeperID", 114);
+        ECVars.hydrogenCreeperID = setGetInt("hydrogenCreperID", 115);
     }
 
     private static void loadCreeperOptions() {
@@ -58,9 +59,10 @@ public class Config {
         ECVars.magmaCreeperSpawn = setGetInt("magmaCreeperSpawn", 30);
         ECVars.reverseCreeperSpawn = setGetInt("reverseCreeperSpawn", 30);
         ECVars.iceCreeperSpawn = setGetInt("iceCreeperSpawn", 50);
-        ECVars.psychicCreeperSpawn = setGetInt("psychicCreeperSpawn", 5);
+        ECVars.psychicCreeperSpawn = setGetInt("psychicCreeperSpawn", 50);
         
         ECVars.windCreeperSpawn = setGetInt("windCreeperSpawn", 30);
+        ECVars.hydrogenCreeperSpawn = setGetInt("hydrogenCreeperSpawn", 20);
     }
 
     private static void loadBlastRadius() {
@@ -81,6 +83,7 @@ public class Config {
         
         ECVars.windCreeperPower = setGetInt("windCreeperPower", 3);
         ECVars.windCreeperRadius = setGetInt("windCreeperRadius", 5);
+        ECVars.hydrogenCreeperRadius = setGetInt("hydrogenCreeperRadius", 64);
     }
 
     private static int setGetInt(String tag, int id) {

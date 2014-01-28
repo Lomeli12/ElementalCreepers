@@ -8,9 +8,10 @@ entity.elementalcreepers:EarthCreeper.name=Earth Creeper
 entity.elementalcreepers:MagmaCreeper.name=Magma Creeper
 entity.elementalcreepers:ReverseCreeper.name=Reverse Creeper
 entity.elementalcreepers:IceCreeper.name=Ice Creeper
-entity.elementalcreepers:FriendlyCreeper.name=Friendly Creeper [WIP, Can and will crash you!]
+entity.elementalcreepers:FriendlyCreeper.name=Friendly Creeper [WIP]
 entity.elementalcreepers:GhostCreeper.name=Ghost Creeper
 entity.elementalcreepers:IllusionCreeper.name=Illusion Creeper
 entity.elementalcreepers:PsychicCreeper.name=Psychic Creeper
 
 entity.elementalcreepers:WindCreeper.name=Wind Creeper
+entity.elementalcreepers:HydrogenCreeper.name=Hydrogen Creeper

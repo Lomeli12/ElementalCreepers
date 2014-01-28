@@ -10,6 +10,7 @@ import net.lomeli.ec.entity.EntityFakeIllusionCreeper;
 import net.lomeli.ec.entity.EntityFireCreeper;
 import net.lomeli.ec.entity.EntityFriendlyCreeper;
 import net.lomeli.ec.entity.EntityGhostCreeper;
+import net.lomeli.ec.entity.EntityHydrogenCreeper;
 import net.lomeli.ec.entity.EntityIceCreeper;
 import net.lomeli.ec.entity.EntityIllusionCreeper;
 import net.lomeli.ec.entity.EntityLightCreeper;
@@ -54,6 +55,7 @@ public class EntityRegistering {
         registerEntity(EntityPsyhicCreeper.class, getCreeperName("PsychicCreeper"), ECVars.psychicCreeperID, creeperEggGreen, new Color(121, 51, 142).getRGB());
 
         registerEntity(EntityWindCreeper.class, getCreeperName("WindCreeper"), ECVars.windCreeperID, creeperEggGreen, new Color(95, 250, 203).getRGB());
+        registerEntity(EntityHydrogenCreeper.class, getCreeperName("HydrogenCreeper"), ECVars.hydrogenCreeperID, creeperEggGreen, Color.YELLOW.getRGB());
         
         loadSpawn();
     }
@@ -72,6 +74,7 @@ public class EntityRegistering {
         addOverWorldSpawn(EntityPsyhicCreeper.class, ECVars.psychicCreeperSpawn, 1, 3);
         
         addOverWorldSpawn(EntityWindCreeper.class, ECVars.windCreeperSpawn, 1, 2);
+        addOverWorldSpawn(EntityHydrogenCreeper.class, ECVars.hydrogenCreeperID, 1, 1);
     }
 
     @SuppressWarnings("unused")

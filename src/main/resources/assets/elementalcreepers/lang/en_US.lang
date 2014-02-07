@@ -15,3 +15,6 @@ entity.elementalcreepers:PsychicCreeper.name=Psychic Creeper
 
 entity.elementalcreepers:WindCreeper.name=Wind Creeper
 entity.elementalcreepers:HydrogenCreeper.name=Hydrogen Creeper
+
+entity.elementalcreepers:EUCreeper.name=EU Creeper
+entity.elementalcreepers:RFCreeper.name=Flux Creeper

@@ -25,7 +25,7 @@ public class EntityEUCreeper extends EntityBaseCreeper {
                     TileEntity tile = worldObj.getBlockTileEntity(x, y, z);
                     if (tile != null) {
                         if (tile instanceof IEnergySink)
-                            ((IEnergySink) tile).injectEnergyUnits(null, -100);
+                            ((IEnergySink) tile).injectEnergyUnits(null, -1000);
                         else if (tile instanceof TileEntityElectricMachine)
                             ((TileEntityElectricMachine) tile).energy = ((((TileEntityElectricMachine) tile).energy) / 2);
                     }

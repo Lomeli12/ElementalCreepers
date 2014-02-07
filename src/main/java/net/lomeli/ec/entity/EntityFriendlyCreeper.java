@@ -418,6 +418,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
         return armor;
     }
 
+    @SuppressWarnings("unused")
     private void setArmorSlot(EntityPlayer player) {
         ItemStack itemstack = player.getCurrentEquippedItem();
         if (itemstack != null) {

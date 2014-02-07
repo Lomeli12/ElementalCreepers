@@ -68,8 +68,9 @@ public class ElementalCreepers {
             }
         }
 
-        if (activate && event.entityLiving != null && ((event.entityLiving instanceof EntityCreeper) || (event.entityLiving instanceof EntityFriendlyCreeper))
-                && !((event.entityLiving instanceof IIllusion) || (event.entityLiving instanceof EntityGhostCreeper))) {
+        if (activate
+                && event.entityLiving != null
+                && (!((event.entityLiving instanceof IIllusion) || !(event.entityLiving instanceof EntityGhostCreeper) && (event.entityLiving instanceof EntityCreeper) || (event.entityLiving instanceof EntityFriendlyCreeper)))) {
             if (event.entityLiving.worldObj.rand.nextInt(100) < ECVars.ghostCreeperChance) {
                 EntityGhostCreeper ghost = new EntityGhostCreeper(event.entityLiving.worldObj);
                 ghost.setLocationAndAngles(event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, event.entityLiving.rotationYaw,

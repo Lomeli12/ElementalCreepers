@@ -6,7 +6,6 @@ import net.lomeli.ec.entity.EntityFriendlyCreeper;
 import net.lomeli.ec.entity.model.ModelFriendlyCreeper;
 import net.lomeli.ec.lib.Strings;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -18,8 +17,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderFriendlyCreeper extends RenderLiving {
-    private ModelBase creeperModel = new ModelFriendlyCreeper(2.0F);
-    private static final ResourceLocation armoredCreeperTextures = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
 
     public RenderFriendlyCreeper() {
         super(new ModelFriendlyCreeper(), 0.5F);

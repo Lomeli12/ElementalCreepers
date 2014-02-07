@@ -19,6 +19,7 @@ import net.lomeli.ec.entity.EntityPsyhicCreeper;
 import net.lomeli.ec.entity.EntityReverseCreeper;
 import net.lomeli.ec.entity.EntityWaterCreeper;
 import net.lomeli.ec.entity.EntityWindCreeper;
+import net.lomeli.ec.entity.addon.AddonEntities;
 import net.lomeli.ec.lib.ECVars;
 
 import net.minecraft.entity.Entity;
@@ -34,8 +35,8 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 
 public class EntityRegistering {
 
-    private static Type[] typeList = { Type.FOREST, Type.HILLS, Type.SWAMP, Type.JUNGLE, Type.WASTELAND, Type.MAGICAL, Type.BEACH, Type.DESERT, Type.FROZEN, Type.MOUNTAIN };
-    private static int creeperEggGreen = new Color(894731).getRGB();
+    public static Type[] typeList = { Type.FOREST, Type.HILLS, Type.SWAMP, Type.JUNGLE, Type.WASTELAND, Type.MAGICAL, Type.BEACH, Type.DESERT, Type.FROZEN, Type.MOUNTAIN };
+    public static int creeperEggGreen = new Color(894731).getRGB();
     
     public static void loadEntities() {
         registerEntity(EntityFireCreeper.class, getCreeperName("FireCreeper"), ECVars.fireCreeperID, creeperEggGreen, new Color(227, 111, 24).getRGB());
@@ -57,6 +58,8 @@ public class EntityRegistering {
         registerEntity(EntityWindCreeper.class, getCreeperName("WindCreeper"), ECVars.windCreeperID, creeperEggGreen, new Color(95, 250, 203).getRGB());
         registerEntity(EntityHydrogenCreeper.class, getCreeperName("HydrogenCreeper"), ECVars.hydrogenCreeperID, creeperEggGreen, Color.YELLOW.getRGB());
         
+        AddonEntities.registerEntities();
+        
         loadSpawn();
     }
 
@@ -75,36 +78,36 @@ public class EntityRegistering {
         
         addOverWorldSpawn(EntityWindCreeper.class, ECVars.windCreeperSpawn, 1, 2);
         addOverWorldSpawn(EntityHydrogenCreeper.class, ECVars.hydrogenCreeperID, 1, 1);
+        
+        AddonEntities.loadSpawns();
     }
 
-    @SuppressWarnings("unused")
-    private static void addOverWorldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max, EnumCreatureType type) {
+    public static void addOverWorldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max, EnumCreatureType type) {
         for (int i = 0; i < typeList.length; i++) {
             EntityRegistry.addSpawn(entityClass, spawnprob, min, max, type, BiomeDictionary.getBiomesForType(typeList[i]));
         }
     }
 
-    private static void addOverWorldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max) {
+    public static void addOverWorldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max) {
         for (int i = 0; i < typeList.length; i++) {
             EntityRegistry.addSpawn(entityClass, spawnprob, min, max, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(typeList[i]));
         }
     }
 
-    private static void addNetherSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max) {
+    public static void addNetherSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max) {
         EntityRegistry.addSpawn(entityClass, spawnprob, min, max, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.NETHER));
     }
 
-    @SuppressWarnings("unused")
-    private static void addEndSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max) {
+    public static void addEndSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max) {
         EntityRegistry.addSpawn(entityClass, spawnprob, min, max, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.END));
     }
 
-    private static String getCreeperName(String mob) {
+    public static String getCreeperName(String mob) {
         return ("elementalcreepers:" + mob);
     }
 
     @SuppressWarnings("unchecked")
-    private static void registerEntity(Class<? extends Entity> entityClass, String entityName, int id, int bkEggColor, int fgEggColor) {
+    public static void registerEntity(Class<? extends Entity> entityClass, String entityName, int id, int bkEggColor, int fgEggColor) {
         EntityRegistry.instance();
 
         EntityRegistry.registerGlobalEntityID(entityClass, entityName, id);

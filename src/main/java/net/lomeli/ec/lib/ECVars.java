@@ -26,6 +26,7 @@ public class ECVars {
     public static int euCreeperID;
     public static int rfCreeperID;
     public static int hydrogenCreeperID;
+    public static int solarCreeperID;
 
     public static int waterCreeperSpawn;
     public static int fireCreeperSpawn;
@@ -51,6 +52,7 @@ public class ECVars {
     public static int euCreeperSpawn;
     public static int rfCreeperSpawn;
     public static int hydrogenCreeperSpawn;
+    public static int solarCreeperSpawn;
 
     public static int waterCreeperRadius;
     public static int fireCreeperRadius;

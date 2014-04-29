@@ -62,7 +62,7 @@ public class EntityHydrogenCreeper extends EntityBaseCreeper {
         for (Entity ent : list) {
             if (ent instanceof EntityLivingBase) {
                 if (this.getDistanceSqToEntity(ent) < this.explosionRadius) {
-                    if (this.getDistanceSqToEntity(ent) < (this.explosionRadius / 4))
+                    if (this.getDistanceSqToEntity(ent) < (this.explosionRadius / 10))
                         ((EntityLivingBase) ent).addPotionEffect(new PotionEffect(Potion.wither.id, 400, 1));
                     else
                         ((EntityLivingBase) ent).addPotionEffect(new PotionEffect(Potion.poison.id, 500, 2));

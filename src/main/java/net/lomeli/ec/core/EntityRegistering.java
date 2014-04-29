@@ -26,6 +26,7 @@ import net.lomeli.ec.entity.EntityLightCreeper;
 import net.lomeli.ec.entity.EntityMagmaCreeper;
 import net.lomeli.ec.entity.EntityPsyhicCreeper;
 import net.lomeli.ec.entity.EntityReverseCreeper;
+import net.lomeli.ec.entity.EntitySolarCreeper;
 import net.lomeli.ec.entity.EntitySpiderCreeper;
 import net.lomeli.ec.entity.EntityStoneCreeper;
 import net.lomeli.ec.entity.EntityWaterCreeper;
@@ -61,6 +62,7 @@ public class EntityRegistering {
         registerEntity(EntityHydrogenCreeper.class, getCreeperName("HydrogenCreeper"), ECVars.hydrogenCreeperID, creeperEggGreen, Color.YELLOW.getRGB());
         registerEntity(EntityEnderCreeper.class, getCreeperName("EnderCreeper"), ECVars.enderCreeperID, creeperEggGreen, Color.MAGENTA.getRGB());
         registerEntity(EntityStoneCreeper.class, getCreeperName("StoneCreeper"), ECVars.stoneCreeperID, creeperEggGreen, Color.DARK_GRAY.getRGB());
+        registerEntity(EntitySolarCreeper.class, getCreeperName("SolarCreeper"), ECVars.solarCreeperID, creeperEggGreen, new Color(0, 25, 100).getRGB());
 
         AddonEntities.registerEntities();
 
@@ -87,6 +89,7 @@ public class EntityRegistering {
         addOverWorldSpawn(EntityEnderCreeper.class, ECVars.enderCreeperSpawn, 1, 2);
         addEndSpawn(EntityEnderCreeper.class, ECVars.enderCreeperSpawn * 5, 1, 3);
         addOverWorldSpawn(EntityStoneCreeper.class, ECVars.stoneCreeperSpawn, 1, 3);
+        addOverWorldSpawn(EntitySolarCreeper.class, ECVars.solarCreeperSpawn, 1, 1);
 
         AddonEntities.loadSpawns();
     }

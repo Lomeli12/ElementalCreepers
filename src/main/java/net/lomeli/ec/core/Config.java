@@ -51,6 +51,7 @@ public class Config {
 
         ECVars.euCreeperID = setGetInt("euCreeperID", 118);
         ECVars.rfCreeperID = setGetInt("rfCreeperID", 119);
+        ECVars.solarCreeperID = setGetInt("solarCreeperID", 120);
     }
 
     private static void loadCreeperOptions() {
@@ -77,6 +78,7 @@ public class Config {
         ECVars.hydrogenCreeperSpawn = setGetInt("hydrogenCreeperSpawn", 1);
         ECVars.enderCreeperSpawn = setGetInt("enderCreeperSpawn", 4);
         ECVars.stoneCreeperSpawn = setGetInt("stoneCreeperSpawn", 10);
+        ECVars.solarCreeperSpawn = setGetInt("solarCreeperSpawn", 4);
 
         ECVars.euCreeperSpawn = setGetInt("euCreeperSpawn", 10);
         ECVars.rfCreeperSpawn = setGetInt("rfCreeperSpawn", 10);

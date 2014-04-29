@@ -68,7 +68,7 @@ public class RenderSpiderCreeper extends RenderLiving {
                 GL11.glDepthMask(true);
 
             if (par2 == 1) {
-                float f1 = (float) par1EntityCreeper.ticksExisted + par3;
+                float f1 = par1EntityCreeper.ticksExisted + par3;
                 this.bindTexture(armoredCreeperTextures);
                 GL11.glMatrixMode(GL11.GL_TEXTURE);
                 GL11.glLoadIdentity();

@@ -15,6 +15,7 @@ import net.lomeli.ec.entity.EntityLightCreeper;
 import net.lomeli.ec.entity.EntityMagmaCreeper;
 import net.lomeli.ec.entity.EntityPsyhicCreeper;
 import net.lomeli.ec.entity.EntityReverseCreeper;
+import net.lomeli.ec.entity.EntitySolarCreeper;
 import net.lomeli.ec.entity.EntitySpiderCreeper;
 import net.lomeli.ec.entity.EntityStoneCreeper;
 import net.lomeli.ec.entity.EntityWaterCreeper;
@@ -54,6 +55,7 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityHydrogenCreeper.class, new RenderBasicCreeper().setTexture("hydrogencreeper"));
         RenderingRegistry.registerEntityRenderingHandler(EntityEnderCreeper.class, new RenderBasicCreeper().setTexture("endercreeper"));
         RenderingRegistry.registerEntityRenderingHandler(EntityStoneCreeper.class, new RenderBasicCreeper().setTexture("stonecreeper"));
+        RenderingRegistry.registerEntityRenderingHandler(EntitySolarCreeper.class, new RenderBasicCreeper().setTexture("solarcreeper"));
         
         if (ModLoaded.isModInstalled("IC2"))
             RenderingRegistry.registerEntityRenderingHandler(EntityEUCreeper.class, new RenderBasicCreeper().setTexture("eucreeper"));

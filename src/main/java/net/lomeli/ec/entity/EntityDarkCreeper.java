@@ -14,6 +14,7 @@ public class EntityDarkCreeper extends EntityBaseCreeper {
         this.explosionRadius = ECVars.darkCreeperRadius;
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.worldObj.isDaytime() && !this.worldObj.isRemote && !this.isChild()) {
             float f = this.getBrightness(1.0F);

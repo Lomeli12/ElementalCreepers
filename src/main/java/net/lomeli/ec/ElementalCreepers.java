@@ -1,21 +1,11 @@
 package net.lomeli.ec;
 
-import net.lomeli.lomlib.util.ModLoaded;
-
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 
 import net.lomeli.ec.core.CommonProxy;
 import net.lomeli.ec.core.Config;
@@ -27,8 +17,16 @@ import net.lomeli.ec.entity.IIllusion;
 import net.lomeli.ec.lib.ECVars;
 import net.lomeli.ec.lib.Strings;
 
-@Mod(modid = Strings.MOD_ID, name = Strings.MOD_NAME, version = Strings.VERSION, dependencies = "required-after:LomLibCore@[1.1.0,)")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false)
+import net.lomeli.lomlib.util.ModLoaded;
+
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+@Mod(modid = Strings.MOD_ID, name = Strings.MOD_NAME, version = Strings.VERSION, dependencies = "required-after:LomLib;")
 public class ElementalCreepers {
 
     @SidedProxy(clientSide = Strings.CLIENT, serverSide = Strings.COMMON)
@@ -54,7 +52,7 @@ public class ElementalCreepers {
             MorphAddon.loadAddon();
     }
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void onEntityDeath(LivingDeathEvent event) {
         boolean activate = false;
 
@@ -69,12 +67,15 @@ public class ElementalCreepers {
         }
 
         if (activate
-                && event.entityLiving != null
-                && (!((event.entityLiving instanceof IIllusion) || !(event.entityLiving instanceof EntityGhostCreeper) && (event.entityLiving instanceof EntityCreeper) || (event.entityLiving instanceof EntityFriendlyCreeper)))) {
+                && event.entityLiving != null && (event.entityLiving instanceof EntityCreeper) && !(event.entityLiving instanceof EntityGhostCreeper) && !(event.entityLiving instanceof EntityFriendlyCreeper)) {
+            if (event.entityLiving instanceof IIllusion) {
+                if (((IIllusion)event.entityLiving).isIllusion())
+                    return;
+            }
+                
             if (event.entityLiving.worldObj.rand.nextInt(100) < ECVars.ghostCreeperChance) {
                 EntityGhostCreeper ghost = new EntityGhostCreeper(event.entityLiving.worldObj);
-                ghost.setLocationAndAngles(event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, event.entityLiving.rotationYaw,
-                        event.entityLiving.rotationPitch);
+                ghost.setLocationAndAngles(event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, event.entityLiving.rotationYaw, event.entityLiving.rotationPitch);
                 event.entityLiving.worldObj.spawnEntityInWorld(ghost);
             }
         }

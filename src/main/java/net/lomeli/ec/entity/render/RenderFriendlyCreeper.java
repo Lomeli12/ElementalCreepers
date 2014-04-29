@@ -2,15 +2,15 @@ package net.lomeli.ec.entity.render;
 
 import org.lwjgl.opengl.GL11;
 
-import net.lomeli.ec.entity.EntityFriendlyCreeper;
-import net.lomeli.ec.entity.model.ModelFriendlyCreeper;
-import net.lomeli.ec.lib.Strings;
-
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+
+import net.lomeli.ec.entity.EntityFriendlyCreeper;
+import net.lomeli.ec.entity.model.ModelFriendlyCreeper;
+import net.lomeli.ec.lib.Strings;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

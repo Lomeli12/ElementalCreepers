@@ -10,8 +10,15 @@ entity.elementalcreepers:ReverseCreeper.name=Creeper Reversa
 entity.elementalcreepers:IceCreeper.name=Creeper de Hielo
 entity.elementalcreepers:FriendlyCreeper.name=Creeper Amistoso [WIP]
 entity.elementalcreepers:GhostCreeper.name=Creeper Fantasma
+entity.elementalcreepers:FakeIllusionCreeper.name=Creeper Ilusión
 entity.elementalcreepers:IllusionCreeper.name=Creeper Ilusión
 entity.elementalcreepers:PsychicCreeper.name=Creeper Psíquico
+entity.elementalcreepers:SpiderCreeper.name=Creeper Araña
 
 entity.elementalcreepers:WindCreeper.name=Creeper de Viento
 entity.elementalcreepers:HydrogenCreeper.name=Creeper de Hidrógeno
+entity.elementalcreepers:EnderCreeper.name=Creeper de Ender
+entity.elementalcreepers:StoneCreeper.name=Creeper de Piedra
+
+entity.elementalcreepers:EUCreeper.name=Creeper de EU
+entity.elementalcreepers:RFCreeper.name=Creeper de Flux

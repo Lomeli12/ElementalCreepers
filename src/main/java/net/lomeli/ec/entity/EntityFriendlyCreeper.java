@@ -1,9 +1,5 @@
 package net.lomeli.ec.entity;
 
-import net.lomeli.ec.entity.ai.EntityAIFriendlyCreeperSwell;
-import net.lomeli.ec.entity.explosion.ExplosionFriendly;
-
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
@@ -27,6 +23,8 @@ import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -34,6 +32,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+
+import net.lomeli.ec.entity.ai.EntityAIFriendlyCreeperSwell;
+import net.lomeli.ec.entity.explosion.ExplosionFriendly;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -76,12 +77,12 @@ public class EntityFriendlyCreeper extends EntityTameable {
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.25);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25);
 
         if (this.isTamed())
-            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(20.0D);
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
         else
-            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(8.0D);
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
     }
 
     @Override
@@ -127,7 +128,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
         if (par1) {
             this.dataWatcher.updateObject(16, Byte.valueOf((byte) (b0 | 2)));
-        } else {
+        }else {
             this.dataWatcher.updateObject(16, Byte.valueOf((byte) (b0 & -3)));
         }
     }
@@ -153,8 +154,8 @@ public class EntityFriendlyCreeper extends EntityTameable {
     }
 
     @Override
-    protected int getDropItemId() {
-        return Item.gunpowder.itemID;
+    protected Item getDropItem() {
+        return Items.gunpowder;
     }
 
     @Override
@@ -175,7 +176,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
             if (this.timeSinceIgnited < 0)
                 this.timeSinceIgnited = 0;
-            
+
             if (this.timeSinceIgnited >= this.fuseTime) {
                 this.timeSinceIgnited = this.fuseTime;
                 if (!this.worldObj.isRemote) {
@@ -206,7 +207,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
         if (!this.useExplosion) {
             worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (this.explosionRadius), flag);
             this.setDead();
-        } else {
+        }else {
             if (++coolDownTime == 30) {
                 createFriendlyExplosion(this.posX, this.posY, this.posZ, (this.explosionRadius));
                 coolDownTime = 0;
@@ -228,8 +229,9 @@ public class EntityFriendlyCreeper extends EntityTameable {
         super.onDeath(par1DamageSource);
 
         if (par1DamageSource.getEntity() instanceof EntitySkeleton) {
-            int i = Item.record13.itemID + this.rand.nextInt(Item.recordWait.itemID - Item.record13.itemID + 1);
-            this.dropItem(i, 1);
+            Item[] records = new Item[] { Items.record_11, Items.record_13, Items.record_blocks, Items.record_cat, Items.record_chirp, Items.record_far, Items.record_mall, Items.record_mellohi,
+                    Items.record_stal, Items.record_strad, Items.record_wait, Items.record_ward };
+            this.dropItem(records[rand.nextInt(records.length)], 1);
         }
     }
 
@@ -259,24 +261,23 @@ public class EntityFriendlyCreeper extends EntityTameable {
         super.setTamed(par1);
 
         if (par1)
-            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(20.0D);
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
         else
-            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(8.0D);
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
     }
 
     @Override
     public boolean interact(EntityPlayer par1EntityPlayer) {
         ItemStack itemstack = par1EntityPlayer.inventory.getCurrentItem();
-        System.out.println(this.isTamed());
         if (this.isTamed()) {
             if (itemstack != null) {
-                if (Item.itemsList[itemstack.itemID] instanceof ItemFood) {
-                    ItemFood itemfood = (ItemFood) Item.itemsList[itemstack.itemID];
+                if (itemstack.getItem() instanceof ItemFood) {
+                    ItemFood itemfood = (ItemFood) itemstack.getItem();
                     if (this.getHealth() < 20) {
                         if (!par1EntityPlayer.capabilities.isCreativeMode)
                             --itemstack.stackSize;
 
-                        this.heal(itemfood.getHealAmount());
+                        this.heal(itemfood.func_150906_h(itemstack));
 
                         if (itemstack.stackSize <= 0)
                             par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack) null);
@@ -284,16 +285,16 @@ public class EntityFriendlyCreeper extends EntityTameable {
                         return true;
                     }
                 }
+            }else {
+                if (par1EntityPlayer.getDisplayName().equalsIgnoreCase(this.getOwnerName())) {
+                    this.setSitting(!this.isSitting());
+                    this.isJumping = false;
+                    this.setPathToEntity((PathEntity) null);
+                    this.setTarget((Entity) null);
+                    this.setAttackTarget((EntityLivingBase) null);
+                }
             }
-            if (par1EntityPlayer.username.equalsIgnoreCase(this.getOwnerName()) && !this.worldObj.isRemote && !this.isBreedingItem(itemstack)) {
-               
-                this.setSitting(!this.isSitting());
-                this.isJumping = false;
-                this.setPathToEntity((PathEntity) null);
-                this.setTarget((Entity) null);
-                this.setAttackTarget((EntityLivingBase) null);
-            }
-        } else if (itemstack != null && itemstack.itemID == Item.gunpowder.itemID && !this.isAngry()) {
+        }else if (itemstack != null && itemstack.getItem().equals(Items.gunpowder) && !this.isAngry()) {
             if (!par1EntityPlayer.capabilities.isCreativeMode)
                 --itemstack.stackSize;
 
@@ -305,12 +306,12 @@ public class EntityFriendlyCreeper extends EntityTameable {
                     this.setTamed(true);
                     this.setPathToEntity((PathEntity) null);
                     this.setAttackTarget((EntityLiving) null);
-                    this.setOwner(par1EntityPlayer.username);
+                    this.setOwner(par1EntityPlayer.getDisplayName());
                     this.owner = par1EntityPlayer;
                     this.playTameEffect(true);
                     this.worldObj.setEntityState(this, (byte) 7);
                     this.useExplosion = true;
-                } else {
+                }else {
                     this.playTameEffect(false);
                     this.worldObj.setEntityState(this, (byte) 6);
                 }
@@ -324,7 +325,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
     @Override
     public boolean isBreedingItem(ItemStack par1ItemStack) {
-        return par1ItemStack != null && (par1ItemStack.getItem().itemID == Block.plantRed.blockID || par1ItemStack.getItem().itemID == Block.plantYellow.blockID);
+        return par1ItemStack != null && (par1ItemStack.getItem().equals(Item.getItemFromBlock(Blocks.red_flower)) || par1ItemStack.getItem().equals(Item.getItemFromBlock(Blocks.yellow_flower)));
     }
 
     @Override
@@ -346,7 +347,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
     }
 
     @Override
-    public Entity getOwner() {
+    public EntityLivingBase getOwner() {
         return worldObj.getPlayerEntityByName(getOwnerName());
     }
 
@@ -357,7 +358,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
         if (s != null && s.trim().length() > 0) {
             entity.setOwner(s);
-            entity.owner = (EntityLivingBase) this.getOwner();
+            entity.owner = this.getOwner();
             entity.setTamed(true);
         }
 
@@ -396,10 +397,10 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
         if (par1NBTTagCompound.hasKey("ExplosionRadius"))
             this.explosionRadius = par1NBTTagCompound.getByte("ExplosionRadius");
-        
+
         if (par1NBTTagCompound.hasKey("coolDown"))
             this.coolDownTime = par1NBTTagCompound.getInteger("coolDown");
-        
+
         if (par1NBTTagCompound.hasKey("useExplosion"))
             this.useExplosion = par1NBTTagCompound.getBoolean("useExplosion");
     }
@@ -426,7 +427,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
                 EntityItem item = new EntityItem(worldObj, posX, posY, posZ, armor);
                 worldObj.spawnEntityInWorld(item);
                 armor = null;
-            } else {
+            }else {
                 ItemStack copy = itemstack.copy();
                 copy.stackSize = 1;
                 if (!player.capabilities.isCreativeMode)
@@ -435,7 +436,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
                     player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
                 armor = copy;
             }
-        } else {
+        }else {
             if (armor != null) {
                 EntityItem item = new EntityItem(worldObj, posX, posY, posZ, armor);
                 worldObj.spawnEntityInWorld(item);

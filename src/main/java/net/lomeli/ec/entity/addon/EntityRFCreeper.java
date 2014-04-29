@@ -1,12 +1,12 @@
 package net.lomeli.ec.entity.addon;
 
-import cofh.api.energy.IEnergyHandler;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import net.lomeli.ec.entity.EntityBaseCreeper;
 import net.lomeli.ec.lib.ECVars;
+
+import cofh.api.energy.IEnergyHandler;
 
 public class EntityRFCreeper extends EntityBaseCreeper {
 
@@ -21,10 +21,13 @@ public class EntityRFCreeper extends EntityBaseCreeper {
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {
-                    TileEntity tile = worldObj.getBlockTileEntity(x, y, z);
+                    TileEntity tile = worldObj.getTileEntity((int) posX + x, (int) posY + y, (int) posZ + z);
                     if (tile != null) {
-                        if (tile instanceof IEnergyHandler)
-                            ((IEnergyHandler) tile).extractEnergy(null, ((IEnergyHandler) tile).getEnergyStored(null) / 2, false);
+                        if (tile instanceof IEnergyHandler) {
+                            // ((IEnergyHandler) tile).extractEnergy(null,
+                            // ((IEnergyHandler) tile).getEnergyStored(null) /
+                            // 2, false);
+                        }
                     }
                 }
     }

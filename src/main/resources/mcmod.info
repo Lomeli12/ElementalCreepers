@@ -3,12 +3,12 @@
   "modid" : "ElementalCreepers",
   "name" : "Elemental Creepers",
   "version" : "4.0.1",
-  "url" : "http://www.anthony-lomeli.net/",
+  "url" : "http://www.lomeli12.net/",
   "credits" : "",
-  "authors": [
+  "authorList": [
     "Lomeli12"
   ],
-  "description": "A complete rewrite of xSmallDeadGuyx's Elemental Creepers.",
+  "description": "Elemental Creepers updated!.",
   "logoFile" : "",
   "updateUrl" : "",
   "parent" : "",

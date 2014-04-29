@@ -16,8 +16,7 @@ public class EntityBaseCreeper extends EntityCreeper {
     protected boolean explosionSound;
 
     public EntityBaseCreeper(World par1World) {
-        super(par1World);
-        explosionSound = true;
+        this(par1World, true);
     }
 
     public EntityBaseCreeper(World par1World, boolean playSound) {
@@ -28,7 +27,7 @@ public class EntityBaseCreeper extends EntityCreeper {
     @Override
     protected void fall(float par1) {
         super.fall(par1);
-        this.timeSinceIgnited = (int) ((float) this.timeSinceIgnited + par1 * 1.5F);
+        this.timeSinceIgnited = (int) (this.timeSinceIgnited + par1 * 1.5F);
 
         if (this.timeSinceIgnited > this.fuseTime - 5)
             this.timeSinceIgnited = this.fuseTime - 5;
@@ -54,10 +53,7 @@ public class EntityBaseCreeper extends EntityCreeper {
                 if (!this.worldObj.isRemote) {
                     boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 
-                    if (this.getPowered())
-                        this.explosion(2, flag);
-                    else
-                        this.explosion(1, flag);
+                    this.explosion(this.getPowered() ? 2 : 1, flag);
 
                     if (this.diesAfterExplosion())
                         this.setDead();
@@ -65,8 +61,8 @@ public class EntityBaseCreeper extends EntityCreeper {
                     if (explosionSound)
                         worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 4F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 
-                    spawnExplosionParticle();
                 }
+                spawnExplosionParticle();
             }
         }
 
@@ -84,7 +80,7 @@ public class EntityBaseCreeper extends EntityCreeper {
     @SideOnly(Side.CLIENT)
     @Override
     public float getCreeperFlashIntensity(float par1) {
-        return ((float) this.lastActiveTime + (float) (this.timeSinceIgnited - this.lastActiveTime) * par1) / (float) (this.fuseTime - 2);
+        return (this.lastActiveTime + (this.timeSinceIgnited - this.lastActiveTime) * par1) / (this.fuseTime - 2);
     }
 
     @Override

@@ -1,8 +1,5 @@
 package net.lomeli.ec.entity;
 
-import net.lomeli.ec.entity.explosion.ExplosionWind;
-import net.lomeli.ec.lib.ECVars;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.World;
@@ -11,23 +8,58 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
+import net.lomeli.ec.entity.explosion.ExplosionWind;
+import net.lomeli.ec.lib.ECVars;
+
 public class EntityWindCreeper extends EntityBaseCreeper {
 
+    public float field_70886_e;
+    public float destPos;
+    public float field_70884_g;
+    public float field_70888_h;
+    public float field_70889_i = 1.0F;
+    
     public EntityWindCreeper(World par1World) {
         super(par1World, false);
         this.explosionRadius = ECVars.windCreeperRadius;
     }
 
     @Override
+    public void onLivingUpdate() {
+        super.onLivingUpdate();
+        this.fallDistance = 0;
+
+        this.field_70888_h = this.field_70886_e;
+        this.field_70884_g = this.destPos;
+        this.destPos = (float) (this.destPos + (this.onGround ? -1 : 4) * 0.3D);
+
+        if (this.destPos < 0.0F)
+            this.destPos = 0.0F;
+
+        if (this.destPos > 1.0F)
+            this.destPos = 1.0F;
+
+        if (!this.onGround && this.field_70889_i < 1.0F)
+            this.field_70889_i = 1.0F;
+
+        this.field_70889_i = (float) (this.field_70889_i * 0.9D);
+
+        if (!this.onGround && this.motionY < 0.0D)
+            this.motionY *= 0.6D;
+
+        this.field_70886_e += this.field_70889_i * 2.0F;
+    }
+
+    @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.5D);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.5D);
     }
 
     @Override
     public void explosion(int power, boolean flag) {
         int exPower = this.explosionRadius * power;
-        createWindGust(this, posX, posY, posZ, (float) exPower, true);
+        createWindGust(this, posX, posY, posZ, exPower, true);
     }
 
     private ExplosionWind createWindGust(Entity entity, double x, double y, double z, float strength, boolean flag) {

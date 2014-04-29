@@ -10,3 +10,4 @@ build
 *.ear
 .project
 .classpath
+*.iml

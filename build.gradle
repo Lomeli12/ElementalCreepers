@@ -31,7 +31,7 @@ buildscript {
 repositories {
     ivy {
         name 'LomLib'
-        artifactPattern "https://dl.dropboxusercontent.com/u/17430088/Minecraft%20Mods/LomLib/[module]-universal-[revision].[ext]"
+        artifactPattern "https://lomeli12.ci.cloudbees.com/job/LomLib/[revision]/artifact/build/libs/[module]-dev-[revision]-2.1.1.[ext]"
     }
     ivy {
         name 'Morph'
@@ -39,14 +39,14 @@ repositories {
     }
     ivy {
         name 'IC2'
-        artifactPattern "http://ic2api.player.to:8080/job/IC2_experimental/[revision]/artifact/packages/[module]-2-dev-deobf_2.1.[revision]-experimental.[ext]"
+        artifactPattern "http://ic2api.player.to:8080/job/IC2_experimental/[revision]/artifact/build/libs/[module]-2-2.1.[revision]-experimental-dev.[ext]"
     }
 }
 
 apply plugin: "forge"
 
 dependencies {
-    compile name: 'LomLib', version: '1.1.0', ext: 'jar'
+    compile name: 'LomLib', version: '18', ext: 'jar'
     compile name: 'Morph', version: '0.5.0', ext: 'zip'
     compile name: 'industrialcraft', version: '470', ext: 'jar'
 }

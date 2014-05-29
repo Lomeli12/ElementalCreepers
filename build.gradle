@@ -48,7 +48,7 @@ apply plugin: "forge"
 dependencies {
     compile name: 'LomLib', version: '18', ext: 'jar'
     compile name: 'Morph', version: '0.5.0', ext: 'zip'
-    compile name: 'industrialcraft', version: '470', ext: 'jar'
+    compile name: 'industrialcraft', version: '477', ext: 'jar'
 }
 
 

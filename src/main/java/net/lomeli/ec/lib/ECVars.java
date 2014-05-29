@@ -81,4 +81,5 @@ public class ECVars {
     public static int hydrogenCreeperRadius;
 
     public static boolean useStaticIds;
+    public static boolean allowDaySpawn;
 }

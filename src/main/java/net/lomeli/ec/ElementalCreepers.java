@@ -17,8 +17,7 @@ import net.lomeli.ec.entity.IIllusion;
 import net.lomeli.ec.lib.ECVars;
 import net.lomeli.ec.lib.Strings;
 
-import net.lomeli.lomlib.util.ModLoaded;
-
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -48,7 +47,7 @@ public class ElementalCreepers {
 
     @Mod.EventHandler
     public void postLoad(FMLPostInitializationEvent event) {
-        if (ModLoaded.isModInstalled("Morph"))
+        if (Loader.isModLoaded("Morph"))
             MorphAddon.loadAddon();
     }
 

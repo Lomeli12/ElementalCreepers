@@ -12,8 +12,6 @@ import net.minecraft.util.ResourceLocation;
 import net.lomeli.ec.entity.model.ModelSpiderCreeper;
 import net.lomeli.ec.lib.Strings;
 
-import net.lomeli.lomlib.client.ResourceUtil;
-
 public class RenderSpiderCreeper extends RenderLiving {
     private static final ResourceLocation armoredCreeperTextures = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
     private ModelSpiderCreeper model = new ModelSpiderCreeper(2f);
@@ -119,7 +117,7 @@ public class RenderSpiderCreeper extends RenderLiving {
 
     @Override
     protected ResourceLocation getEntityTexture(Entity var1) {
-        return ResourceUtil.getEntityTexture(Strings.MOD_ID.toLowerCase(), "spidercreeper.png");
+        return new ResourceLocation(Strings.MOD_ID.toLowerCase() + ":textures/entities/spidercreeper.png");
     }
 
 }

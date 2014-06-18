@@ -30,10 +30,6 @@ buildscript {
 
 repositories {
     ivy {
-        name 'LomLib'
-        artifactPattern "https://lomeli12.ci.cloudbees.com/job/LomLib/[revision]/artifact/build/libs/[module]-dev-[revision]-2.1.1.[ext]"
-    }
-    ivy {
         name 'Morph'
         artifactPattern "https://dl.dropboxusercontent.com/u/17430088/[module]-Beta-[revision].[ext]"
     }
@@ -46,9 +42,8 @@ repositories {
 apply plugin: "forge"
 
 dependencies {
-    compile name: 'LomLib', version: '18', ext: 'jar'
     compile name: 'Morph', version: '0.5.0', ext: 'zip'
-    compile name: 'industrialcraft', version: '477', ext: 'jar'
+    compile name: 'industrialcraft', version: '478', ext: 'jar'
 }
 
 
@@ -65,10 +60,12 @@ processResources {
     exclude '**/xcf/**'
 
     from(sourceSets.main.resources.srcDirs) {
-        include '**/*.info'
+        include 'mcmod.info'
+
+        expand 'version':project.version, 'mcversion':project.minecraft.version
     }
     from(sourceSets.main.resources.srcDirs) {
-        exclude '**/*.info'
+        exclude  'mcmod.info'
     }
 }
 
@@ -77,5 +74,5 @@ repositories {
 }
 
 jar {
-	appendix = 'universal'
+	appendix = "universal_$mcVersion"
 }

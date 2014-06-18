@@ -2,33 +2,30 @@ package net.lomeli.ec.core;
 
 import java.io.File;
 
+import net.minecraftforge.common.config.Configuration;
+
 import net.lomeli.ec.lib.ECVars;
 
-import net.lomeli.lomlib.util.XMLConfiguration;
-import net.lomeli.lomlib.util.XMLConfiguration.ConfigEnum;
-
 public class Config {
-    public static XMLConfiguration config;
+    public static Configuration config;
 
     public static void loadConfig(File configFile) {
-        config = new XMLConfiguration(configFile);
+        config = new Configuration(configFile);
 
-        config.loadXml();
+        config.load();
 
         loadID();
         loadCreeperOptions();
         loadSpawnRates();
         loadBlastRadius();
 
-        config.saveXML();
+        config.save();
     }
 
     private static void loadID() {
-        ECVars.useStaticIds = config.getBoolean("useStaticIDs", false, "Set specific ids for the creepers. If false (which is recommended), the creepers will get a unique ID on mod loading.",
-                ConfigEnum.GENERAL_CONFIG);
+        ECVars.useStaticIds = config.get(Configuration.CATEGORY_GENERAL, "useStaticIDs", false, "Set specific ids for the creepers. If false (which is recommended), the creepers will get a unique ID on mod loading.").getBoolean(false);
 
-        ECVars.fireCreeperID = config.getInt("fireCreeperID", 121, "Creeper IDs - Can be between -127 to 127, check for http://minecraft.gamepedia.com/Data_values/Entity_IDs open IDs",
-                ConfigEnum.GENERAL_CONFIG);
+        ECVars.fireCreeperID = config.get(Configuration.CATEGORY_GENERAL, "fireCreeperID", 121, "Creeper IDs - Can be between -127 to 127, check for http://minecraft.gamepedia.com/Data_values/Entity_IDs open IDs").getInt(121);
         ECVars.waterCreeperID = setGetInt("waterCreeperID", 122);
         ECVars.electricCreeperID = setGetInt("electricCreeperID", 123);
         ECVars.cookieCreeperID = setGetInt("cookieCreeperID", 124);
@@ -55,11 +52,11 @@ public class Config {
     }
 
     private static void loadCreeperOptions() {
-        ECVars.cookieCreeperAmount = config.getInt("cookiesDropped", 5, "The number of cookies a Cookie Creeper drops", ConfigEnum.OTHER);
+        ECVars.cookieCreeperAmount = config.get(Configuration.CATEGORY_GENERAL, "cookiesDropped", 5, "The number of cookies a Cookie Creeper drops").getInt(5);
     }
 
     private static void loadSpawnRates() {
-        ECVars.fireCreeperSpawn = config.getInt("fireCreeperSpawn", 10, "Creeper Spawn Rates", ConfigEnum.GENERAL_CONFIG);
+        ECVars.fireCreeperSpawn = config.get(Configuration.CATEGORY_GENERAL, "fireCreeperSpawn", 10, "Creeper Spawn Rates").getInt(10);
         ECVars.waterCreeperSpawn = setGetInt("waterCreeperSpawn", 10);
         ECVars.electricCreeperSpawn = setGetInt("electricCreeperSpawn", 10);
         ECVars.cookieCreeperSpawn = setGetInt("cookieCreeperSpawn", 10);
@@ -85,7 +82,7 @@ public class Config {
     }
 
     private static void loadBlastRadius() {
-        ECVars.waterCreeperRadius = config.getInt("waterCreeperRadius", 4, "Creeper Explosion Radius", ConfigEnum.GENERAL_CONFIG);
+        ECVars.waterCreeperRadius = config.get(Configuration.CATEGORY_GENERAL, "waterCreeperRadius", 4, "Creeper Explosion Radius").getInt(4);
         ECVars.fireCreeperRadius = setGetInt("fireCreeperRadius", 6);
         ECVars.iceCreeperRadius = setGetInt("iceCreeperRadius", 12);
         ECVars.electricCreeperRadius = setGetInt("electricCreeperRadius", 5);
@@ -110,6 +107,6 @@ public class Config {
     }
 
     private static int setGetInt(String tag, int id) {
-        return config.getInt(tag, id, ConfigEnum.GENERAL_CONFIG);
+        return config.get(Configuration.CATEGORY_GENERAL, tag, id).getInt(id);
     }
 }

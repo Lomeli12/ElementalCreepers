@@ -20,6 +20,7 @@ import net.lomeli.ec.entity.EntitySpiderCreeper;
 import net.lomeli.ec.entity.EntityStoneCreeper;
 import net.lomeli.ec.entity.EntityWaterCreeper;
 import net.lomeli.ec.entity.EntityWindCreeper;
+import net.lomeli.ec.entity.addon.AddonEntities;
 import net.lomeli.ec.entity.addon.EntityEUCreeper;
 import net.lomeli.ec.entity.addon.EntityRFCreeper;
 import net.lomeli.ec.entity.render.RenderBasicCreeper;
@@ -27,9 +28,8 @@ import net.lomeli.ec.entity.render.RenderFriendlyCreeper;
 import net.lomeli.ec.entity.render.RenderGhostCreeper;
 import net.lomeli.ec.entity.render.RenderSpiderCreeper;
 
-import net.lomeli.lomlib.util.ModLoaded;
-
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.Loader;
 
 public class ClientProxy extends CommonProxy {
     @Override
@@ -57,10 +57,10 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityStoneCreeper.class, new RenderBasicCreeper().setTexture("stonecreeper"));
         RenderingRegistry.registerEntityRenderingHandler(EntitySolarCreeper.class, new RenderBasicCreeper().setTexture("solarcreeper"));
         
-        if (ModLoaded.isModInstalled("IC2"))
+        if (Loader.isModLoaded("IC2"))
             RenderingRegistry.registerEntityRenderingHandler(EntityEUCreeper.class, new RenderBasicCreeper().setTexture("eucreeper"));
 
-        if (ModLoaded.isModInstalled("ThermalExpansion"))
+        if (AddonEntities.doesRFExist())
             RenderingRegistry.registerEntityRenderingHandler(EntityRFCreeper.class, new RenderBasicCreeper().setTexture("rfcreeper"));
     }
 }

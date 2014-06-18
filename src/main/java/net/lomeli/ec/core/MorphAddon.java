@@ -1,5 +1,7 @@
 package net.lomeli.ec.core;
 
+import cpw.mods.fml.common.Loader;
+
 import net.lomeli.ec.entity.EntityDarkCreeper;
 import net.lomeli.ec.entity.EntityEnderCreeper;
 import net.lomeli.ec.entity.EntityFireCreeper;
@@ -8,13 +10,11 @@ import net.lomeli.ec.entity.EntitySpiderCreeper;
 import net.lomeli.ec.entity.EntityWaterCreeper;
 import net.lomeli.ec.entity.EntityWindCreeper;
 
-import net.lomeli.lomlib.util.ModLoaded;
-
 import morph.api.Ability;
 
 public class MorphAddon {
     public static void loadAddon() {
-        if (ModLoaded.isModInstalled("Morph"))
+        if (Loader.isModLoaded("Morph"))
             registerAbilities();
     }
 

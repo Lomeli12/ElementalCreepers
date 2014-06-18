@@ -2,23 +2,30 @@ package net.lomeli.ec.entity.addon;
 
 import java.awt.Color;
 
+import cpw.mods.fml.common.Loader;
+
 import net.lomeli.ec.core.EntityRegistering;
 import net.lomeli.ec.lib.ECVars;
 
-import net.lomeli.lomlib.util.ModLoaded;
-
 public class AddonEntities {
     public static void registerEntities() {
-        if (ModLoaded.isModInstalled("IC2")) {
+        if (Loader.isModLoaded("IC2")) {
             EntityRegistering.registerEntity(EntityEUCreeper.class, EntityRegistering.getCreeperName("EUCreeper"), ECVars.euCreeperID, EntityRegistering.creeperEggGreen, new Color(77, 77, 77).getRGB());
+            EntityRegistering.addOverWorldSpawn(EntityEUCreeper.class, ECVars.euCreeperSpawn, 1, 4);
         }
 
-        if (ModLoaded.isModInstalled("ThermalExpansion")) {
+        if (doesRFExist()) {
             EntityRegistering.registerEntity(EntityRFCreeper.class, EntityRegistering.getCreeperName("RFCreeper"), ECVars.rfCreeperID, EntityRegistering.creeperEggGreen, new Color(205, 15, 15).getRGB());
+            EntityRegistering.addOverWorldSpawn(EntityRFCreeper.class, ECVars.rfCreeperSpawn, 1, 4);
         }
     }
 
-    public static void loadSpawns() {
-
+    public static boolean doesRFExist() {
+        try {
+            return Class.forName("cofh.api.energy.IEnergyHandler") != null;
+        } catch (Exception e) {
+        }
+        return false;
     }
+
 }

@@ -6,8 +6,6 @@ import net.minecraft.util.ResourceLocation;
 
 import net.lomeli.ec.lib.Strings;
 
-import net.lomeli.lomlib.client.ResourceUtil;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -17,7 +15,7 @@ public class RenderBasicCreeper extends RenderCreeper {
     public ResourceLocation entityTexture;
 
     public RenderCreeper setTexture(String entity) {
-        entityTexture = ResourceUtil.getEntityTexture(Strings.MOD_ID.toLowerCase(), entity + ".png");
+        entityTexture = new ResourceLocation(Strings.MOD_ID.toLowerCase() + ":textures/entities/" + entity + ".png");
         return this;
     }
 

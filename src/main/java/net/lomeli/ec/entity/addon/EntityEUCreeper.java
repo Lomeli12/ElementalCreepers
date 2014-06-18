@@ -1,24 +1,32 @@
 package net.lomeli.ec.entity.addon;
 
+import com.mojang.authlib.GameProfile;
+
+import java.util.UUID;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import net.minecraftforge.common.util.FakePlayer;
+
 import net.lomeli.ec.entity.EntityBaseCreeper;
 import net.lomeli.ec.lib.ECVars;
-
-import net.lomeli.lomlib.entity.FakePlayerLomLib;
 
 import ic2.core.block.generator.tileentity.TileEntityBaseGenerator;
 import ic2.core.block.machine.tileentity.TileEntityElectricMachine;
 import ic2.core.block.wiring.TileEntityElectricBlock;
 
 public class EntityEUCreeper extends EntityBaseCreeper {
+    private String uuid;
+    private FakePlayer fakePlayer;
 
     public EntityEUCreeper(World par1World) {
         super(par1World);
+        this.uuid = UUID.randomUUID().toString();
+        this.fakePlayer = new FakePlayer(MinecraftServer.getServer().worldServerForDimension(this.dimension), new GameProfile(uuid, "[FakeEC"));
         this.explosionRadius = ECVars.euCreeperRadius;
     }
 
@@ -37,7 +45,7 @@ public class EntityEUCreeper extends EntityBaseCreeper {
                         }else if (tile instanceof TileEntityElectricMachine)
                             ((TileEntityElectricMachine) tile).energy = ((((TileEntityElectricMachine) tile).energy) / 2);
                         else if (tile instanceof TileEntityBaseGenerator) {
-                            ItemStack stack = ((TileEntityBaseGenerator) tile).getWrenchDrop(FakePlayerLomLib.lazyPlayer(MinecraftServer.getServer().worldServerForDimension(this.dimension)));
+                            ItemStack stack = ((TileEntityBaseGenerator) tile).getWrenchDrop(fakePlayer);
                             if (stack != null) {
                                 worldObj.setBlockToAir((int) posX + x, (int) posY + y, (int) posZ + z);
                                 worldObj.spawnEntityInWorld(new EntityItem(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z, stack));

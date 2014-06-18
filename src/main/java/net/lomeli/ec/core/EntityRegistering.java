@@ -64,9 +64,9 @@ public class EntityRegistering {
         registerEntity(EntityStoneCreeper.class, getCreeperName("StoneCreeper"), ECVars.stoneCreeperID, creeperEggGreen, Color.DARK_GRAY.getRGB());
         registerEntity(EntitySolarCreeper.class, getCreeperName("SolarCreeper"), ECVars.solarCreeperID, creeperEggGreen, new Color(0, 25, 100).getRGB());
 
-        AddonEntities.registerEntities();
-
         loadSpawn();
+
+        AddonEntities.registerEntities();
     }
 
     private static void loadSpawn() {
@@ -90,8 +90,6 @@ public class EntityRegistering {
         addEndSpawn(EntityEnderCreeper.class, ECVars.enderCreeperSpawn * 5, 1, 3);
         addOverWorldSpawn(EntityStoneCreeper.class, ECVars.stoneCreeperSpawn, 1, 3);
         addOverWorldSpawn(EntitySolarCreeper.class, ECVars.solarCreeperSpawn, 1, 1);
-
-        AddonEntities.loadSpawns();
     }
 
     public static void addOverWorldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max, EnumCreatureType type) {

@@ -2,20 +2,10 @@
 {
   "modid" : "ElementalCreepers",
   "name" : "Elemental Creepers",
-  "version" : "4.1.0",
+  "version" : "${version}",
+  "mcversion": "${mcversion}",
   "url" : "http://www.lomeli12.net/",
-  "credits" : "",
-  "authorList": [
-    "Lomeli12"
-  ],
-  "description": "Elemental Creepers updated!.",
-  "logoFile" : "",
-  "updateUrl" : "",
-  "parent" : "",
-  "screenshots": [
-  ],
-  "dependencies": [
-    "Forge"
-  ]
+  "authorList": ["Lomeli12"],
+  "description": "Elemental Creepers updated!."
 }
 ]

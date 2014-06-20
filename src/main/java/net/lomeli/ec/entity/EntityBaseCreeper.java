@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class EntityBaseCreeper extends EntityCreeper {
+public abstract class EntityBaseCreeper extends EntityCreeper {
 
     protected int lastActiveTime;
     protected int timeSinceIgnited;
@@ -69,9 +69,7 @@ public class EntityBaseCreeper extends EntityCreeper {
         super.onUpdate();
     }
 
-    public void explosion(int power, boolean flag) {
-
-    }
+    public abstract void explosion(int power, boolean flag);
 
     public boolean diesAfterExplosion() {
         return true;

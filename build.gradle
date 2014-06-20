@@ -1,12 +1,12 @@
 def loadProperties(String sourceFileName) {
     def config = new Properties()
-        def propFile = new File(sourceFileName)
-            if (propFile.canRead()) {
-                config.load(new FileInputStream(propFile))
-                    for (Map.Entry property in config) {
-                        ext[property.key] = property.value;
-                    }
-            }
+    def propFile = new File(sourceFileName)
+    if (propFile.canRead()) {
+        config.load(new FileInputStream(propFile))
+        for (Map.Entry property in config) {
+            ext[property.key] = property.value;
+        }
+    }
 }
 
 loadProperties 'build.properties'
@@ -75,4 +75,6 @@ repositories {
 
 jar {
 	appendix = "universal_$mcVersion"
+    exclude(['cofh'])
+    exclude(['buildcraft'])
 }

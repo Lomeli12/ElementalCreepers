@@ -1,7 +1,7 @@
 package net.lomeli.ec.entity.render;
 
 import net.minecraft.client.renderer.entity.RenderCreeper;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.ResourceLocation;
 
 import net.lomeli.ec.lib.Strings;
@@ -27,7 +27,7 @@ public class RenderBasicCreeper extends RenderCreeper {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(Entity entity) {
+    protected ResourceLocation getEntityTexture(EntityCreeper entity) {
         return entityTexture;
     }
 

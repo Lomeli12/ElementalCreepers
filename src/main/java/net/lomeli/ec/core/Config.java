@@ -49,6 +49,7 @@ public class Config {
         ECVars.euCreeperID = setGetInt("euCreeperID", 118);
         ECVars.rfCreeperID = setGetInt("rfCreeperID", 119);
         ECVars.solarCreeperID = setGetInt("solarCreeperID", 120);
+        ECVars.mjCreeperID = setGetInt("mjCreeperID", 121);
     }
 
     private static void loadCreeperOptions() {
@@ -79,6 +80,7 @@ public class Config {
 
         ECVars.euCreeperSpawn = setGetInt("euCreeperSpawn", 10);
         ECVars.rfCreeperSpawn = setGetInt("rfCreeperSpawn", 10);
+        ECVars.mjCreeperSpawn = setGetInt("mjCreeperSpawn", 10);
     }
 
     private static void loadBlastRadius() {
@@ -104,6 +106,7 @@ public class Config {
 
         ECVars.euCreeperRadius = setGetInt("euCreeperRadius", 3);
         ECVars.rfCreeperRadius = setGetInt("rfCreeperRadius", 3);
+        ECVars.mjCreeperRadius = setGetInt("mjCreeperRadius", 3);
     }
 
     private static int setGetInt(String tag, int id) {

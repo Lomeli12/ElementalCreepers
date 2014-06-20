@@ -18,8 +18,11 @@ public class EntityMagmaCreeper extends EntityBaseCreeper {
     public void onLivingUpdate() {
         super.onLivingUpdate();
         if (!worldObj.isRemote) {
-            if ((int) Math.round(posX + 0.5F) != (int) Math.round(prevPosX + 0.5F) || (int) Math.round(posY) != (int) Math.round(prevPosY) || (int) Math.round(posZ + 0.5F) != (int) Math.round(prevPosZ + 0.5F))
-                worldObj.setBlock((int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ), Blocks.fire);
+            if ((int) Math.round(posX + 0.5F) != (int) Math.round(prevPosX + 0.5F) || (int) Math.round(posY) != (int) Math.round(prevPosY) || (int) Math.round(posZ + 0.5F) != (int) Math.round(prevPosZ + 0.5F)) {
+                if (worldObj.isAirBlock((int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ))
+                        && Blocks.fire.canPlaceBlockAt(worldObj, (int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ)))
+                    worldObj.setBlock((int) (Math.round(prevPosX) + 0.5), (int) (Math.round(prevPosY) + 0.5), (int) (Math.round(prevPosZ) + 0.5), Blocks.fire);
+            }
         }
         if (this.isWet())
             this.attackEntityFrom(DamageSource.drown, 1f);

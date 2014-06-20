@@ -30,9 +30,9 @@ public class EntityMJCreeper extends EntityBaseCreeper {
                         try {
                             if (tile instanceof IPowerReceptor || tile instanceof IPowerEmitter || Class.forName("buildcraft.core.IMachine").isInstance(tile)) {
                                 if (worldObj.rand.nextInt(100) < 35) {
-                                    if (tile instanceof IPipeTile) {
+                                    if (tile instanceof IPipeTile)
                                         removePipe((int) posX + x, (int) posY + y, (int) posZ + z);
-                                    } else {
+                                    else {
                                         ItemStack itemStack = new ItemStack(worldObj.getBlock((int) posX + x, (int) posY + y, (int) posZ + z), 1, worldObj.getBlockMetadata((int) posX + x, (int) posY + y, (int) posZ + z));
                                         if (itemStack != null) {
                                             EntityItem item = new EntityItem(worldObj, posX + x, posY + y, posZ + z, itemStack);

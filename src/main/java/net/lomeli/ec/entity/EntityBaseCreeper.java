@@ -1,6 +1,9 @@
 package net.lomeli.ec.entity;
 
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -102,5 +105,20 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 
         if (par1NBTTagCompound.hasKey("ExplosionRadius"))
             this.explosionRadius = par1NBTTagCompound.getByte("ExplosionRadius");
+    }
+
+    @Override
+    protected boolean interact(EntityPlayer player) {
+        ItemStack stack = player.getCurrentEquippedItem();
+        if (stack != null && stack.getItem() == Items.flint_and_steel) {
+            worldObj.playSoundEffect(posX + 0.5D, posY + 0.5D, posZ + 0.5D, "fire.ignite", 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+            player.swingItem();
+            if (!worldObj.isRemote) {
+                setCreeperState(1);
+                stack.damageItem(1, player);
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -28,24 +28,7 @@ buildscript {
     }
 }
 
-repositories {
-    ivy {
-        name 'Morph'
-        artifactPattern "https://dl.dropboxusercontent.com/u/17430088/[module]-Beta-[revision].[ext]"
-    }
-    ivy {
-        name 'IC2'
-        artifactPattern "http://ic2api.player.to:8080/job/IC2_experimental/[revision]/artifact/build/libs/[module]-2-2.1.[revision]-experimental-dev.[ext]"
-    }
-}
-
 apply plugin: "forge"
-
-dependencies {
-    compile name: 'Morph', version: '0.5.0', ext: 'zip'
-    compile name: 'industrialcraft', version: '478', ext: 'jar'
-}
-
 
 group = 'net.lomeli.ec'
 archivesBaseName = 'Elemental Creepers'
@@ -77,4 +60,6 @@ jar {
 	appendix = "universal_$mcVersion"
     exclude(['cofh'])
     exclude(['buildcraft'])
+    exclude(['morph'])
+    exclude(['ic2'])
 }

@@ -94,7 +94,7 @@ public class ExplosionWind {
         int l1 = MathHelper.floor_double(this.explosionY + this.explosionSize + 1.0D);
         int i2 = MathHelper.floor_double(this.explosionZ - this.explosionSize - 1.0D);
         int j2 = MathHelper.floor_double(this.explosionZ + this.explosionSize + 1.0D);
-        List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this.exploder, AxisAlignedBB.getAABBPool().getAABB(i, k, i2, j, l1, j2));
+        List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this.exploder, AxisAlignedBB.getBoundingBox(i, k, i2, j, l1, j2));
         Vec3 vec3 = this.worldObj.getWorldVec3Pool().getVecFromPool(this.explosionX, this.explosionY, this.explosionZ);
 
         for (int k2 = 0; k2 < list.size(); ++k2) {

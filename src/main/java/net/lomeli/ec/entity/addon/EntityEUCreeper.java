@@ -15,9 +15,9 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.lomeli.ec.entity.EntityBaseCreeper;
 import net.lomeli.ec.lib.ECVars;
 
-import ic2.core.block.generator.tileentity.TileEntityBaseGenerator;
-import ic2.core.block.machine.tileentity.TileEntityElectricMachine;
-import ic2.core.block.wiring.TileEntityElectricBlock;
+import ic2.api.energy.tile.*;
+import ic2.api.item.IC2Items;
+import ic2.api.tile.*;
 
 public class EntityEUCreeper extends EntityBaseCreeper {
     private String uuid;
@@ -38,6 +38,37 @@ public class EntityEUCreeper extends EntityBaseCreeper {
                 for (int z = -radius; z <= radius; z++) {
                     TileEntity tile = worldObj.getTileEntity((int) posX + x, (int) posY + y, (int) posZ + z);
                     if (tile != null) {
+                        String electricMachine = "ic2.core.block.machine.tileentity.TileEntityElectricMachine";
+                        try {
+                            if (Class.forName(electricMachine).isInstance(tile)) {
+                                int energy = Class.forName(electricMachine).getDeclaredField("energy").getInt(tile);
+                                Class.forName(electricMachine).getDeclaredField("energy").setInt(tile, (energy / 2));
+                            }
+                            if (tile instanceof IEnergyStorage) {
+                                if (tile instanceof IEnergySource && tile instanceof IEnergySink) {
+                                    ((IEnergySource) tile).drawEnergy(15000 * ((IEnergySink)tile).getMaxSafeInput());
+                                    if (((IEnergyStorage) tile).getStored() < 0)
+                                        ((IEnergyStorage) tile).setStored(0);
+                                }
+                            } else if (Class.forName("ic2.core.block.wiring.TileEntityCable").isInstance(tile)) {
+                                if (worldObj.rand.nextInt(100) < 35) {
+                                    ItemStack cable = new ItemStack(IC2Items.getItem("copperCableItem").getItem(), 1, worldObj.getBlockMetadata((int) posX + x, (int) posY + y, (int) posZ + z));
+                                    if (cable != null) {
+                                        worldObj.setBlockToAir((int) posX + x, (int) posY + y, (int) posZ + z);
+                                        worldObj.spawnEntityInWorld(new EntityItem(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z, cable));
+                                    }
+                                }
+                            } else if (tile instanceof IWrenchable) {
+                                if (worldObj.rand.nextInt(100) < 35) {
+                                    ItemStack stack = ((IWrenchable) tile).getWrenchDrop(fakePlayer);
+                                    if (stack != null) {
+                                        worldObj.setBlockToAir((int) posX + x, (int) posY + y, (int) posZ + z);
+                                        worldObj.spawnEntityInWorld(new EntityItem(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z, stack));
+                                    }
+                                }
+                            }
+                        } catch (Exception e) { }
+                        /*
                         if (tile instanceof TileEntityElectricBlock) {
                             ((TileEntityElectricBlock) tile).drawEnergy(15000 * ((TileEntityElectricBlock) tile).getMaxSafeInput());
                             if (((TileEntityElectricBlock) tile).getStored() < 0)
@@ -50,7 +81,7 @@ public class EntityEUCreeper extends EntityBaseCreeper {
                                 worldObj.setBlockToAir((int) posX + x, (int) posY + y, (int) posZ + z);
                                 worldObj.spawnEntityInWorld(new EntityItem(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z, stack));
                             }
-                        }
+                        } */
                     }
                 }
     }

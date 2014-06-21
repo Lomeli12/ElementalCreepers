@@ -101,4 +101,9 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
         return EnumCreatureAttribute.ARTHROPOD;
     }
 
+    @Override
+    public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
+        return par1PotionEffect.getPotionID() == Potion.poison.id ? false : super.isPotionApplicable(par1PotionEffect);
+    }
+
 }

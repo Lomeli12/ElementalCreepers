@@ -17,6 +17,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
     protected int fuseTime = 30;
     protected int explosionRadius = 3;
     protected boolean explosionSound;
+    protected boolean startIgnight;
 
     public EntityBaseCreeper(World par1World) {
         this(par1World, true);
@@ -45,31 +46,41 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
             if (i > 0 && this.timeSinceIgnited == 0)
                 this.playSound("random.fuse", 1.0F, 0.5F);
 
-            this.timeSinceIgnited += i;
+            if (this.startIgnight) {
+                if (this.timeSinceIgnited < 0)
+                    this.timeSinceIgnited = 0;
 
-            if (this.timeSinceIgnited < 0)
-                this.timeSinceIgnited = 0;
+                if (++this.timeSinceIgnited >= this.fuseTime)
+                    explode();
+            } else {
+                this.timeSinceIgnited += i;
 
-            if (this.timeSinceIgnited >= this.fuseTime) {
-                this.timeSinceIgnited = this.fuseTime;
+                if (this.timeSinceIgnited < 0)
+                    this.timeSinceIgnited = 0;
 
-                if (!this.worldObj.isRemote) {
-                    boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
-
-                    this.explosion(this.getPowered() ? 2 : 1, flag);
-
-                    if (this.diesAfterExplosion())
-                        this.setDead();
-
-                    if (explosionSound)
-                        worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 4F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
-
-                }
-                spawnExplosionParticle();
+                if (this.timeSinceIgnited >= this.fuseTime)
+                    explode();
             }
         }
 
         super.onUpdate();
+    }
+
+    public void explode() {
+        this.timeSinceIgnited = this.fuseTime;
+        if (!this.worldObj.isRemote) {
+            boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
+
+            this.explosion(this.getPowered() ? 2 : 1, flag);
+
+            if (this.diesAfterExplosion())
+                this.setDead();
+
+            if (explosionSound)
+                worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 4F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+
+        }
+        spawnExplosionParticle();
     }
 
     public abstract void explosion(int power, boolean flag);
@@ -114,8 +125,9 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
             worldObj.playSoundEffect(posX + 0.5D, posY + 0.5D, posZ + 0.5D, "fire.ignite", 1.0F, rand.nextFloat() * 0.4F + 0.8F);
             player.swingItem();
             if (!worldObj.isRemote) {
-                setCreeperState(1);
                 stack.damageItem(1, player);
+                this.startIgnight = true;
+                this.func_146079_cb();
                 return true;
             }
         }

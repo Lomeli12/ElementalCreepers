@@ -19,10 +19,10 @@ public class AddonEntities {
             EntityRegistering.addOverWorldSpawn(EntityRFCreeper.class, ECVars.rfCreeperSpawn, 1, 4);
         }
 
-        if (Loader.isModLoaded("BuildCraft|Core")) {
-            EntityRegistering.registerEntity(EntityMJCreeper.class, EntityRegistering.getCreeperName("MJCreeper"), ECVars.mjCreeperID, EntityRegistering.creeperEggGreen, new Color(237, 90, 0).getRGB());
-            EntityRegistering.addOverWorldSpawn(EntityMJCreeper.class, ECVars.mjCreeperSpawn, 1, 4);
-        }
+        //if (Loader.isModLoaded("BuildCraft|Core")) {
+        //    EntityRegistering.registerEntity(EntityMJCreeper.class, EntityRegistering.getCreeperName("MJCreeper"), ECVars.mjCreeperID, EntityRegistering.creeperEggGreen, new Color(237, 90, 0).getRGB());
+        //    EntityRegistering.addOverWorldSpawn(EntityMJCreeper.class, ECVars.mjCreeperSpawn, 1, 4);
+        //}
     }
 
     public static boolean doesRFExist() {

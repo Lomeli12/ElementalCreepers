@@ -95,7 +95,7 @@ public class ExplosionPsychic {
         int i2 = MathHelper.floor_double(this.explosionZ - this.explosionSize - 1.0D);
         int j2 = MathHelper.floor_double(this.explosionZ + this.explosionSize + 1.0D);
         List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this.exploder, AxisAlignedBB.getBoundingBox(i, k, i2, j, l1, j2));
-        Vec3 vec3 = this.worldObj.getWorldVec3Pool().getVecFromPool(this.explosionX, this.explosionY, this.explosionZ);
+        Vec3 vec3 = Vec3.createVectorHelper(this.explosionX, this.explosionY, this.explosionZ);
 
         for (int k2 = 0; k2 < list.size(); ++k2) {
             Entity entity = (Entity) list.get(k2);
@@ -120,7 +120,7 @@ public class ExplosionPsychic {
                     entity.motionZ += (d2 * d11);
 
                     if (entity instanceof EntityPlayer)
-                        this.field_77288_k.put(entity, this.worldObj.getWorldVec3Pool().getVecFromPool(d0 * d10, d1 * d10, d2 * d10));
+                        this.field_77288_k.put(entity, Vec3.createVectorHelper(d0 * d10, d1 * d10, d2 * d10));
                 }
             }
         }

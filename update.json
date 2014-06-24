@@ -1,8 +1,8 @@
 {
     "major" : 4,
     "minor" : 1,
-    "revision" : 1,
-    "downloadURL" : "http://files.lomeli12.net/download.php?mod=ElementalCreepers&mc=1.7&version=4.1.0",
-    "direct" : false,
-    "changeLog" : ""
+    "revision" : 2,
+    "downloadURL" : "http://files.lomeli12.net/MinecraftMods/ElementalCreepers/Elemental%20Creepers-universal_1.7.2-4.1.2.jar",
+    "direct" : true,
+    "changeLog" : "Fixed crash in 1.7.10 caused by use of deprecated method."
 }

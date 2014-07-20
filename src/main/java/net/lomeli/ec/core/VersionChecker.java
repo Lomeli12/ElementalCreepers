@@ -40,15 +40,19 @@ public class VersionChecker {
                         changeLog = reader.nextString();
                 }
                 reader.endObject();
-                int[] jsonVersion = new int[] { major, minor, revision };
-                int[] modVersion = new int[] { Strings.MAJOR, Strings.MINOR, Strings.REVISION };
-                for (int i = 0; i < 3; i++) {
-                    if (jsonVersion[i] > modVersion[i]) {
-                        version = major + "." + minor + "." + revision;
+                if (major > Strings.MAJOR)
+                    needsUpdate = true;
+                else if (major == Strings.MAJOR) {
+                    if (minor > Strings.MINOR)
                         needsUpdate = true;
-                        break;
+                    else if (minor == Strings.MINOR) {
+                        if (revision > Strings.REVISION)
+                            needsUpdate = true;
                     }
                 }
+
+                if (needsUpdate)
+                    version = major + "." + minor + "." + revision;
             }
         } catch (Exception e) { }
     }

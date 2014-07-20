@@ -21,6 +21,11 @@ public abstract class Ability
 	 * Ability parent field. Will be null for instances used in registration. Ability is then cloned and parent assigned later on.
 	 */
 	private EntityLivingBase parent;
+
+    /**
+     * Flag for Ability activity. If true, tick/postRender/kill will notbe called.
+     */
+    public boolean inactive;
 	
 	/**
 	 * Basic constructor (but you didn't really need me to tell you that ;D )
@@ -79,11 +84,22 @@ public abstract class Ability
 	 * As previously stated before the ability instance used during registration is a base so it needs to be cloned for use with parents.
 	 */
 	public abstract Ability clone();
+
+    /**
+     * Return true for this if you need an inactive copy of this morph in-between morph states (abilities of the next morph are only swapped over when morph is complete)
+     * Currently used for AbilitySwim to adjust the fog render.
+     * @return requiresInactiveClone
+     */
+    public boolean requiresInactiveClone()
+    {
+        return false;
+    }
 	
 	/**
 	 * Saving of ability to NBTTagCompound. 
 	 * Mainly used for synching Abilities between the client-server for mod mobs which do not use the API to add abilities.
 	 * The ability type (getType()) is appended to nbt before function is called.
+     * Not actually used.
 	 * @param NBTTagCompound saveData
 	 */
 	public abstract void save(NBTTagCompound tag);
@@ -91,6 +107,7 @@ public abstract class Ability
 	/**
 	 * Loading of ability from NBTTagCompound.
 	 * Mainly used to load custom fields from NBT.
+     * Not actually used.
 	 * @param NBTTagCompound saveData
 	 */
 	public abstract void load(NBTTagCompound tag);
@@ -188,7 +205,7 @@ public abstract class Ability
 		} catch (Exception e) {
 			return null;
 		}
-	}
+	}//TODO add new abilities
 	public static Ability getNewAbilityFireImmunity()
 	{
 		try {

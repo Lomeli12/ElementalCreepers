@@ -36,7 +36,7 @@ version = "$releaseVersion"
 
 minecraft {
     version = "$mcVersion-$forgeVersion" // grab latest forge
-    assetDir = "build/vanilla/assets"
+    runDir = "build/vanilla/assets"
 }
 
 processResources {

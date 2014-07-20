@@ -1,6 +1,7 @@
 package net.lomeli.ec.entity;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -30,6 +31,8 @@ public class EntityReverseCreeper extends EntityBaseCreeper {
                         int ey = (int) posY + y;
                         int ez = (int) posZ + z;
                         Block id = worldObj.getBlock(ex, ey, ez);
+                        if (id == Blocks.bedrock)
+                            continue;
                         blocks[ax][ay][az] = null;
 
                         if (id != null && Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)) <= radius && ey > -1) {
@@ -47,6 +50,8 @@ public class EntityReverseCreeper extends EntityBaseCreeper {
                         int meta = metas[x + (int) radius + 1][(2 * (int) radius) - (y + (int) radius)][z + (int) radius + 1];
                         TileEntity TE = TEs[x + (int) radius + 1][(2 * (int) radius) - (y + (int) radius)][z + (int) radius + 1];
                         if (id != null) {
+                            if ((int) posY + y <= 0)
+                                continue;
                             worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, id, meta, 3);
                             if (TE != null)
                                 worldObj.setTileEntity((int) posX + x, (int) posY + y, (int) posZ + z, TE);

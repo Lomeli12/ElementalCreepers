@@ -38,7 +38,7 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 
 public class EntityRegistering {
 
-    public static Type[] typeList = { Type.FOREST, Type.HILLS, Type.SWAMP, Type.JUNGLE, Type.WASTELAND, Type.MAGICAL, Type.BEACH, Type.DESERT, Type.FROZEN, Type.MOUNTAIN };
+    public static Type[] typeList = { Type.FOREST, Type.HILLS, Type.SWAMP, Type.JUNGLE, Type.WASTELAND, Type.MAGICAL, Type.BEACH, Type.SANDY, Type.SNOWY, Type.MOUNTAIN };
     public static int creeperEggGreen = new Color(894731).getRGB();
 
     public static void loadEntities() {

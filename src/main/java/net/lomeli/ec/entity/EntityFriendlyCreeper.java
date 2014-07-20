@@ -1,62 +1,43 @@
 package net.lomeli.ec.entity;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAIFollowOwner;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIMate;
-import net.minecraft.entity.ai.EntityAIOwnerHurtByTarget;
-import net.minecraft.entity.ai.EntityAIOwnerHurtTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.ai.*;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-
-import net.lomeli.ec.entity.ai.EntityAIFriendlyCreeperSwell;
-import net.lomeli.ec.entity.explosion.ExplosionFriendly;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class EntityFriendlyCreeper extends EntityTameable {
-    protected EntityLivingBase owner;
-    protected ItemStack armor;
+import net.lomeli.ec.entity.ai.EntityAIFriendlyCreeperSwell;
+import net.lomeli.ec.entity.explosion.ExplosionFriendly;
 
-    protected int lastActiveTime;
-    protected int timeSinceIgnited;
+public class EntityFriendlyCreeper extends EntityTameable {
     protected int fuseTime = 30;
     protected int explosionRadius = 3;
+    protected int lastActiveTime;
+    protected int timeSinceIgnited;
     protected int coolDownTime;
-    protected boolean explosionSound;
-
     private float field_70926_e;
     private float field_70924_f;
-    public boolean useExplosion;
 
-    public EntityFriendlyCreeper(World par1World) {
-        super(par1World);
-        this.setSize(1.0F, 2.0F);
+    public EntityFriendlyCreeper(World world) {
+        super(world);
+        this.setSize(0.75F, 2.0F);
         this.getNavigator().setAvoidsWater(true);
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, this.aiSit);
@@ -71,7 +52,56 @@ public class EntityFriendlyCreeper extends EntityTameable {
         this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
         this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true));
-        this.setAttackTarget(null);
+        this.setTamed(false);
+    }
+
+    public void onUpdate() {
+        if (this.isEntityAlive()) {
+            this.lastActiveTime = this.timeSinceIgnited;
+            int i = this.getCreeperState();
+
+            if (i > 0 && this.timeSinceIgnited == 0)
+                this.playSound("random.fuse", 1.0F, 0.5F);
+
+            this.timeSinceIgnited += i;
+
+            if (this.timeSinceIgnited < 0)
+                this.timeSinceIgnited = 0;
+
+            if (this.timeSinceIgnited >= this.fuseTime) {
+                this.timeSinceIgnited = this.fuseTime;
+
+                if (!this.worldObj.isRemote) {
+                    boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
+                    this.doFriendlyExplosion((float) this.explosionRadius * (this.getPowered() ? 2 : 1), flag);
+                }
+
+                this.timeSinceIgnited = 0;
+                this.lastActiveTime = 0;
+                this.setCreeperState(-1);
+            }
+        }
+        if (isSitting()) this.rotationPitch = 45.0F;
+
+        super.onUpdate();
+
+        this.field_70924_f = this.field_70926_e;
+
+        if (this.func_70922_bv())
+            this.field_70926_e += (1.0F - this.field_70926_e) * 0.4F;
+        else
+            this.field_70926_e += (0.0F - this.field_70926_e) * 0.4F;
+
+        if (this.func_70922_bv())
+            this.numTicksToChaseTarget = 10;
+    }
+
+    public void doFriendlyExplosion(float explodePower, boolean flag) {
+        if (!this.isTamed()) {
+            worldObj.createExplosion(this, this.posX, this.posY, this.posZ, explodePower, flag);
+            this.setDead();
+        }else
+            createFriendlyExplosion(this.posX, this.posY, this.posZ, explodePower);
     }
 
     @Override
@@ -86,26 +116,40 @@ public class EntityFriendlyCreeper extends EntityTameable {
     }
 
     @Override
-    public boolean isAIEnabled() {
+    protected boolean isAIEnabled() {
         return true;
     }
 
-    @Override
-    public void setAttackTarget(EntityLivingBase par1EntityLivingBase) {
-        super.setAttackTarget(par1EntityLivingBase);
+    public void setAttackTarget(EntityLivingBase p_70624_1_) {
+        super.setAttackTarget(p_70624_1_);
 
-        if (par1EntityLivingBase == null)
+        if (p_70624_1_ == null)
             this.setAngry(false);
         else if (!this.isTamed())
             this.setAngry(true);
     }
 
-    @Override
+    public void setAngry(boolean p_70916_1_) {
+        byte b0 = this.dataWatcher.getWatchableObjectByte(16);
+
+        if (p_70916_1_)
+            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (b0 | 2)));
+        else
+            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (b0 & -3)));
+    }
+
+    public boolean isAngry() {
+        return (this.dataWatcher.getWatchableObjectByte(16) & 2) != 0;
+    }
+
+    public int getMaxSpawnedInChunk() {
+        return 8;
+    }
+
     protected void updateAITick() {
         this.dataWatcher.updateObject(18, Float.valueOf(this.getHealth()));
     }
 
-    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(20, Byte.valueOf((byte) -1));
@@ -115,22 +159,15 @@ public class EntityFriendlyCreeper extends EntityTameable {
     }
 
     @Override
-    public int getMaxSpawnedInChunk() {
-        return 8;
-    }
-
-    public boolean isAngry() {
-        return (this.dataWatcher.getWatchableObjectByte(16) & 2) != 0;
-    }
-
-    public void setAngry(boolean par1) {
-        byte b0 = this.dataWatcher.getWatchableObjectByte(16);
-
-        if (par1) {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (b0 | 2)));
-        }else {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (b0 & -3)));
+    public EntityAgeable createChild(EntityAgeable entityAgeable) {
+        EntityFriendlyCreeper entity = new EntityFriendlyCreeper(this.worldObj);
+        String s = this.func_152113_b();
+        if (s != null && s.trim().length() > 0) {
+            entity.func_152115_b(s);
+            entity.setTamed(true);
         }
+
+        return entity;
     }
 
     @Override
@@ -158,60 +195,79 @@ public class EntityFriendlyCreeper extends EntityTameable {
         return Items.gunpowder;
     }
 
-    @Override
-    public void onLivingUpdate() {
-        super.onLivingUpdate();
+    public void writeEntityToNBT(NBTTagCompound nbt) {
+        super.writeEntityToNBT(nbt);
+        nbt.setBoolean("Angry", this.isAngry());
+        if (this.dataWatcher.getWatchableObjectByte(21) == 1)
+            nbt.setBoolean("powered", true);
+
+        nbt.setShort("Fuse", (short) this.fuseTime);
+        nbt.setByte("ExplosionRadius", (byte) this.explosionRadius);
     }
 
-    @Override
-    public void onUpdate() {
-        if (this.isEntityAlive()) {
-            this.lastActiveTime = this.timeSinceIgnited;
-            int i = this.getCreeperState();
+    public void readEntityFromNBT(NBTTagCompound nbt) {
+        super.readEntityFromNBT(nbt);
+        this.setAngry(nbt.getBoolean("Angry"));
+        this.dataWatcher.updateObject(21, Byte.valueOf((byte) (nbt.getBoolean("powered") ? 1 : 0)));
 
-            if (i > 0 && this.timeSinceIgnited == 0)
-                this.playSound("random.fuse", 1.0F, 0.5F);
+        if (nbt.hasKey("Fuse"))
+            this.fuseTime = nbt.getShort("Fuse");
 
-            this.timeSinceIgnited += i;
-
-            if (this.timeSinceIgnited < 0)
-                this.timeSinceIgnited = 0;
-
-            if (this.timeSinceIgnited >= this.fuseTime) {
-                this.timeSinceIgnited = this.fuseTime;
-                if (!this.worldObj.isRemote) {
-                    boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
-                    doFriendlyExplosion(flag);
-                }
-            }
-        }
-        if (isSitting()) {
-            this.motionX = 0;
-            this.motionZ = 0;
-            this.rotationPitch = 45.0F;
-        }
-
-        super.onUpdate();
-        this.field_70924_f = this.field_70926_e;
-
-        if (this.func_70922_bv())
-            this.field_70926_e += (1.0F - this.field_70926_e) * 0.4F;
-        else
-            this.field_70926_e += (0.0F - this.field_70926_e) * 0.4F;
-
-        if (this.func_70922_bv())
-            this.numTicksToChaseTarget = 10;
+        if (nbt.hasKey("ExplosionRadius"))
+            this.explosionRadius = nbt.getByte("ExplosionRadius");
     }
 
-    public void doFriendlyExplosion(boolean flag) {
-        if (!this.useExplosion) {
-            worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (this.explosionRadius), flag);
-            this.setDead();
-        }else {
-            if (++coolDownTime == 30) {
-                createFriendlyExplosion(this.posX, this.posY, this.posZ, (this.explosionRadius));
-                coolDownTime = 0;
-            }
+    public boolean getPowered() {
+        return this.dataWatcher.getWatchableObjectByte(21) == 1;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public float getCreeperFlashIntensity(float par1) {
+        return ((float) this.lastActiveTime + (float) (this.timeSinceIgnited - this.lastActiveTime) * par1) / (float) (this.fuseTime - 2);
+    }
+
+    public int getCreeperState() {
+        return this.dataWatcher.getWatchableObjectByte(20);
+    }
+
+    public void setCreeperState(int par1) {
+        this.dataWatcher.updateObject(20, Byte.valueOf((byte) par1));
+    }
+
+    public void onStruckByLightning(EntityLightningBolt par1EntityLightningBolt) {
+        super.onStruckByLightning(par1EntityLightningBolt);
+        this.dataWatcher.updateObject(21, Byte.valueOf((byte) 1));
+    }
+
+    public void onDeath(DamageSource par1DamageSource) {
+        super.onDeath(par1DamageSource);
+
+        if (par1DamageSource.getEntity() instanceof EntitySkeleton) {
+            Item[] records = new Item[]{Items.record_11, Items.record_13, Items.record_blocks, Items.record_cat, Items.record_chirp, Items.record_far, Items.record_mall, Items.record_mellohi,
+                    Items.record_stal, Items.record_strad, Items.record_wait, Items.record_ward};
+            this.dropItem(records[rand.nextInt(records.length)], 1);
+        }
+    }
+
+    public float getEyeHeight() {
+        return this.height * 0.8F;
+    }
+
+    public int getVerticalFaceSpeed() {
+        return this.isSitting() ? 20 : super.getVerticalFaceSpeed();
+    }
+
+    public boolean attackEntityFrom(DamageSource par1DamageSource, int par2) {
+        if (this.isEntityInvulnerable())
+            return false;
+        else {
+            Entity entity = par1DamageSource.getEntity();
+            this.aiSit.setSitting(false);
+
+            if (entity != null && !(entity instanceof EntityPlayer) && !(entity instanceof EntityArrow))
+                par2 = (par2 + 1) / 2;
+
+            return super.attackEntityFrom(par1DamageSource, par2);
         }
     }
 
@@ -225,107 +281,31 @@ public class EntityFriendlyCreeper extends EntityTameable {
     }
 
     @Override
-    public void onDeath(DamageSource par1DamageSource) {
-        super.onDeath(par1DamageSource);
-
-        if (par1DamageSource.getEntity() instanceof EntitySkeleton) {
-            Item[] records = new Item[] { Items.record_11, Items.record_13, Items.record_blocks, Items.record_cat, Items.record_chirp, Items.record_far, Items.record_mall, Items.record_mellohi,
-                    Items.record_stal, Items.record_strad, Items.record_wait, Items.record_ward };
-            this.dropItem(records[rand.nextInt(records.length)], 1);
-        }
-    }
-
-    @Override
-    public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-        if (this.isEntityInvulnerable())
-            return false;
-        else {
-            Entity entity = par1DamageSource.getEntity();
-            this.aiSit.setSitting(false);
-
-            if (entity != null && !(entity instanceof EntityPlayer) && !(entity instanceof EntityArrow))
-                par2 = (par2 + 1.0F) / 2.0F;
-
-            return super.attackEntityFrom(par1DamageSource, par2);
-        }
-    }
-
-    @Override
     public boolean attackEntityAsMob(Entity par1Entity) {
         int i = this.isTamed() ? 4 : 2;
         return par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), i);
     }
 
-    @Override
-    public void setTamed(boolean par1) {
-        super.setTamed(par1);
+    public void setTamed(boolean p_70903_1_) {
+        super.setTamed(p_70903_1_);
 
-        if (par1)
+        if (p_70903_1_)
             this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
         else
             this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
     }
 
-    @Override
-    public boolean interact(EntityPlayer par1EntityPlayer) {
-        ItemStack itemstack = par1EntityPlayer.inventory.getCurrentItem();
-        if (this.isTamed()) {
-            if (itemstack != null) {
-                if (itemstack.getItem() instanceof ItemFood) {
-                    ItemFood itemfood = (ItemFood) itemstack.getItem();
-                    if (this.getHealth() < 20) {
-                        if (!par1EntityPlayer.capabilities.isCreativeMode)
-                            --itemstack.stackSize;
-
-                        this.heal(itemfood.func_150906_h(itemstack));
-
-                        if (itemstack.stackSize <= 0)
-                            par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack) null);
-
-                        return true;
-                    }
-                }
-            }else {
-                if (par1EntityPlayer.getDisplayName().equalsIgnoreCase(this.getOwnerName())) {
-                    this.setSitting(!this.isSitting());
-                    this.isJumping = false;
-                    this.setPathToEntity((PathEntity) null);
-                    this.setTarget((Entity) null);
-                    this.setAttackTarget((EntityLivingBase) null);
-                }
-            }
-        }else if (itemstack != null && itemstack.getItem().equals(Items.gunpowder) && !this.isAngry()) {
-            if (!par1EntityPlayer.capabilities.isCreativeMode)
-                --itemstack.stackSize;
-
-            if (itemstack.stackSize <= 0)
-                par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack) null);
-
-            if (!this.worldObj.isRemote) {
-                if (this.rand.nextInt(3) == 0) {
-                    this.setTamed(true);
-                    this.setPathToEntity((PathEntity) null);
-                    this.setAttackTarget((EntityLiving) null);
-                    this.setOwner(par1EntityPlayer.getDisplayName());
-                    this.owner = par1EntityPlayer;
-                    this.playTameEffect(true);
-                    this.worldObj.setEntityState(this, (byte) 7);
-                    this.useExplosion = true;
-                }else {
-                    this.playTameEffect(false);
-                    this.worldObj.setEntityState(this, (byte) 6);
-                }
-            }
-
-            return true;
-        }
-
-        return super.interact(par1EntityPlayer);
+    public void setOwnerByID(String p_152115_1_) {
+        this.dataWatcher.updateObject(17, p_152115_1_);
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack par1ItemStack) {
-        return par1ItemStack != null && (par1ItemStack.getItem().equals(Item.getItemFromBlock(Blocks.red_flower)) || par1ItemStack.getItem().equals(Item.getItemFromBlock(Blocks.yellow_flower)));
+    public boolean isBreedingItem(ItemStack stack) {
+        if (stack != null && stack.getItem() != null) {
+            if (stack.getItem() instanceof ItemBlock)
+                return Block.getBlockFromItem(stack.getItem()) instanceof BlockFlower;
+        }
+        return false;
     }
 
     @Override
@@ -346,111 +326,78 @@ public class EntityFriendlyCreeper extends EntityTameable {
         return this.dataWatcher.getWatchableObjectByte(19) == 1;
     }
 
-    @Override
-    public EntityLivingBase getOwner() {
-        return worldObj.getPlayerEntityByName(getOwnerName());
+    public boolean isOwner(EntityLivingBase entityLivingBase) {
+        return entityLivingBase == this.getOwner();
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable entityageable) {
-        EntityFriendlyCreeper entity = new EntityFriendlyCreeper(this.worldObj);
-        String s = this.getOwnerName();
+    public boolean interact(EntityPlayer player) {
+        ItemStack stack = player.getCurrentEquippedItem();
+        if (this.isTamed()) {
+            if (stack != null && stack.getItem() != null) {
+                if (stack.getItem() instanceof ItemFood) {
+                    ItemFood itemfood = (ItemFood) stack.getItem();
+                    if (this.getHealth() < 20) {
+                        if (!player.capabilities.isCreativeMode)
+                            --stack.stackSize;
 
-        if (s != null && s.trim().length() > 0) {
-            entity.setOwner(s);
-            entity.owner = this.getOwner();
-            entity.setTamed(true);
+                        this.heal(itemfood.func_150906_h(stack));
+
+                        if (stack.stackSize <= 0)
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+
+                        return true;
+                    }
+                }
+                if (stack.getItem() instanceof ItemArmor) {
+                    int slot = ((ItemArmor) stack.getItem()).armorType + 1;
+                    if (slot >= 1 || slot <= 4) {
+                        if (this.getEquipmentInSlot(slot) != null) {
+                            this.setCurrentItemOrArmor(slot, stack);
+                            return true;
+                        }
+                    }
+                }
+            }
+
+
+            if (isOwner(player) && !worldObj.isRemote && !isBreedingItem(stack)) {
+                this.aiSit.setSitting(!this.isSitting());
+                this.isJumping = false;
+                this.setPathToEntity(null);
+                this.setTarget(null);
+                this.setAttackTarget(null);
+            }
+        } else {
+            if (stack != null && stack.getItem() != null) {
+                if (stack.getItem() == Items.gunpowder && !this.isAngry()) {
+                    if (!player.capabilities.isCreativeMode)
+                        --stack.stackSize;
+                    if (stack.stackSize <= 0)
+                        player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+                    if (!worldObj.isRemote) {
+                        if (this.rand.nextInt(3) == 0) {
+                            this.setTamed(true);
+                            this.setPathToEntity(null);
+                            this.setAttackTarget(null);
+                            this.aiSit.setSitting(true);
+                            this.setHealth(20.0F);
+                            this.setOwnerByID(player.getUniqueID().toString());
+                            this.playTameEffect(true);
+                            this.worldObj.setEntityState(this, (byte) 7);
+                        } else {
+                            this.playTameEffect(false);
+                            this.worldObj.setEntityState(this, (byte) 6);
+                        }
+                    }
+                }
+            }
         }
-
-        return entity;
-    }
-
-    public int getCreeperState() {
-        return this.dataWatcher.getWatchableObjectByte(16);
-    }
-
-    public void setCreeperState(int par1) {
-        this.dataWatcher.updateObject(16, Byte.valueOf((byte) par1));
-    }
-
-    @SideOnly(Side.CLIENT)
-    public float getCreeperFlashIntensity(float par1) {
-        return (this.lastActiveTime + (this.timeSinceIgnited - this.lastActiveTime) * par1) / (this.fuseTime - 2);
-    }
-
-    @Override
-    public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
-        super.writeEntityToNBT(par1NBTTagCompound);
-
-        par1NBTTagCompound.setShort("Fuse", (short) this.fuseTime);
-        par1NBTTagCompound.setByte("ExplosionRadius", (byte) this.explosionRadius);
-        par1NBTTagCompound.setInteger("coolDown", this.coolDownTime);
-        par1NBTTagCompound.setBoolean("useExplosion", useExplosion);
-    }
-
-    @Override
-    public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
-        super.readEntityFromNBT(par1NBTTagCompound);
-
-        if (par1NBTTagCompound.hasKey("Fuse"))
-            this.fuseTime = par1NBTTagCompound.getShort("Fuse");
-
-        if (par1NBTTagCompound.hasKey("ExplosionRadius"))
-            this.explosionRadius = par1NBTTagCompound.getByte("ExplosionRadius");
-
-        if (par1NBTTagCompound.hasKey("coolDown"))
-            this.coolDownTime = par1NBTTagCompound.getInteger("coolDown");
-
-        if (par1NBTTagCompound.hasKey("useExplosion"))
-            this.useExplosion = par1NBTTagCompound.getBoolean("useExplosion");
-    }
-
-    @SideOnly(Side.CLIENT)
-    public float getInterestedAngle(float par1) {
-        return (this.field_70924_f + (this.field_70926_e - this.field_70924_f) * par1) * 0.15F * (float) Math.PI;
+        return super.interact(player);
     }
 
     @SideOnly(Side.CLIENT)
     public String tamedTexture() {
         return this.isTamed() ? "textures/entities/friendlycreeper1.png" : "textures/entities/friendlycreeper0.png";
-    }
-
-    public ItemStack getArmorSlot() {
-        return armor;
-    }
-
-    @SuppressWarnings("unused")
-    private void setArmorSlot(EntityPlayer player) {
-        ItemStack itemstack = player.getCurrentEquippedItem();
-        if (itemstack != null) {
-            if (armor != null) {
-                EntityItem item = new EntityItem(worldObj, posX, posY, posZ, armor);
-                worldObj.spawnEntityInWorld(item);
-                armor = null;
-            }else {
-                ItemStack copy = itemstack.copy();
-                copy.stackSize = 1;
-                if (!player.capabilities.isCreativeMode)
-                    --itemstack.stackSize;
-                if (itemstack.stackSize <= 0)
-                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
-                armor = copy;
-            }
-        }else {
-            if (armor != null) {
-                EntityItem item = new EntityItem(worldObj, posX, posY, posZ, armor);
-                worldObj.spawnEntityInWorld(item);
-                armor = null;
-            }
-        }
-    }
-
-    public void setArmor(ItemStack stack) {
-        if (armor != null) {
-            EntityItem item = new EntityItem(worldObj, posX, posY, posZ, armor);
-            worldObj.spawnEntityInWorld(item);
-            armor = null;
-        }
-        armor = stack;
     }
 }

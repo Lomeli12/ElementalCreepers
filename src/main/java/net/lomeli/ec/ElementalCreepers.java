@@ -26,7 +26,7 @@ public class ElementalCreepers {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        Config.loadConfig(event.getSuggestedConfigurationFile());
+        proxy.initMod(event);
     }
 
     @Mod.EventHandler

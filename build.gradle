@@ -1,16 +1,3 @@
-def loadProperties(String sourceFileName) {
-    def config = new Properties()
-    def propFile = new File(sourceFileName)
-    if (propFile.canRead()) {
-        config.load(new FileInputStream(propFile))
-        for (Map.Entry property in config) {
-            ext[property.key] = property.value;
-        }
-    }
-}
-
-loadProperties 'build.properties'
-
 buildscript {
     repositories {
         mavenCentral()
@@ -29,6 +16,19 @@ buildscript {
 }
 
 apply plugin: "forge"
+
+def loadProperties(String sourceFileName) {
+    def config = new Properties()
+    def propFile = new File(sourceFileName)
+    if (propFile.canRead()) {
+        config.load(new FileInputStream(propFile))
+        for (Map.Entry property in config) {
+            ext[property.key] = property.value;
+        }
+    }
+}
+
+loadProperties 'build.properties'
 
 group = 'net.lomeli.ec'
 archivesBaseName = 'Elemental Creepers'
@@ -50,10 +50,6 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude  'mcmod.info'
     }
-}
-
-repositories {
-	mavenCentral()
 }
 
 jar {

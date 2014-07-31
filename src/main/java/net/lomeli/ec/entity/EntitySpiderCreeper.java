@@ -16,12 +16,11 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
 
     public EntitySpiderCreeper(World par1World) {
         super(par1World);
-        this.explosionRadius = ECVars.spiderCreeperRadius;
     }
 
     @Override
     public void explosion(int power, boolean flag) {
-        float radius = getPowered() ? (int) (this.explosionRadius * power) : this.explosionRadius;
+        float radius = getPowered() ? (int) (ECVars.spiderCreeperRadius * power) : ECVars.spiderCreeperRadius;
         for (float x = -radius; x <= radius; x++)
             for (float y = -radius; y <= radius; y++)
                 for (float z = -radius; z <= radius; z++) {
@@ -45,7 +44,7 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
                 if (entity instanceof EntityLivingBase) {
                     EntityLivingBase entityLiving = (EntityLivingBase) entity;
                     if (entityLiving.getDistanceToEntity(this) < 30)
-                        entityLiving.addPotionEffect(new PotionEffect(Potion.poison.id, difficulty * 20, 0));
+                        entityLiving.addPotionEffect(new PotionEffect(Potion.poison.id, difficulty * 40, 0));
                 }
             }
         }
@@ -87,7 +86,7 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
         if (f < 0.5F) {
             double d0 = 16.0D;
             return this.worldObj.getClosestVulnerablePlayerToEntity(this, d0);
-        }else
+        } else
             return null;
     }
 

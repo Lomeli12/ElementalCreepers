@@ -18,6 +18,7 @@ import net.lomeli.ec.lib.Strings;
 @SideOnly(Side.CLIENT)
 public class RenderFriendlyCreeper extends RenderLiving {
     private static final ResourceLocation armoredCreeperTextures = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
+
     public RenderFriendlyCreeper() {
         super(new ModelFriendlyCreeper(), 0.5F);
     }

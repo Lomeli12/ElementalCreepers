@@ -14,12 +14,11 @@ public class EntityFireCreeper extends EntityBaseCreeper {
     public EntityFireCreeper(World par1World) {
         super(par1World);
         this.isImmuneToFire = true;
-        this.explosionRadius = ECVars.fireCreeperRadius;
     }
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (int) (this.explosionRadius * power) : this.explosionRadius;
+        int radius = getPowered() ? (int) (ECVars.fireCreeperRadius * power) : ECVars.fireCreeperRadius;
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {

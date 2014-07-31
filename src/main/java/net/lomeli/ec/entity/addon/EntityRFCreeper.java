@@ -16,12 +16,11 @@ public class EntityRFCreeper extends EntityBaseCreeper {
 
     public EntityRFCreeper(World par1World) {
         super(par1World);
-        this.explosionRadius = ECVars.rfCreeperRadius;
     }
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (int) (this.explosionRadius * power) : this.explosionRadius;
+        int radius = getPowered() ? (int) (ECVars.rfCreeperRadius * power) : ECVars.rfCreeperRadius;
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {

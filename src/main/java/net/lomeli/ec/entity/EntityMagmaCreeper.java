@@ -11,7 +11,6 @@ public class EntityMagmaCreeper extends EntityBaseCreeper {
     public EntityMagmaCreeper(World par1World) {
         super(par1World);
         this.isImmuneToFire = true;
-        this.explosionRadius = ECVars.magmaCreeperRadius;
     }
 
     @Override
@@ -30,7 +29,7 @@ public class EntityMagmaCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (int) (this.explosionRadius * power) : this.explosionRadius;
+        int radius = getPowered() ? (int) (ECVars.magmaCreeperRadius * power) : ECVars.magmaCreeperRadius;
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {

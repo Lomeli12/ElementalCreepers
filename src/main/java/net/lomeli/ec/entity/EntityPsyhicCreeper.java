@@ -10,12 +10,11 @@ public class EntityPsyhicCreeper extends EntityBaseCreeper {
 
     public EntityPsyhicCreeper(World par1World) {
         super(par1World, false);
-        this.explosionRadius = ECVars.psychicCreeperRadius;
     }
 
     @Override
     public void explosion(int power, boolean flag) {
-        int exPower = this.explosionRadius * power;
+        int exPower = ECVars.psychicCreeperRadius * power;
         if (!worldObj.isRemote)
             createPsyhicBurst(this, posX, posY, posZ, exPower, true);
     }

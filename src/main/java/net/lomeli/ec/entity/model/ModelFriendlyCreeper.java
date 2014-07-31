@@ -71,7 +71,7 @@ public class ModelFriendlyCreeper extends ModelBase {
             this.leg3.render(par7);
             this.leg4.render(par7);
             GL11.glPopMatrix();
-        }else {
+        } else {
             this.head.render(par7);
             this.body.render(par7);
             this.leg1.render(par7);

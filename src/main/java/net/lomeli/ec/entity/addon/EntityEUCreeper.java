@@ -22,13 +22,12 @@ public class EntityEUCreeper extends EntityBaseCreeper {
 
     public EntityEUCreeper(World world) {
         super(world);
-        this.explosionRadius = ECVars.euCreeperRadius;
     }
 
     @Override
     public void explosion(int power, boolean flag) {
         FakePlayer fakePlayer = ElementalCreepers.proxy.getEcPlayer((WorldServer) this.worldObj);
-        int radius = getPowered() ? (int) (this.explosionRadius * power) : this.explosionRadius;
+        int radius = getPowered() ? (int) (ECVars.euCreeperRadius * power) : ECVars.euCreeperRadius;
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {

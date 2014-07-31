@@ -4,53 +4,47 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class EntityIllusionCreeper extends EntityBaseCreeper implements IIllusion{
-    private boolean split, illusion;
+import net.lomeli.ec.ElementalCreepers;
+
+public class EntityIllusionCreeper extends EntityBaseCreeper implements IIllusion {
+    public boolean split, illusion;
 
     public EntityIllusionCreeper(World par1World) {
         super(par1World);
-        split = false;
-        illusion = false;
+        this.illusion = false;
         this.explosionSound = true;
-    }
-
-    public EntityIllusionCreeper(World par1World, boolean illusion) {
-        this(par1World);
-        this.illusion = illusion;
-        this.explosionSound = !illusion;
+        this.split = false;
     }
 
     @Override
     public void onUpdate() {
-        super.onUpdate();
-        if (!worldObj.isRemote && !illusion) {
-            EntityPlayer player = worldObj.getClosestPlayerToEntity(this, 8F);
-            if (!split && player != null && !player.capabilities.isCreativeMode) {
-                createFakeCreepersAndLaunchSelf();
-                split = true;
-            }
+        if (!worldObj.isRemote) {
+            if (!illusion) {
+                EntityPlayer player = worldObj.getClosestPlayerToEntity(this, 8F);
+                if (!split && player != null && !player.capabilities.isCreativeMode) {
+                    createFakeCreepersAndLaunchSelf();
+                    split = true;
+                }
+            } else
+                this.explosionSound = false;
         }
+        super.onUpdate();
     }
 
     @Override
     public void explosion(int power, boolean flag) {
         if (!illusion) {
             int exPower = this.explosionRadius * power;
-            
             this.worldObj.createExplosion(this, posX, posY, posZ, exPower, flag);
-        }
+        } else
+            this.spawnExplosionParticle();
     }
 
     private void createFakeCreepersAndLaunchSelf() {
-        for (int i = 0; i < 4; i++) {
-            EntityIllusionCreeper entity = new EntityIllusionCreeper(worldObj, true);
-            if (entity != null) {
-                entity.setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
-                entity.motionY = 0.5F;
-                worldObj.spawnEntityInWorld(entity);
-            }
+        if (!worldObj.isRemote) {
+            ElementalCreepers.proxy.spawnIllusionCreepers(worldObj, posX, posY, posZ);
+            this.motionY = 0.5F;
         }
-        this.motionY = 0.5F;
     }
 
     @Override

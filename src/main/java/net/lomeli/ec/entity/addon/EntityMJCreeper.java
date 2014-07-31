@@ -16,12 +16,11 @@ public class EntityMJCreeper extends EntityBaseCreeper {
 
     public EntityMJCreeper(World par1World) {
         super(par1World);
-        this.explosionRadius = ECVars.mjCreeperRadius;
     }
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (this.explosionRadius * power) : this.explosionRadius;
+        int radius = getPowered() ? (ECVars.mjCreeperRadius * power) : ECVars.mjCreeperRadius;
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {
@@ -51,7 +50,7 @@ public class EntityMJCreeper extends EntityBaseCreeper {
     }
 
     public void removePipe(int x, int y, int z) {
-        ItemStack pipe  = worldObj.getBlock(x, y, z).getPickBlock(null, worldObj, x, y, z);
+        ItemStack pipe = worldObj.getBlock(x, y, z).getPickBlock(null, worldObj, x, y, z);
         if (pipe != null) {
             EntityItem item = new EntityItem(worldObj, x, y, z, pipe);
             if (!worldObj.isRemote)

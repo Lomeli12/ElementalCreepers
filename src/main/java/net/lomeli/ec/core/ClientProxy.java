@@ -1,45 +1,64 @@
 package net.lomeli.ec.core;
 
-import net.lomeli.ec.entity.*;
-import net.lomeli.ec.entity.addon.*;
-import net.lomeli.ec.entity.render.*;
+import net.minecraft.world.World;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Loader;
+
+import net.lomeli.ec.entity.*;
+import net.lomeli.ec.entity.addon.AddonEntities;
+import net.lomeli.ec.entity.addon.EntityEUCreeper;
+import net.lomeli.ec.entity.addon.EntityMJCreeper;
+import net.lomeli.ec.entity.addon.EntityRFCreeper;
+import net.lomeli.ec.entity.render.RenderBasicCreeper;
+import net.lomeli.ec.entity.render.RenderFriendlyCreeper;
+import net.lomeli.ec.entity.render.RenderGhostCreeper;
+import net.lomeli.ec.entity.render.RenderSpiderCreeper;
 
 public class ClientProxy extends CommonProxy {
     @Override
     public void registerRenders() {
         super.registerRenders();
-        RenderingRegistry.registerEntityRenderingHandler(EntityFireCreeper.class, new RenderBasicCreeper().setTexture("firecreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityWaterCreeper.class, new RenderBasicCreeper().setTexture("watercreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityElectricCreeper.class, new RenderBasicCreeper().setTexture("electriccreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityCookieCreeper.class, new RenderBasicCreeper().setTexture("cookiecreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityDarkCreeper.class, new RenderBasicCreeper().setTexture("darkcreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityLightCreeper.class, new RenderBasicCreeper().setTexture("lightcreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityEarthCreeper.class, new RenderBasicCreeper().setTexture("earthcreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityMagmaCreeper.class, new RenderBasicCreeper().setTexture("magmacreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityReverseCreeper.class, new RenderBasicCreeper().setTexture("reversecreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityIceCreeper.class, new RenderBasicCreeper().setTexture("icecreeper"));
+        registerEntityRendering(EntityFireCreeper.class, "firecreeper");
+        registerEntityRendering(EntityWaterCreeper.class, "watercreeper");
+        registerEntityRendering(EntityElectricCreeper.class, "electriccreeper");
+        registerEntityRendering(EntityCookieCreeper.class, "cookiecreeper");
+        registerEntityRendering(EntityDarkCreeper.class, "darkcreeper");
+        registerEntityRendering(EntityLightCreeper.class, "lightcreeper");
+        registerEntityRendering(EntityEarthCreeper.class, "earthcreeper");
+        registerEntityRendering(EntityMagmaCreeper.class, "magmacreeper");
+        registerEntityRendering(EntityReverseCreeper.class, "reversecreeper");
+        registerEntityRendering(EntityIceCreeper.class, "icecreeper");
         RenderingRegistry.registerEntityRenderingHandler(EntityFriendlyCreeper.class, new RenderFriendlyCreeper());
         RenderingRegistry.registerEntityRenderingHandler(EntityGhostCreeper.class, new RenderGhostCreeper().setTexture("textures/entity/creeper/creeper", false));
-        RenderingRegistry.registerEntityRenderingHandler(EntityIllusionCreeper.class, new RenderBasicCreeper().setTexture("illusioncreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityPsyhicCreeper.class, new RenderBasicCreeper().setTexture("psychiccreeper"));
+        registerEntityRendering(EntityIllusionCreeper.class, "illusioncreeper");
+        registerEntityRendering(EntityPsyhicCreeper.class, "psychiccreeper");
         RenderingRegistry.registerEntityRenderingHandler(EntitySpiderCreeper.class, new RenderSpiderCreeper());
 
-        RenderingRegistry.registerEntityRenderingHandler(EntityWindCreeper.class, new RenderBasicCreeper().setTexture("windcreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityHydrogenCreeper.class, new RenderBasicCreeper().setTexture("hydrogencreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityEnderCreeper.class, new RenderBasicCreeper().setTexture("endercreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityStoneCreeper.class, new RenderBasicCreeper().setTexture("stonecreeper"));
-        RenderingRegistry.registerEntityRenderingHandler(EntitySolarCreeper.class, new RenderBasicCreeper().setTexture("solarcreeper"));
-        
+        registerEntityRendering(EntityWindCreeper.class, "windcreeper");
+        registerEntityRendering(EntityHydrogenCreeper.class, "hydrogencreeper");
+        registerEntityRendering(EntityEnderCreeper.class, "endercreeper");
+        registerEntityRendering(EntityStoneCreeper.class, "stonecreeper");
+        registerEntityRendering(EntitySolarCreeper.class, "solarcreeper");
+        registerEntityRendering(EntityBirthdayCreeper.class, "cakecreeper");
+        registerEntityRendering(EntityFireworkCreeper.class, "fireworkcreeper");
+
         if (Loader.isModLoaded("IC2"))
-            RenderingRegistry.registerEntityRenderingHandler(EntityEUCreeper.class, new RenderBasicCreeper().setTexture("eucreeper"));
+            registerEntityRendering(EntityEUCreeper.class, "eucreeper");
 
         if (AddonEntities.doesRFExist())
-            RenderingRegistry.registerEntityRenderingHandler(EntityRFCreeper.class, new RenderBasicCreeper().setTexture("rfcreeper"));
+            registerEntityRendering(EntityRFCreeper.class, "rfcreeper");
 
         if (Loader.isModLoaded("BuildCraft|Core"))
-            RenderingRegistry.registerEntityRenderingHandler(EntityMJCreeper.class, new RenderBasicCreeper().setTexture("mjcreeper"));
+            registerEntityRendering(EntityMJCreeper.class, "mjcreeper");
+    }
+
+    private void registerEntityRendering(Class<? extends EntityBaseCreeper> clazz, String texture) {
+        RenderingRegistry.registerEntityRenderingHandler(clazz, new RenderBasicCreeper().setTexture(texture));
+    }
+
+    @Override
+    public void spawnIllusionCreepers(World worldObj, double posX, double posY, double posZ) {
+
     }
 }

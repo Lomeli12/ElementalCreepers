@@ -1,36 +1,6 @@
 package net.lomeli.ec.lib;
 
 public class ECVars {
-    public static int waterCreeperID;
-    public static int fireCreeperID;
-    public static int iceCreeperID;
-    public static int electricCreeperID;
-    public static int earthCreeperID;
-    public static int psychicCreeperID;
-    public static int cookieCreeperID;
-    public static int magmaCreeperID;
-    public static int ghostCreeperID;
-    public static int friendlyCreeperID;
-    public static int illusionCreeperID;
-    public static int lightCreeperID;
-    public static int darkCreeperID;
-    public static int reverseCreeperID;
-    public static int spiderCreeperID;
-
-    public static int magmaIllusionCreeperID;
-    public static int windCreeperID;
-    public static int stoneCreeperID;
-    public static int sandStoneCreeperID;
-    public static int enderCreeperID;
-    public static int zombieCreeperID;
-    public static int euCreeperID;
-    public static int rfCreeperID;
-    public static int hydrogenCreeperID;
-    public static int solarCreeperID;
-    public static int mjCreeperID;
-    public static int visCreeperID;
-
-
     public static int waterCreeperSpawn;
     public static int fireCreeperSpawn;
     public static int iceCreeperSpawn;
@@ -57,6 +27,8 @@ public class ECVars {
     public static int hydrogenCreeperSpawn;
     public static int solarCreeperSpawn;
     public static int mjCreeperSpawn;
+    public static int cakeCreeperSpawn;
+    public static int fireworkCreeperSpawn;
 
     public static int waterCreeperRadius;
     public static int fireCreeperRadius;
@@ -84,7 +56,11 @@ public class ECVars {
     public static int rfCreeperRadius;
     public static int hydrogenCreeperRadius;
     public static int mjCreeperRadius;
+    public static int fireworkCreeperRadius;
 
     public static boolean useStaticIds;
     public static boolean allowDaySpawn;
+
+    public static int specialDay1 = 12, specialMonth1 = 11;
+    public static int specialDay2 = 17, specialMonth2 = 6;
 }

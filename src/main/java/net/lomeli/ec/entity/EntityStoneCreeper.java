@@ -18,7 +18,27 @@ public class EntityStoneCreeper extends EntityBaseCreeper {
 
     public EntityStoneCreeper(World par1World) {
         super(par1World);
-        this.explosionRadius = ECVars.stoneCreeperRadius;
+    }
+
+    @Override
+    public void explosion(int power, boolean flag) {
+        genList();
+        int radius = getPowered() ? (int) (ECVars.stoneCreeperRadius * power) : ECVars.stoneCreeperRadius;
+        for (int x = -radius; x <= radius; x++)
+            for (int y = -radius; y <= radius; y++)
+                for (int z = -radius; z <= radius; z++) {
+                    Block bk = worldObj.getBlock((int) posX + x, (int) posY + y, (int) posZ + z);
+                    int meta = this.worldObj.getBlockMetadata((int) posX + x, (int) posY + y, (int) posZ + z);
+                    if (bk != null && this.blockList.contains(bk) && Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)) <= radius) {
+                        bk.dropBlockAsItem(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z, meta, 0);
+                        worldObj.setBlockToAir((int) posX + x, (int) posY + y, (int) posZ + z);
+                        bk.onBlockDestroyedByExplosion(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z, new Explosion(worldObj, this, 0.0D, 0.0D, 0.0D, 0.0F));
+                    }
+                }
+    }
+
+    public void genList() {
+        blockList.clear();
         for (ItemStack stack : OreDictionary.getOres("cobblestone")) {
             blockList.add(Block.getBlockFromItem(stack.getItem()));
         }
@@ -34,22 +54,6 @@ public class EntityStoneCreeper extends EntityBaseCreeper {
         blockList.add(Blocks.stone_slab);
         blockList.add(Blocks.cobblestone_wall);
         blockList.add(Blocks.double_stone_slab);
-    }
-
-    @Override
-    public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (int) (this.explosionRadius * power) : this.explosionRadius;
-        for (int x = -radius; x <= radius; x++)
-            for (int y = -radius; y <= radius; y++)
-                for (int z = -radius; z <= radius; z++) {
-                    Block bk = worldObj.getBlock((int) posX + x, (int) posY + y, (int) posZ + z);
-                    int meta = this.worldObj.getBlockMetadata((int) posX + x, (int) posY + y, (int) posZ + z);
-                    if (bk != null && this.blockList.contains(bk) && Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)) <= radius) {
-                        bk.dropBlockAsItem(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z, meta, 0);
-                        worldObj.setBlockToAir((int) posX + x, (int) posY + y, (int) posZ + z);
-                        bk.onBlockDestroyedByExplosion(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z, new Explosion(worldObj, this, 0.0D, 0.0D, 0.0D, 0.0F));
-                    }
-                }
     }
 
 }

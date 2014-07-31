@@ -1,11 +1,6 @@
 package net.lomeli.ec.entity.explosion;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentProtection;
@@ -20,24 +15,29 @@ import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 
 public class ExplosionPsychic {
-    /** whether or not the explosion sets fire to blocks around it */
+    /**
+     * whether or not the explosion sets fire to blocks around it
+     */
     public boolean isFlaming;
 
-    /** whether or not this explosion spawns smoke particles */
+    /**
+     * whether or not this explosion spawns smoke particles
+     */
     public boolean isSmoking = true;
-    private int field_77289_h = 16;
-    private Random explosionRNG = new Random();
-    private World worldObj;
     public double explosionX;
     public double explosionY;
     public double explosionZ;
     public Entity exploder;
     public float explosionSize;
     public int explosionPower;
-
-    /** A list of ChunkPositions of blocks affected by this explosion */
+    /**
+     * A list of ChunkPositions of blocks affected by this explosion
+     */
     @SuppressWarnings("rawtypes")
     public List affectedBlockPositions = new ArrayList();
+    private int field_77289_h = 16;
+    private Random explosionRNG = new Random();
+    private World worldObj;
     @SuppressWarnings("rawtypes")
     private Map field_77288_k = new HashMap();
 
@@ -51,7 +51,7 @@ public class ExplosionPsychic {
         this.explosionPower = power;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public void doExplosionA() {
         float f = this.explosionSize;
         int i;

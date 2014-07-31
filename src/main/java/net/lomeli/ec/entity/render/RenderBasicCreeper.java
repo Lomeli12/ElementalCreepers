@@ -4,10 +4,10 @@ import net.minecraft.client.renderer.entity.RenderCreeper;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.ResourceLocation;
 
-import net.lomeli.ec.lib.Strings;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
+import net.lomeli.ec.lib.Strings;
 
 @SideOnly(Side.CLIENT)
 public class RenderBasicCreeper extends RenderCreeper {

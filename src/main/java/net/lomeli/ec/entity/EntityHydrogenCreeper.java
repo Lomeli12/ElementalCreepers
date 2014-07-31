@@ -57,12 +57,12 @@ public class EntityHydrogenCreeper extends EntityBaseCreeper {
     public void explosion(int power, boolean flag) {
         int exPower = this.explosionRadius * power;
         this.timeSinceIgnited = this.fuseTime;
-        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(this.explosionRadius, this.explosionRadius, this.explosionRadius));
+        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(this.explosionRadius * 5, this.explosionRadius * 5, this.explosionRadius * 5));
 
         for (Entity ent : list) {
             if (ent instanceof EntityLivingBase) {
-                if (this.getDistanceSqToEntity(ent) < this.explosionRadius) {
-                    if (this.getDistanceSqToEntity(ent) < (this.explosionRadius / 10))
+                if (this.getDistanceToEntity(ent) < this.explosionRadius) {
+                    if (this.getDistanceToEntity(ent) < (this.explosionRadius / 10))
                         ((EntityLivingBase) ent).addPotionEffect(new PotionEffect(Potion.wither.id, 400, 1));
                     else
                         ((EntityLivingBase) ent).addPotionEffect(new PotionEffect(Potion.poison.id, 500, 2));

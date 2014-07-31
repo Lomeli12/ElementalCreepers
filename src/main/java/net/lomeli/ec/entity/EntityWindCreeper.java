@@ -18,10 +18,9 @@ public class EntityWindCreeper extends EntityBaseCreeper {
     public float field_70884_g;
     public float field_70888_h;
     public float field_70889_i = 1.0F;
-    
+
     public EntityWindCreeper(World par1World) {
         super(par1World, false);
-        this.explosionRadius = ECVars.windCreeperRadius;
     }
 
     @Override
@@ -58,7 +57,7 @@ public class EntityWindCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int exPower = this.explosionRadius * power;
+        int exPower = ECVars.windCreeperRadius * power;
         createWindGust(this, posX, posY, posZ, exPower, true);
     }
 

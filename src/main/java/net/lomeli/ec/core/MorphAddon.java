@@ -2,13 +2,7 @@ package net.lomeli.ec.core;
 
 import cpw.mods.fml.common.Loader;
 
-import net.lomeli.ec.entity.EntityDarkCreeper;
-import net.lomeli.ec.entity.EntityEnderCreeper;
-import net.lomeli.ec.entity.EntityFireCreeper;
-import net.lomeli.ec.entity.EntityMagmaCreeper;
-import net.lomeli.ec.entity.EntitySpiderCreeper;
-import net.lomeli.ec.entity.EntityWaterCreeper;
-import net.lomeli.ec.entity.EntityWindCreeper;
+import net.lomeli.ec.entity.*;
 
 import morph.api.Ability;
 

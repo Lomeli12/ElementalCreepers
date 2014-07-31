@@ -33,7 +33,7 @@ public class EntitySolarCreeper extends EntityBaseCreeper {
                         i1 = 15;
                     this.explosionRadius = 3 + (i1 / 3);
                 }
-            }else
+            } else
                 this.explosionRadius--;
             if (this.worldObj.isRaining() || this.worldObj.isThundering())
                 this.explosionRadius--;

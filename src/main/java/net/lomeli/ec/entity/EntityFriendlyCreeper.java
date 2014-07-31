@@ -100,7 +100,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
         if (!this.isTamed()) {
             worldObj.createExplosion(this, this.posX, this.posY, this.posZ, explodePower, flag);
             this.setDead();
-        }else
+        } else
             createFriendlyExplosion(this.posX, this.posY, this.posZ, explodePower);
     }
 
@@ -129,6 +129,10 @@ public class EntityFriendlyCreeper extends EntityTameable {
             this.setAngry(true);
     }
 
+    public boolean isAngry() {
+        return (this.dataWatcher.getWatchableObjectByte(16) & 2) != 0;
+    }
+
     public void setAngry(boolean p_70916_1_) {
         byte b0 = this.dataWatcher.getWatchableObjectByte(16);
 
@@ -136,10 +140,6 @@ public class EntityFriendlyCreeper extends EntityTameable {
             this.dataWatcher.updateObject(16, Byte.valueOf((byte) (b0 | 2)));
         else
             this.dataWatcher.updateObject(16, Byte.valueOf((byte) (b0 & -3)));
-    }
-
-    public boolean isAngry() {
-        return (this.dataWatcher.getWatchableObjectByte(16) & 2) != 0;
     }
 
     public int getMaxSpawnedInChunk() {

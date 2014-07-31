@@ -11,13 +11,12 @@ public class EntityReverseCreeper extends EntityBaseCreeper {
 
     public EntityReverseCreeper(World par1World) {
         super(par1World);
-        this.explosionRadius = ECVars.reverseCreeperRadius;
     }
 
     @Override
     public void explosion(int power, boolean flag) {
         if (flag) {
-            double radius = getPowered() ? (int) (this.explosionRadius * 1.5F) : this.explosionRadius;
+            double radius = getPowered() ? (int) (ECVars.reverseCreeperRadius * 1.5F) : ECVars.reverseCreeperRadius;
             Block[][][] blocks = new Block[((int) radius) * 2 + 2][((int) radius) * 2 + 2][((int) radius) * 2 + 2];
             int[][][] metas = new int[((int) radius) * 2 + 2][((int) radius) * 2 + 2][((int) radius) * 2 + 2];
             TileEntity[][][] TEs = new TileEntity[((int) radius) * 2 + 2][((int) radius) * 2 + 2][((int) radius) * 2 + 2];

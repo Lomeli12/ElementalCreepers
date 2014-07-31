@@ -16,6 +16,7 @@ public class VersionChecker {
     private static boolean isDirect;
     private static String updateJson = "https://raw.githubusercontent.com/Lomeli12/ElementalCreepers-4/master/update.json";
     private static String version, downloadURL, changeLog;
+
     public static void checkForUpdates() {
         needsUpdate = false;
         try {
@@ -54,7 +55,8 @@ public class VersionChecker {
                 if (needsUpdate)
                     version = major + "." + minor + "." + revision;
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 
     public static void sendMessage() {

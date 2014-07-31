@@ -5,4 +5,5 @@ public class Strings {
     public static final String VERSION = MAJOR + "." + MINOR + "." + REVISION;
     public static final String MOD_ID = "ElementalCreepers", MOD_NAME = "Elemental Creepers";
     public static final String CORE = "net.lomeli.ec.core", CLIENT = CORE + ".ClientProxy", COMMON = CORE + ".CommonProxy";
+    public static final String FACTORY = "net.lomeli.ec.core.ECFactory";
 }

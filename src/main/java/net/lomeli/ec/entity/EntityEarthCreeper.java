@@ -9,12 +9,11 @@ public class EntityEarthCreeper extends EntityBaseCreeper {
 
     public EntityEarthCreeper(World par1World) {
         super(par1World);
-        this.explosionRadius = ECVars.earthCreeperRadius;
     }
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (int) (this.explosionRadius * power) : this.explosionRadius;
+        int radius = getPowered() ? (int) (ECVars.earthCreeperRadius * power) : ECVars.earthCreeperRadius;
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {

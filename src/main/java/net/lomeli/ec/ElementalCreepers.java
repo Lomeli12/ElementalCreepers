@@ -17,7 +17,10 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-import net.lomeli.ec.core.*;
+import net.lomeli.ec.core.CommonProxy;
+import net.lomeli.ec.core.Config;
+import net.lomeli.ec.core.EntityRegistering;
+import net.lomeli.ec.core.VersionChecker;
 import net.lomeli.ec.entity.EntityFriendlyCreeper;
 import net.lomeli.ec.entity.EntityGhostCreeper;
 import net.lomeli.ec.entity.IIllusion;
@@ -49,9 +52,6 @@ public class ElementalCreepers {
 
     @Mod.EventHandler
     public void postLoad(FMLPostInitializationEvent event) {
-        if (Loader.isModLoaded("Morph"))
-            MorphAddon.loadAddon();
-
         if (Loader.isModLoaded("VersionChecker")) {
             VersionChecker.checkForUpdates();
             if (VersionChecker.needUpdate())

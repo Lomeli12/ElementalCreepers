@@ -31,4 +31,6 @@ public class CommonProxy {
             entity.onSpawnWithEgg(null);
         }
     }
+
+    public void spawnPortalParticle(World world, double posX, double posY, double posZ, float r, float g, float b){}
 }

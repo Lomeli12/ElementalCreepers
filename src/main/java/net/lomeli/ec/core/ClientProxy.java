@@ -1,5 +1,7 @@
 package net.lomeli.ec.core;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.EntityPortalFX;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -60,5 +62,12 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void spawnIllusionCreepers(World worldObj, double posX, double posY, double posZ) {
 
+    }
+
+    @Override
+    public void spawnPortalParticle(World world, double posX, double posY, double posZ, float r, float g, float b){
+        EntityPortalFX effect = new EntityPortalFX(world, posX + 0.5, posY + 0.1 + world.rand.nextDouble() * 2.0D, posZ + 0.5, world.rand.nextGaussian(), 0.0D, world.rand.nextGaussian());
+        effect.setRBGColorF(r, g, b);
+        Minecraft.getMinecraft().effectRenderer.addEffect(effect);
     }
 }

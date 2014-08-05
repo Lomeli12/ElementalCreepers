@@ -12,12 +12,14 @@ public class RenderGhostCreeper extends RenderBasicCreeper {
     @Override
     public void doRender(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9) {
         if (par1EntityLiving != null) {
+            GL11.glPushMatrix();
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             GL11.glColor4f(1F, 1F, 1F, 0.3F);
             super.doRender(par1EntityLiving, par2, par4, par6, par8, par9);
-            GL11.glDisable(GL11.GL_BLEND);
             GL11.glColor4f(1F, 1F, 1F, 1F);
+            GL11.glDisable(GL11.GL_BLEND);
+            GL11.glPopMatrix();
         }
     }
 }

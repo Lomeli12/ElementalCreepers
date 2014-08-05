@@ -75,12 +75,12 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 
             if (this.diesAfterExplosion())
                 this.setDead();
-
+        }
+        if (worldObj.isRemote) {
             if (explosionSound)
                 worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 4F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
-
+            spawnExplosionParticle();
         }
-        spawnExplosionParticle();
     }
 
     public abstract void explosion(int power, boolean flag);

@@ -2,12 +2,11 @@ package net.lomeli.ec.entity;
 
 import java.util.Calendar;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EntityPortalFX;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import net.lomeli.ec.ElementalCreepers;
 import net.lomeli.ec.lib.ECVars;
 
 public class EntityBirthdayCreeper extends EntityBaseCreeper {
@@ -46,11 +45,8 @@ public class EntityBirthdayCreeper extends EntityBaseCreeper {
                 worldObj.setBlock(x, y, z - 1, Blocks.torch);
         }
         if (worldObj.isRemote) {
-            for (int i = 0; i < 16; ++i) {
-                EntityPortalFX effect = new EntityPortalFX(worldObj, posX + 0.5, posY + 0.1 + worldObj.rand.nextDouble() * 2.0D, posZ + 0.5, worldObj.rand.nextGaussian(), 0.0D, worldObj.rand.nextGaussian());
-                effect.setRBGColorF(worldObj.rand.nextFloat(), worldObj.rand.nextFloat(), worldObj.rand.nextFloat());
-                Minecraft.getMinecraft().effectRenderer.addEffect(effect);
-            }
+            for (int i = 0; i < 16; ++i)
+                ElementalCreepers.proxy.spawnPortalParticle(worldObj, posX, posY, posZ, worldObj.rand.nextFloat(), worldObj.rand.nextFloat(), worldObj.rand.nextFloat());
         }
     }
 }

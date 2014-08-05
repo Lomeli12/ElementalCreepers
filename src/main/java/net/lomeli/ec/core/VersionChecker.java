@@ -1,12 +1,15 @@
 package net.lomeli.ec.core;
 
 import com.google.gson.stream.JsonReader;
+import org.apache.logging.log4j.Level;
 
 import java.io.InputStreamReader;
 import java.net.URL;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.FMLInterModComms;
 
 import net.lomeli.ec.lib.Strings;
@@ -52,8 +55,12 @@ public class VersionChecker {
                     }
                 }
 
-                if (needsUpdate)
+                if (needsUpdate) {
                     version = major + "." + minor + "." + revision;
+                    FMLLog.log(Level.INFO, translate(Strings.UPDATE_MESSAGE));
+                    FMLLog.log(Level.INFO, translate(Strings.OLD_VERSION) + " " + Strings.VERSION);
+                    FMLLog.log(Level.INFO, translate(Strings.NEW_VERSION) + " " + version);
+                }
             }
         } catch (Exception e) {
         }
@@ -72,5 +79,9 @@ public class VersionChecker {
 
     public static boolean needUpdate() {
         return needsUpdate;
+    }
+
+    public static String translate(String unlocalized) {
+        return StatCollector.translateToLocal(unlocalized);
     }
 }

@@ -25,3 +25,7 @@ entity.elementalcreepers:FireworkCreper.name=Firework Creeper
 
 entity.elementalcreepers:EUCreeper.name=EU Creeper
 entity.elementalcreepers:RFCreeper.name=Flux Creeper
+
+update.elementalcreepers.message=A new update for Elemental Creepers is out now!
+update.elementalcreepers.old=Old Version:
+update.elementalcreepers.new=New Version:

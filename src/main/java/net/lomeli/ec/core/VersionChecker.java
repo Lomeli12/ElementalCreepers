@@ -61,6 +61,7 @@ public class VersionChecker {
                     FMLLog.log(Level.INFO, translate(Strings.OLD_VERSION) + " " + Strings.VERSION);
                     FMLLog.log(Level.INFO, translate(Strings.NEW_VERSION) + " " + version);
                 }
+                reader.close();
             }
         } catch (Exception e) {
         }

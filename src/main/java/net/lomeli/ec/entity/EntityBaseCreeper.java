@@ -1,5 +1,6 @@
 package net.lomeli.ec.entity;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -132,5 +133,37 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
             }
         }
         return false;
+    }
+
+    public void domeExplosion(int radius, Block block, int meta) {
+        for (int x = -radius; x <= radius; x++)
+            for (int y = -radius; y <= radius; y++)
+                for (int z = -radius; z <= radius; z++) {
+                    if (block.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z) && Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)) <= radius) {
+                        if (rand.nextInt(4) < 3)//
+                            worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, block, meta, 2);
+                    }
+                }
+
+    }
+
+    public void domeExplosion(int radius, Block block) {
+        this.domeExplosion(radius, block, 0);
+    }
+
+    public void wildExplosion(int radius, Block block, int meta) {
+        for (int x = -radius; x <= radius; x++)
+            for (int y = -radius; y <= radius; y++)
+                for (int z = -radius; z <= radius; z++) {
+                    if (block.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z)
+                            && !block.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y - 1, (int) posZ + z)) {
+                        if (rand.nextBoolean())
+                            worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, block, meta, 2);
+                    }
+                }
+    }
+
+    public void wildExplosion(int radius, Block block){
+        this.wildExplosion(radius, block, 0);
     }
 }

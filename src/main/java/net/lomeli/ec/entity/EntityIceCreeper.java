@@ -21,7 +21,7 @@ public class EntityIceCreeper extends EntityBaseCreeper {
                         || (int) Math.round(posZ + 0.5F) != (int) Math.round(prevPosZ + 0.5F)) {
                     if (worldObj.isAirBlock((int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ))
                             && Blocks.snow_layer.canPlaceBlockAt(worldObj, (int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ)))
-                        worldObj.setBlock((int) (Math.round(prevPosX) + 0.5), (int) (Math.round(prevPosY) + 0.5), (int) (Math.round(prevPosZ) + 0.5), Blocks.snow_layer);
+                        worldObj.setBlock((int) (prevPosX), (int) (prevPosY + 0.5), (int) (prevPosZ), Blocks.snow_layer);
                 }
             }
         }
@@ -29,23 +29,30 @@ public class EntityIceCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (int) (ECVars.iceCreeperRadius * power) : ECVars.iceCreeperRadius;
+        int radius = getPowered() ? (ECVars.iceCreeperRadius * power) : ECVars.iceCreeperRadius;
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {
-                    Block id = worldObj.getBlock((int) posX + x, (int) posY + y, (int) posZ + z);
-                    if (id.getUnlocalizedName().equals(Blocks.water.getUnlocalizedName()) || id.getUnlocalizedName().equals(Blocks.flowing_water.getUnlocalizedName()))
+                    Block block = worldObj.getBlock((int) posX + x, (int) posY + y, (int) posZ + z);
+                    if (block == Blocks.water || block == Blocks.flowing_water)
                         worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.ice);
-                    else if (id.getUnlocalizedName().equals(Blocks.lava.getUnlocalizedName()) || id.getUnlocalizedName().equals(Blocks.flowing_lava.getUnlocalizedName()))
+                    else if (block == Blocks.lava || block == Blocks.flowing_lava)
                         worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.obsidian);
-
-                    if (Blocks.dirt.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z) && !Blocks.dirt.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y - 1, (int) posZ + z)) {
-                        if (rand.nextBoolean())
-                            worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.snow_layer);
-                        else
-                            worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.snow);
-                    }
                 }
+        if (ECVars.domeExplosion)
+            this.domeExplosion(radius, Blocks.snow);
+        else {
+            for (int x = -radius; x <= radius; x++)
+                for (int y = -radius; y <= radius; y++)
+                    for (int z = -radius; z <= radius; z++) {
+                        if (Blocks.dirt.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z) && !Blocks.dirt.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y - 1, (int) posZ + z)) {
+                            if (rand.nextBoolean())
+                                worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.snow_layer);
+                            else
+                                worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.snow);
+                        }
+                    }
+        }
     }
 
 }

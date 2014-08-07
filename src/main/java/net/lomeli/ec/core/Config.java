@@ -1,5 +1,7 @@
 package net.lomeli.ec.core;
 
+import net.minecraft.util.StatCollector;
+
 import net.minecraftforge.common.config.Configuration;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
@@ -21,11 +23,12 @@ public class Config {
     }
 
     public void loadConfig() {
-        ECVars.cookieCreeperAmount = config.getInt("cookiesDropped", Configuration.CATEGORY_GENERAL, 5, 1, 64, "The number of cookies a Cookie Creeper drops");
-        ECVars.useStaticIds = config.getBoolean("useStaticIDs", Configuration.CATEGORY_GENERAL, false, "Set specific ids for the creepers. If false (which is recommended), the creepers will get a unique ID on mod loading.");
+        ECVars.cookieCreeperAmount = config.getInt("cookiesDropped", Configuration.CATEGORY_GENERAL, 5, 1, 64, StatCollector.translateToLocal(Strings.COOKIE));
+        ECVars.domeExplosion = config.getBoolean("domeExplosion", Configuration.CATEGORY_GENERAL, false, StatCollector.translateToLocal(Strings.DOME));
+
         String cat = "spawn-rates";
 
-        config.addCustomCategoryComment(cat, "Creeper Spawn Rates");
+        config.addCustomCategoryComment(cat, StatCollector.translateToLocal(Strings.SPAWN));
 
         ECVars.fireCreeperSpawn = setGetInt(cat, "fireCreeperSpawn", 10);
         ECVars.waterCreeperSpawn = setGetInt(cat, "waterCreeperSpawn", 10);
@@ -56,11 +59,11 @@ public class Config {
 
         cat = "explosion-configuration";
 
-        config.addCustomCategoryComment(cat, "Creeper Explosion Radius");
+        config.addCustomCategoryComment(cat, StatCollector.translateToLocal(Strings.EXPLOSION));
 
         ECVars.waterCreeperRadius = setGetInt(cat, "waterCreeperRadius", 4);
         ECVars.fireCreeperRadius = setGetInt(cat, "fireCreeperRadius", 6);
-        ECVars.iceCreeperRadius = setGetInt(cat, "iceCreeperRadius", 12);
+        ECVars.iceCreeperRadius = setGetInt(cat, "iceCreeperRadius", 8);
         ECVars.electricCreeperRadius = setGetInt(cat, "electricCreeperRadius", 5);
         ECVars.earthCreeperRadius = setGetInt(cat, "earthCreeperRadius", 8);
         ECVars.psychicCreeperPower = setGetInt(cat, "psychicCreeperPower", 8);

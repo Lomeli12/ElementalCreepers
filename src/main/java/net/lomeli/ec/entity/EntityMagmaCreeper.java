@@ -20,7 +20,7 @@ public class EntityMagmaCreeper extends EntityBaseCreeper {
             if ((int) Math.round(posX + 0.5F) != (int) Math.round(prevPosX + 0.5F) || (int) Math.round(posY) != (int) Math.round(prevPosY) || (int) Math.round(posZ + 0.5F) != (int) Math.round(prevPosZ + 0.5F)) {
                 if (worldObj.isAirBlock((int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ))
                         && Blocks.fire.canPlaceBlockAt(worldObj, (int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ)))
-                    worldObj.setBlock((int) (Math.round(prevPosX) + 0.5), (int) (Math.round(prevPosY) + 0.5), (int) (Math.round(prevPosZ) + 0.5), Blocks.fire);
+                    worldObj.setBlock((int)(prevPosX), (int) (Math.round(prevPosY) + 0.5), (int) (prevPosZ), Blocks.fire);
             }
         }
         if (this.isWet())
@@ -29,15 +29,11 @@ public class EntityMagmaCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (int) (ECVars.magmaCreeperRadius * power) : ECVars.magmaCreeperRadius;
-        for (int x = -radius; x <= radius; x++)
-            for (int y = -radius; y <= radius; y++)
-                for (int z = -radius; z <= radius; z++) {
-                    if (Blocks.lava.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z) && !Blocks.lava.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y - 1, (int) posZ + z)) {
-                        if (rand.nextBoolean())
-                            worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.flowing_lava);
-                    }
-                }
+        int radius = getPowered() ? (ECVars.magmaCreeperRadius * power) : ECVars.magmaCreeperRadius;
+        if (ECVars.domeExplosion)
+            this.domeExplosion(radius, Blocks.lava);
+        else
+            this.wildExplosion(radius, Blocks.lava);
     }
 
 }

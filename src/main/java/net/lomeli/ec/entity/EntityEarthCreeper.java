@@ -13,15 +13,10 @@ public class EntityEarthCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (int) (ECVars.earthCreeperRadius * power) : ECVars.earthCreeperRadius;
-        for (int x = -radius; x <= radius; x++)
-            for (int y = -radius; y <= radius; y++)
-                for (int z = -radius; z <= radius; z++) {
-                    if (Blocks.dirt.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z) && !Blocks.dirt.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y - 1, (int) posZ + z)) {
-                        if (rand.nextBoolean())
-                            worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.dirt);
-                    }
-                }
-
+        int radius = getPowered() ? (ECVars.earthCreeperRadius * power) : ECVars.earthCreeperRadius;
+        if (ECVars.domeExplosion)
+            this.domeExplosion(radius, Blocks.dirt);
+        else
+            this.wildExplosion(radius, Blocks.dirt);
     }
 }

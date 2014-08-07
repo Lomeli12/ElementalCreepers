@@ -13,14 +13,10 @@ public class EntityWaterCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (int) (ECVars.waterCreeperRadius * power) : ECVars.waterCreeperRadius;
-        for (int x = -radius; x <= radius; x++)
-            for (int y = -radius; y <= radius; y++)
-                for (int z = -radius; z <= radius; z++) {
-                    if (Blocks.water.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z) && !Blocks.water.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y - 1, (int) posZ + z)) {
-                        if (rand.nextBoolean())
-                            worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.flowing_water);
-                    }
-                }
+        int radius = getPowered() ? (ECVars.waterCreeperRadius * power) : ECVars.waterCreeperRadius;
+        if (ECVars.domeExplosion)
+            this.domeExplosion(radius, Blocks.water);
+        else
+            this.wildExplosion(radius, Blocks.water);
     }
 }

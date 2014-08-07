@@ -11,4 +11,10 @@ public class Strings {
     public static final String UPDATE_MESSAGE = UPDATE + "message";
     public static final String OLD_VERSION = UPDATE + "old";
     public static final String NEW_VERSION = UPDATE + "new";
+
+    public static final String CONFIG = "config.elementalcreepers.";
+    public static final String SPAWN = CONFIG + "spawnRates";
+    public static final String EXPLOSION = CONFIG + "explosionConfig";
+    public static final String COOKIE = CONFIG + "cookies";
+    public static final String DOME = CONFIG + "domeEx";
 }

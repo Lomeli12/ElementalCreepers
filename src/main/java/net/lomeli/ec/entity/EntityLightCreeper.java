@@ -13,16 +13,10 @@ public class EntityLightCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (int) (ECVars.lightCreeperRadius * power) : ECVars.lightCreeperRadius;
-        for (int x = -radius; x <= radius; x++)
-            for (int y = -radius; y <= radius; y++)
-                for (int z = -radius; z <= radius; z++) {
-                    if (Blocks.glowstone.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z)
-                            && !Blocks.glowstone.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y - 1, (int) posZ + z)) {
-                        if (rand.nextBoolean())
-                            worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.glowstone);
-                    }
-                }
-
+        int radius = getPowered() ? (ECVars.lightCreeperRadius * power) : ECVars.lightCreeperRadius;
+        if (ECVars.domeExplosion)
+            this.domeExplosion(radius, Blocks.glowstone);
+        else
+            this.wildExplosion(radius, Blocks.glowstone);
     }
 }

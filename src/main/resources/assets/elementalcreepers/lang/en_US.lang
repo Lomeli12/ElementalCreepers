@@ -29,3 +29,8 @@ entity.elementalcreepers:RFCreeper.name=Flux Creeper
 update.elementalcreepers.message=A new update for Elemental Creepers is out now!
 update.elementalcreepers.old=Old Version:
 update.elementalcreepers.new=New Version:
+
+config.elementalcreepers.spawnRates=Creeper Spawn Rates
+config.elementalcreepers.explosionConfig=Creeper Explosion Config
+config.elementalcreepers.cookies=The number of cookies a Cookie Creeper drops
+config.elementalcreepers.domeEx=Enable dome explosions (instead of random block placement explosions)

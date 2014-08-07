@@ -24,7 +24,6 @@ public class ECGuiConfig extends GuiConfig {
         list.add(new ConfigElement(ElementalCreepers.config.getConfig().getCategory(Configuration.CATEGORY_GENERAL)));
         list.add(new ConfigElement(ElementalCreepers.config.getConfig().getCategory("explosion-configuration")));
         list.add(new ConfigElement(ElementalCreepers.config.getConfig().getCategory("spawn-rates")));
-        list.add(new ConfigElement(ElementalCreepers.config.getConfig().getCategory("entity-ids")));
         return list;
     }
 }

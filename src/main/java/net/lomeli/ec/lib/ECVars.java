@@ -58,8 +58,8 @@ public class ECVars {
     public static int mjCreeperRadius;
     public static int fireworkCreeperRadius;
 
-    public static boolean useStaticIds;
     public static boolean allowDaySpawn;
+    public static boolean domeExplosion;
 
     public static int specialDay1 = 12, specialMonth1 = 11;
     public static int specialDay2 = 17, specialMonth2 = 6;

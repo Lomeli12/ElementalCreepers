@@ -1,0 +1,36 @@
+entity.elementalcreepers:FireCreeper.name=Creeper Incendiário
+entity.elementalcreepers:WaterCreeper.name=Creeper da Água
+entity.elementalcreepers:ElectricCreeper.name=Creeper Elétrico
+entity.elementalcreepers:CookieCreeper.name=Creeper do Biscoito
+entity.elementalcreepers:DarkCreeper.name=Creeper Negro
+entity.elementalcreepers:LightCreeper.name=Creeper da Luz
+entity.elementalcreepers:EarthCreeper.name=Creeper da Terra
+entity.elementalcreepers:MagmaCreeper.name=Creeper do Magma
+entity.elementalcreepers:ReverseCreeper.name=Creeper da Inversão
+entity.elementalcreepers:IceCreeper.name=Creeper de Gelo
+entity.elementalcreepers:FriendlyCreeper.name=Creeper Amigável
+entity.elementalcreepers:GhostCreeper.name=Ghost Creeper
+entity.elementalcreepers:FakeIllusionCreeper.name=Creeper da Ilusão
+entity.elementalcreepers:IllusionCreeper.name=Creeper da Ilusão
+entity.elementalcreepers:PsychicCreeper.name=Creeper Psíquico
+entity.elementalcreepers:SpiderCreeper.name=Creeper-Aranha
+
+entity.elementalcreepers:WindCreeper.name=Creeper do Vento
+entity.elementalcreepers:HydrogenCreeper.name=Creeper do Hidrogênio
+entity.elementalcreepers:EnderCreeper.name=Creeper do Fim
+entity.elementalcreepers:StoneCreeper.name=Creeper de Pedra
+entity.elementalcreepers:SolarCreeper.name=Creeper Solar
+entity.elementalcreepers:CakeCreeper.name=Creeper do Bolo
+entity.elementalcreepers:FireworkCreper.name=Creeper Fogo de Artifício
+
+entity.elementalcreepers:EUCreeper.name=Creeper EU
+entity.elementalcreepers:RFCreeper.name=Creeper do Fluxo
+
+update.elementalcreepers.message=Uma nova atualização do Elemental Creepers está disponível!
+update.elementalcreepers.old=Versão Antiga:
+update.elementalcreepers.new=Versão Mais Recente:
+
+config.elementalcreepers.spawnRates=Taxas de spawn dos Creepers
+config.elementalcreepers.explosionConfig=Configuração das explosões dos Creepers
+config.elementalcreepers.cookies=Número de biscoitos que o Creeper do Biscoito dropa
+config.elementalcreepers.domeEx=Habilitar explosões em forma de cúpula (ao invés de explosões com a geração de blocos aleatoriamente)

@@ -6,17 +6,25 @@ import org.apache.logging.log4j.Level;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.StatCollector;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.relauncher.SideOnly;
 
 import net.lomeli.ec.lib.Strings;
 
+import static cpw.mods.fml.relauncher.Side.CLIENT;
+
 public class VersionChecker {
-    private static boolean needsUpdate;
-    private static boolean isDirect;
+    private static boolean needsUpdate, isDirect, doneTelling;
     private static String updateJson = "https://raw.githubusercontent.com/Lomeli12/ElementalCreepers-4/master/update.json";
     private static String version, downloadURL, changeLog;
 
@@ -84,5 +92,19 @@ public class VersionChecker {
 
     public static String translate(String unlocalized) {
         return StatCollector.translateToLocal(unlocalized);
+    }
+
+    @SubscribeEvent
+    @SideOnly(CLIENT)
+    public void onClientTick(TickEvent.ClientTickEvent event) {
+        if (needUpdate() && event.phase == TickEvent.Phase.END && Minecraft.getMinecraft().thePlayer != null && !doneTelling) {
+            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+            if (!version.isEmpty() && player != null) {
+                player.addChatMessage(new ChatComponentTranslation(Strings.UPDATE_MESSAGE));
+                player.addChatMessage(new ChatComponentText(translate(Strings.OLD_VERSION) + " " + Strings.VERSION));
+                player.addChatMessage(new ChatComponentText(translate(Strings.NEW_VERSION) + " " + version));
+                doneTelling = true;
+            }
+        }
     }
 }

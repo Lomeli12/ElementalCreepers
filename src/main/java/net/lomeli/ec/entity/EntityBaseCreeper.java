@@ -2,6 +2,7 @@ package net.lomeli.ec.entity;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -63,12 +64,10 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
                     explode();
             }
         }
-
         super.onUpdate();
     }
 
     public void explode() {
-        this.timeSinceIgnited = this.fuseTime;
         if (!this.worldObj.isRemote) {
             boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 

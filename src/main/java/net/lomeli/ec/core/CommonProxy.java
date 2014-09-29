@@ -3,6 +3,7 @@ package net.lomeli.ec.core;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
 
@@ -10,6 +11,10 @@ import net.lomeli.ec.entity.EntityIllusionCreeper;
 
 public class CommonProxy {
     public static FakePlayer ecPlayer;
+
+    public void registerEvents() {
+        MinecraftForge.EVENT_BUS.register(new EventHandler());
+    }
 
     public void registerRenders() {
     }

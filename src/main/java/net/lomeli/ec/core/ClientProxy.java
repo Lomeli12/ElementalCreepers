@@ -19,6 +19,11 @@ import net.lomeli.ec.entity.render.RenderSpiderCreeper;
 
 public class ClientProxy extends CommonProxy {
     @Override
+    public void registerEvents() {
+        super.registerEvents();
+    }
+
+    @Override
     public void registerRenders() {
         super.registerRenders();
         registerEntityRendering(EntityFireCreeper.class, "firecreeper");

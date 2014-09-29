@@ -45,7 +45,7 @@ public class EntityRegistering {
         registerEntity(EntityStoneCreeper.class, getCreeperName("StoneCreeper"), creeperEggGreen, Color.DARK_GRAY.getRGB());
         registerEntity(EntitySolarCreeper.class, getCreeperName("SolarCreeper"), creeperEggGreen, new Color(0, 25, 100).getRGB());
         registerEntity(EntityBirthdayCreeper.class, getCreeperName("CakeCreeper"), creeperEggGreen, new Color(184, 93, 39).getRGB());
-        registerEntity(EntityFireworkCreeper.class, getCreeperName("FireworkCreper"), Color.BLUE.getRGB(), Color.RED.getRGB());
+        registerEntity(EntityFireworkCreeper.class, getCreeperName("FireworkCreper"), Color.BLUE.getRGB(), creeperEggGreen);
 
         loadSpawn();
 

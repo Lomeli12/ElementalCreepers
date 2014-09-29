@@ -1,8 +1,8 @@
 {
     "major" : 4,
     "minor" : 2,
-    "revision" : 1,
-    "downloadURL" : "http://files.lomeli12.net/MinecraftMods/ElementalCreepers/Elemental%20Creepers-universal_1.7.10-4.2.1.jar",
+    "revision" : 2,
+    "downloadURL" : "http://files.lomeli12.net/MinecraftMods/ElementalCreepers/Elemental%20Creepers-universal_1.7.10-4.2.2.jar",
     "direct" : true,
-    "changeLog" : "Fixes particle crash on servers and better displaying of update messages for those without Version Checker."
+    "changeLog" : "Fix crash when joining server without the mod. Added config to use old dome explosions. Updated language files (thank the translators!)"
 }

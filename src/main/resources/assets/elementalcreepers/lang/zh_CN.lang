@@ -22,6 +22,8 @@ entity.elementalcreepers:StoneCreeper.name=石元素爬行者
 entity.elementalcreepers:SolarCreeper.name=太阳爬行者
 entity.elementalcreepers:CakeCreeper.name=蛋糕爬行者
 entity.elementalcreepers:FireworkCreeper.name=烟火爬行者
+entity.elementalcreepers:BigBadCreep.name=核能爬行者
+entity.elementalcreepers:SpringCreeper.name=弹跳爬行者
 
 entity.elementalcreepers:EUCreeper.name=EU充能爬行者
 entity.elementalcreepers:RFCreeper.name=RF充能爬行者
@@ -34,3 +36,4 @@ config.elementalcreepers.spawnRates=爬行者生成几率
 config.elementalcreepers.explosionConfig=爬行者爆炸设定
 config.elementalcreepers.cookies=设定曲奇爬行者掉落曲奇的数量
 config.elementalcreepers.domeEx=开启爬行者环形爆炸范围 (爬行者的爆炸不再会随机破坏周边方块)
+config.elementalcreepers.specialEvents=允许渲染特殊的效果

@@ -16,12 +16,9 @@ public class ECVars {
     public static int reverseCreeperSpawn;
     public static int spiderCreeperSpawn;
 
-    public static int magmaIllusionCreeperSpawn;
     public static int windCreeperSpawn;
     public static int stoneCreeperSpawn;
     public static int enderCreeperSpawn;
-    public static int sandStoneCreeperSpawn;
-    public static int zombieCreeperSpawn;
     public static int euCreeperSpawn;
     public static int rfCreeperSpawn;
     public static int hydrogenCreeperSpawn;
@@ -29,6 +26,8 @@ public class ECVars {
     public static int mjCreeperSpawn;
     public static int cakeCreeperSpawn;
     public static int fireworkCreeperSpawn;
+    public static int bigBadSpawn;
+    public static int springCreeperSpawn;
 
     public static int waterCreeperRadius;
     public static int fireCreeperRadius;
@@ -46,21 +45,17 @@ public class ECVars {
     public static int reverseCreeperRadius;
     public static int spiderCreeperRadius;
 
-    public static int magmaIllusionCreeperRadius;
     public static int windCreeperPower;
     public static int windCreeperRadius;
     public static int stoneCreeperRadius;
-    public static int sandStoneCreeperRadius;
-    public static int zombieCreeperRadius;
     public static int euCreeperRadius;
     public static int rfCreeperRadius;
     public static int hydrogenCreeperRadius;
     public static int mjCreeperRadius;
     public static int fireworkCreeperRadius;
+    public static int bigBadAmount;
+    public static int springCreeperPower;
 
-    public static boolean allowDaySpawn;
     public static boolean domeExplosion;
-
-    public static int specialDay1 = 12, specialMonth1 = 11;
-    public static int specialDay2 = 17, specialMonth2 = 6;
+    public static boolean special;
 }

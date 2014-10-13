@@ -18,7 +18,7 @@ public class EntityFireCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (int) (ECVars.fireCreeperRadius * power) : ECVars.fireCreeperRadius;
+        int radius = getPowered() ? (ECVars.fireCreeperRadius * power) : ECVars.fireCreeperRadius;
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {

@@ -18,6 +18,7 @@ import net.lomeli.ec.lib.Strings;
 @SideOnly(Side.CLIENT)
 public class RenderFriendlyCreeper extends RenderLiving {
     private static final ResourceLocation armoredCreeperTextures = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
+    private ModelFriendlyCreeper creeperModel = new ModelFriendlyCreeper(2f);
 
     public RenderFriendlyCreeper() {
         super(new ModelFriendlyCreeper(), 0.5F);
@@ -113,4 +114,9 @@ public class RenderFriendlyCreeper extends RenderLiving {
         return new ResourceLocation(Strings.MOD_ID.toLowerCase(), ((EntityFriendlyCreeper) entity).tamedTexture());
     }
 
+    @Override
+    protected void renderEquippedItems(EntityLivingBase entity, float rendertick) {
+        super.renderEquippedItems(entity, rendertick);
+        RenderHelper.specialRender(entity, creeperModel, this.renderManager);
+    }
 }

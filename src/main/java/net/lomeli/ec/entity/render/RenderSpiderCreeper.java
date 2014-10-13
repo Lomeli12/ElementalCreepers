@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL11;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -120,4 +121,10 @@ public class RenderSpiderCreeper extends RenderLiving {
         return new ResourceLocation(Strings.MOD_ID.toLowerCase() + ":textures/entities/spidercreeper.png");
     }
 
+
+    @Override
+    protected void renderEquippedItems(EntityLivingBase entity, float rendertick) {
+        super.renderEquippedItems(entity, rendertick);
+        RenderHelper.specialRender(entity, model, this.renderManager);
+    }
 }

@@ -23,7 +23,7 @@ public class EntityStoneCreeper extends EntityBaseCreeper {
     @Override
     public void explosion(int power, boolean flag) {
         genList();
-        int radius = getPowered() ? (int) (ECVars.stoneCreeperRadius * power) : ECVars.stoneCreeperRadius;
+        int radius = getPowered() ? (ECVars.stoneCreeperRadius * power) : ECVars.stoneCreeperRadius;
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {

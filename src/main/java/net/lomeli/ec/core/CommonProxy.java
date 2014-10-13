@@ -7,13 +7,19 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+
+import net.lomeli.ec.ElementalCreepers;
 import net.lomeli.ec.entity.EntityIllusionCreeper;
 
 public class CommonProxy {
     public static FakePlayer ecPlayer;
+    public EventHandler handler;
 
     public void registerEvents() {
-        MinecraftForge.EVENT_BUS.register(new EventHandler());
+        handler = new EventHandler();
+        MinecraftForge.EVENT_BUS.register(handler);
+        FMLCommonHandler.instance().bus().register(ElementalCreepers.config);
     }
 
     public void registerRenders() {
@@ -37,5 +43,6 @@ public class CommonProxy {
         }
     }
 
-    public void spawnPortalParticle(World world, double posX, double posY, double posZ, float r, float g, float b){}
+    public void spawnPortalParticle(World world, double posX, double posY, double posZ, float r, float g, float b) {
+    }
 }

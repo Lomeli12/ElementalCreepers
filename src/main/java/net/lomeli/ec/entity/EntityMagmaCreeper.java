@@ -20,7 +20,7 @@ public class EntityMagmaCreeper extends EntityBaseCreeper {
             if ((int) Math.round(posX + 0.5F) != (int) Math.round(prevPosX + 0.5F) || (int) Math.round(posY) != (int) Math.round(prevPosY) || (int) Math.round(posZ + 0.5F) != (int) Math.round(prevPosZ + 0.5F)) {
                 if (worldObj.isAirBlock((int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ))
                         && Blocks.fire.canPlaceBlockAt(worldObj, (int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ)))
-                    worldObj.setBlock((int)(prevPosX), (int) (Math.round(prevPosY) + 0.5), (int) (prevPosZ), Blocks.fire);
+                    worldObj.setBlock((int) (prevPosX), (int) (Math.round(prevPosY) + 0.5), (int) (prevPosZ), Blocks.fire);
             }
         }
         if (this.isWet())

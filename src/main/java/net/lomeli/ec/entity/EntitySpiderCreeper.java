@@ -20,7 +20,7 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        float radius = getPowered() ? (int) (ECVars.spiderCreeperRadius * power) : ECVars.spiderCreeperRadius;
+        float radius = getPowered() ? (ECVars.spiderCreeperRadius * power) : ECVars.spiderCreeperRadius;
         for (float x = -radius; x <= radius; x++)
             for (float y = -radius; y <= radius; y++)
                 for (float z = -radius; z <= radius; z++) {

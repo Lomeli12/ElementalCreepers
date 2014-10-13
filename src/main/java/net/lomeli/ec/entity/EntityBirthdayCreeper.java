@@ -7,7 +7,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import net.lomeli.ec.ElementalCreepers;
-import net.lomeli.ec.lib.ECVars;
 
 public class EntityBirthdayCreeper extends EntityBaseCreeper {
     private boolean spawnCake;
@@ -21,7 +20,7 @@ public class EntityBirthdayCreeper extends EntityBaseCreeper {
         super.onLivingUpdate();
         int month = Calendar.getInstance().get(Calendar.MONTH);
         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        if (!(month == ECVars.specialMonth1 && day == ECVars.specialDay1) || !(month == ECVars.specialMonth2 && day == ECVars.specialDay2))
+        if (!(month == Calendar.NOVEMBER && day == 12) || !(month == Calendar.MAY && day == 10))
             spawnCake = true;
         else
             spawnCake = false;

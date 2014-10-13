@@ -1,12 +1,15 @@
 package net.lomeli.ec.core;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityList.EntityEggInfo;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.monster.EntityCreeper;
 
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -21,8 +24,10 @@ public class EntityRegistering {
 
     public static Type[] typeList = {Type.FOREST, Type.HILLS, Type.SWAMP, Type.JUNGLE, Type.WASTELAND, Type.MAGICAL, Type.BEACH, Type.SANDY, Type.SNOWY, Type.MOUNTAIN};
     public static int creeperEggGreen = new Color(894731).getRGB();
+    public static List<Class<? extends EntityCreeper>> creeperClassList = new ArrayList<Class<? extends EntityCreeper>>();
 
     public static void loadEntities() {
+        creeperClassList.add(EntityCreeper.class);
         registerEntity(EntityFireCreeper.class, getCreeperName("FireCreeper"), creeperEggGreen, new Color(227, 111, 24).getRGB());
         registerEntity(EntityWaterCreeper.class, getCreeperName("WaterCreeper"), creeperEggGreen, new Color(59, 115, 205).getRGB());
         registerEntity(EntityElectricCreeper.class, getCreeperName("ElectricCreeper"), creeperEggGreen, new Color(251, 234, 57).getRGB());
@@ -33,8 +38,8 @@ public class EntityRegistering {
         registerEntity(EntityMagmaCreeper.class, getCreeperName("MagmaCreeper"), creeperEggGreen, new Color(165, 0, 16).getRGB());
         registerEntity(EntityReverseCreeper.class, getCreeperName("ReverseCreeper"), Color.black.getRGB(), creeperEggGreen);
         registerEntity(EntityIceCreeper.class, getCreeperName("IceCreeper"), creeperEggGreen, Color.white.getRGB());
-        registerEntity(EntityFriendlyCreeper.class, getCreeperName("FriendlyCreeper"), creeperEggGreen, new Color(215, 113, 211).getRGB());
-        registerEntity(EntityGhostCreeper.class, getCreeperName("GhostCreeper"), 99999, 99999);
+        registerEntity(EntityFriendlyCreeper.class, getCreeperName("FriendlyCreeper"), creeperEggGreen, new Color(215, 113, 211).getRGB(), false);
+        registerEntity(EntityGhostCreeper.class, getCreeperName("GhostCreeper"), 99999, 99999, false);
         registerEntity(EntityIllusionCreeper.class, getCreeperName("IllusionCreeper"), creeperEggGreen, new Color(158, 158, 158).getRGB());
         registerEntity(EntityPsyhicCreeper.class, getCreeperName("PsychicCreeper"), creeperEggGreen, new Color(121, 51, 142).getRGB());
         registerEntity(EntitySpiderCreeper.class, getCreeperName("SpiderCreeper"), creeperEggGreen, Color.red.getRGB());
@@ -45,7 +50,9 @@ public class EntityRegistering {
         registerEntity(EntityStoneCreeper.class, getCreeperName("StoneCreeper"), creeperEggGreen, Color.DARK_GRAY.getRGB());
         registerEntity(EntitySolarCreeper.class, getCreeperName("SolarCreeper"), creeperEggGreen, new Color(0, 25, 100).getRGB());
         registerEntity(EntityBirthdayCreeper.class, getCreeperName("CakeCreeper"), creeperEggGreen, new Color(184, 93, 39).getRGB());
-        registerEntity(EntityFireworkCreeper.class, getCreeperName("FireworkCreper"), Color.BLUE.getRGB(), creeperEggGreen);
+        registerEntity(EntityFireworkCreeper.class, getCreeperName("FireworkCreeper"), Color.BLUE.getRGB(), creeperEggGreen);
+        registerEntity(EntityBigBadCreep.class, getCreeperName("BigBadCreep"), creeperEggGreen, creeperEggGreen, false);
+        registerEntity(EntitySpringCreeper.class, getCreeperName("SpringCreeper"), creeperEggGreen, Color.PINK.getRGB());
 
         loadSpawn();
 
@@ -76,6 +83,7 @@ public class EntityRegistering {
         addOverWorldSpawn(EntitySolarCreeper.class, ECVars.solarCreeperSpawn, 1, 1);
         addOverWorldSpawn(EntityBirthdayCreeper.class, ECVars.cakeCreeperSpawn, 1, 3);
         addOverWorldSpawn(EntityFireworkCreeper.class, ECVars.fireworkCreeperSpawn, 1, 3);
+        addOverWorldSpawn(EntityBigBadCreep.class, ECVars.bigBadSpawn, 1, 1);
     }
 
     public static void addOverWorldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max, EnumCreatureType type) {
@@ -102,12 +110,18 @@ public class EntityRegistering {
         return ("elementalcreepers:" + mob);
     }
 
-    @SuppressWarnings("unchecked")
     public static void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
+        registerEntity(entityClass, entityName, bkEggColor, fgEggColor, true);
+    }
+
+    public static void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor, boolean add) {
         int entityID = EntityRegistry.findGlobalUniqueEntityId();
 
         EntityRegistry.registerGlobalEntityID(entityClass, entityName, entityID);
         if (bkEggColor != 99999 && fgEggColor != 99999)
-            EntityList.entityEggs.put(Integer.valueOf(entityID), new EntityEggInfo(entityID, bkEggColor, fgEggColor));
+            EntityList.entityEggs.put(entityID, new EntityEggInfo(entityID, bkEggColor, fgEggColor));
+
+        if (add)
+            creeperClassList.add((Class<? extends EntityCreeper>) entityClass);
     }
 }

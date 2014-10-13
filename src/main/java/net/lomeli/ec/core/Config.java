@@ -25,6 +25,7 @@ public class Config {
     public void loadConfig() {
         ECVars.cookieCreeperAmount = config.getInt("cookiesDropped", Configuration.CATEGORY_GENERAL, 5, 1, 64, StatCollector.translateToLocal(Strings.COOKIE));
         ECVars.domeExplosion = config.getBoolean("domeExplosion", Configuration.CATEGORY_GENERAL, false, StatCollector.translateToLocal(Strings.DOME));
+        ECVars.special = config.getBoolean("special", Configuration.CATEGORY_GENERAL, true, StatCollector.translateToLocal(Strings.SPECIAL));
 
         String cat = "spawn-rates";
 
@@ -52,6 +53,8 @@ public class Config {
         ECVars.solarCreeperSpawn = setGetInt(cat, "solarCreeperSpawn", 4);
         ECVars.cakeCreeperSpawn = setGetInt(cat, "cakeCreeperSpawn", 2);
         ECVars.fireworkCreeperSpawn = setGetInt(cat, "fireworkCreeperSpawn", 8);
+        ECVars.bigBadSpawn = setGetInt(cat, "bigBadSpawn", 1);
+        ECVars.springCreeperSpawn = setGetInt(cat, "springCreeperSpawn", 7);
 
         ECVars.euCreeperSpawn = setGetInt(cat, "euCreeperSpawn", 10);
         ECVars.rfCreeperSpawn = setGetInt(cat, "rfCreeperSpawn", 10);
@@ -81,6 +84,8 @@ public class Config {
         ECVars.hydrogenCreeperRadius = setGetInt(cat, "hydrogenCreeperRadius", 64);
         ECVars.stoneCreeperRadius = setGetInt(cat, "stoneCreeperRadius", 8);
         ECVars.fireworkCreeperRadius = setGetInt(cat, "fireworkCreeperRadius", 5);
+        ECVars.bigBadAmount = setGetInt(cat, "bigBadAmount", 7);
+        ECVars.springCreeperPower = setGetInt(cat, "springCreeperPower", 3);
 
         ECVars.euCreeperRadius = setGetInt(cat, "euCreeperRadius", 3);
         ECVars.rfCreeperRadius = setGetInt(cat, "rfCreeperRadius", 3);

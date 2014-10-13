@@ -27,7 +27,7 @@ public class EntityDarkCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (int) (ECVars.darkCreeperRadius * power) : ECVars.darkCreeperRadius;
+        int radius = getPowered() ? (ECVars.darkCreeperRadius * power) : ECVars.darkCreeperRadius;
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {

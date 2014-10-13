@@ -58,10 +58,14 @@ public class EntityFriendlyCreeper extends EntityTameable {
     public void onUpdate() {
         if (this.isEntityAlive()) {
             this.lastActiveTime = this.timeSinceIgnited;
+
+            if (this.func_146078_ca())
+                this.setCreeperState(1);
+
             int i = this.getCreeperState();
 
             if (i > 0 && this.timeSinceIgnited == 0)
-                this.playSound("random.fuse", 1.0F, 0.5F);
+                this.playSound("creeper.primed", 1.0F, 0.5F);
 
             this.timeSinceIgnited += i;
 
@@ -70,7 +74,6 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
             if (this.timeSinceIgnited >= this.fuseTime) {
                 this.timeSinceIgnited = this.fuseTime;
-
                 if (!this.worldObj.isRemote) {
                     boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
                     this.doFriendlyExplosion((float) this.explosionRadius * (this.getPowered() ? 2 : 1), flag);
@@ -82,7 +85,6 @@ public class EntityFriendlyCreeper extends EntityTameable {
             }
         }
         if (isSitting()) this.rotationPitch = 45.0F;
-
         super.onUpdate();
 
         this.field_70924_f = this.field_70926_e;
@@ -394,6 +396,10 @@ public class EntityFriendlyCreeper extends EntityTameable {
             }
         }
         return super.interact(player);
+    }
+
+    public boolean func_146078_ca() {
+        return this.dataWatcher.getWatchableObjectByte(18) != 0;
     }
 
     @SideOnly(Side.CLIENT)

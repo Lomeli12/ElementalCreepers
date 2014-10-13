@@ -21,7 +21,7 @@ entity.elementalcreepers:EnderCreeper.name=末影爬行者
 entity.elementalcreepers:StoneCreeper.name=石元素爬行者
 entity.elementalcreepers:SolarCreeper.name=太阳爬行者
 entity.elementalcreepers:CakeCreeper.name=蛋糕爬行者
-entity.elementalcreepers:FireworkCreper.name=烟火爬行者
+entity.elementalcreepers:FireworkCreeper.name=烟火爬行者
 
 entity.elementalcreepers:EUCreeper.name=EU充能爬行者
 entity.elementalcreepers:RFCreeper.name=RF充能爬行者

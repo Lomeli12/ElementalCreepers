@@ -2,7 +2,6 @@ package net.lomeli.ec;
 
 import net.minecraftforge.common.config.Configuration;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -29,14 +28,12 @@ public class ElementalCreepers {
         config = new Config(new Configuration(event.getSuggestedConfigurationFile()));
         config.loadConfig();
         VersionChecker.checkForUpdates();
-        FMLCommonHandler.instance().bus().register(new VersionChecker());
     }
 
     @Mod.EventHandler
     public void Init(FMLInitializationEvent event) {
         proxy.registerRenders();
         proxy.registerEvents();
-        FMLCommonHandler.instance().bus().register(config);
         EntityRegistering.loadEntities();
     }
 

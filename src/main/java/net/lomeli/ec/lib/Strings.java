@@ -1,7 +1,7 @@
 package net.lomeli.ec.lib;
 
 public class Strings {
-    public static final int MAJOR = 4, MINOR = 2, REVISION = 2;
+    public static final int MAJOR = 4, MINOR = 2, REVISION = 3;
     public static final String VERSION = MAJOR + "." + MINOR + "." + REVISION;
     public static final String MOD_ID = "ElementalCreepers", MOD_NAME = "Elemental Creepers";
     public static final String CORE = "net.lomeli.ec.core", CLIENT = CORE + ".ClientProxy", COMMON = CORE + ".CommonProxy";
@@ -17,4 +17,5 @@ public class Strings {
     public static final String EXPLOSION = CONFIG + "explosionConfig";
     public static final String COOKIE = CONFIG + "cookies";
     public static final String DOME = CONFIG + "domeEx";
+    public static final String SPECIAL = CONFIG + "specialEvents";
 }

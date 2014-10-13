@@ -21,7 +21,7 @@ entity.elementalcreepers:EnderCreeper.name=Creeper do Fim
 entity.elementalcreepers:StoneCreeper.name=Creeper de Pedra
 entity.elementalcreepers:SolarCreeper.name=Creeper Solar
 entity.elementalcreepers:CakeCreeper.name=Creeper de Bolo
-entity.elementalcreepers:FireworkCreper.name=Creeper Fogo de Artifício
+entity.elementalcreepers:FireworkCreeper.name=Creeper Fogo de Artifício
 
 entity.elementalcreepers:EUCreeper.name=Creeper EU
 entity.elementalcreepers:RFCreeper.name=Creeper do Fluxo

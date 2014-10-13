@@ -21,7 +21,7 @@ entity.elementalcreepers:EnderCreeper.name=Крипер Края
 entity.elementalcreepers:StoneCreeper.name=Каменный крипер
 entity.elementalcreepers:SolarCreeper.name=Солнечный крипер
 entity.elementalcreepers:CakeCreeper.name=Тортиковый крипер
-entity.elementalcreepers:FireworkCreper.name=Фейерверковый крипер
+entity.elementalcreepers:FireworkCreeper.name=Фейерверковый крипер
 
 entity.elementalcreepers:EUCreeper.name=EU-крипер
 entity.elementalcreepers:RFCreeper.name=Флаксовый крипер

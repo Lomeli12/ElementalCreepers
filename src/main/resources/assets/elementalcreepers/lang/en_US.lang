@@ -21,7 +21,9 @@ entity.elementalcreepers:EnderCreeper.name=Ender Creeper
 entity.elementalcreepers:StoneCreeper.name=Stone Creeper
 entity.elementalcreepers:SolarCreeper.name=Solar Creeper
 entity.elementalcreepers:CakeCreeper.name=Cake Creeper
-entity.elementalcreepers:FireworkCreper.name=Firework Creeper
+entity.elementalcreepers:FireworkCreeper.name=Firework Creeper
+entity.elementalcreepers:BigBadCreep.name=Big Bad Creep
+entity.elementalcreepers:SpringCreeper.name=Spring Creeper
 
 entity.elementalcreepers:EUCreeper.name=EU Creeper
 entity.elementalcreepers:RFCreeper.name=Flux Creeper
@@ -34,3 +36,4 @@ config.elementalcreepers.spawnRates=Creeper Spawn Rates
 config.elementalcreepers.explosionConfig=Creeper Explosion Config
 config.elementalcreepers.cookies=The number of cookies a Cookie Creeper drops
 config.elementalcreepers.domeEx=Enable dome explosions (instead of random block placement explosions)
+config.elementalcreepers.specialEvents=Allows special rendering during certain events.

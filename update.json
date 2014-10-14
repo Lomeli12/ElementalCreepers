@@ -1,8 +1,8 @@
 {
     "major" : 4,
     "minor" : 2,
-    "revision" : 2,
-    "downloadURL" : "http://files.lomeli12.net/MinecraftMods/ElementalCreepers/Elemental%20Creepers-universal_1.7.10-4.2.2.jar",
-    "direct" : true,
-    "changeLog" : "Fix crash when joining server without the mod. Added config to use old dome explosions. Updated language files (thank the translators!)"
+    "revision" : 3,
+    "downloadURL" : "http://minecraft.curseforge.com/mc-mods/71270-elemental-creepers/files/2216691",
+    "direct" : false,
+    "changeLog" : "New creepers and various other changes!"
 }

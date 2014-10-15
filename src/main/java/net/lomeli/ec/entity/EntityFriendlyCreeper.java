@@ -59,7 +59,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
         if (this.isEntityAlive()) {
             this.lastActiveTime = this.timeSinceIgnited;
 
-            if (this.func_146078_ca())
+            if (this.isIgnited())
                 this.setCreeperState(1);
 
             int i = this.getCreeperState();
@@ -156,6 +156,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
         super.entityInit();
         this.dataWatcher.addObject(20, Byte.valueOf((byte) -1));
         this.dataWatcher.addObject(21, Byte.valueOf((byte) 0));
+        this.dataWatcher.addObject(22, Byte.valueOf((byte) 0));
         this.dataWatcher.addObject(18, new Float(this.getHealth()));
         this.dataWatcher.addObject(19, new Byte((byte) 0));
     }
@@ -205,6 +206,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
         nbt.setShort("Fuse", (short) this.fuseTime);
         nbt.setByte("ExplosionRadius", (byte) this.explosionRadius);
+        nbt.setBoolean("ignited", this.isIgnited());
     }
 
     public void readEntityFromNBT(NBTTagCompound nbt) {
@@ -217,6 +219,9 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
         if (nbt.hasKey("ExplosionRadius"))
             this.explosionRadius = nbt.getByte("ExplosionRadius");
+
+        if (nbt.hasKey("ignited") && nbt.getBoolean("ignited"))
+            this.setIgnited();
     }
 
     public boolean getPowered() {
@@ -350,8 +355,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
                         return true;
                     }
-                }
-                if (stack.getItem() instanceof ItemArmor) {
+                } else if (stack.getItem() instanceof ItemArmor) {
                     int slot = ((ItemArmor) stack.getItem()).armorType + 1;
                     if (slot >= 1 || slot <= 4) {
                         if (this.getEquipmentInSlot(slot) != null) {
@@ -372,7 +376,15 @@ public class EntityFriendlyCreeper extends EntityTameable {
             }
         } else {
             if (stack != null && stack.getItem() != null) {
-                if (stack.getItem() == Items.gunpowder && !this.isAngry()) {
+                if (stack.getItem() == Items.flint_and_steel) {
+                    this.worldObj.playSoundEffect(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, "fire.ignite", 1.0F, this.rand.nextFloat() * 0.4F + 0.8F);
+                    player.swingItem();
+                    if (!worldObj.isRemote) {
+                        this.setIgnited();
+                        stack.damageItem(1, player);
+                    }
+                    return true;
+                } else if (stack.getItem() == Items.gunpowder && !this.isAngry()) {
                     if (!player.capabilities.isCreativeMode)
                         --stack.stackSize;
                     if (stack.stackSize <= 0)
@@ -398,8 +410,12 @@ public class EntityFriendlyCreeper extends EntityTameable {
         return super.interact(player);
     }
 
-    public boolean func_146078_ca() {
-        return this.dataWatcher.getWatchableObjectByte(18) != 0;
+    public boolean isIgnited() {
+        return this.dataWatcher.getWatchableObjectByte(22) != 0;
+    }
+
+    public void setIgnited() {
+        this.dataWatcher.updateObject(22, (byte) 1);
     }
 
     @SideOnly(Side.CLIENT)

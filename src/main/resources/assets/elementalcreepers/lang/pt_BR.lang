@@ -22,6 +22,8 @@ entity.elementalcreepers:StoneCreeper.name=Creeper de Pedra
 entity.elementalcreepers:SolarCreeper.name=Creeper Solar
 entity.elementalcreepers:CakeCreeper.name=Creeper de Bolo
 entity.elementalcreepers:FireworkCreeper.name=Creeper Fogo de Artifício
+entity.elementalcreepers:BigBadCreep.name=Creeper Gigante
+entity.elementalcreepers:SpringCreeper.name=Creeper Mola
 
 entity.elementalcreepers:EUCreeper.name=Creeper EU
 entity.elementalcreepers:RFCreeper.name=Creeper do Fluxo

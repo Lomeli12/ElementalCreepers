@@ -1,5 +1,7 @@
 package net.lomeli.ec.entity;
 
+import com.google.common.base.Predicate;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -17,8 +19,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import net.lomeli.ec.core.EntityRegistering;
 import net.lomeli.ec.entity.ai.EntityAIBigBadSwell;
@@ -36,12 +38,20 @@ public class EntityBigBadCreep extends EntityMob {
         super(world);
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIBigBadSwell(this));
-        this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
+        this.tasks.addTask(3, new EntityAIAvoidEntity(this, new Predicate() {
+            public boolean func_179958_a(Entity p_179958_1_) {
+                return p_179958_1_ instanceof EntityOcelot;
+            }
+
+            public boolean apply(Object p_apply_1_) {
+                return this.func_179958_a((Entity) p_apply_1_);
+            }
+        }, 6.0F, 1.0D, 1.2D));
         this.tasks.addTask(4, new EntityAIAttackOnCollide(this, 1.0D, false));
         this.tasks.addTask(5, new EntityAIWander(this, 0.8D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(6, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+        this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
         this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
         this.setSize(this.width * 6, this.height * 6);
     }
@@ -53,11 +63,6 @@ public class EntityBigBadCreep extends EntityMob {
     }
 
     @Override
-    public boolean isAIEnabled() {
-        return true;
-    }
-
-    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, Byte.valueOf((byte) -1));
@@ -66,14 +71,9 @@ public class EntityBigBadCreep extends EntityMob {
     }
 
     @Override
-    public int getMaxSafePointTries() {
-        return this.getAttackTarget() == null ? 3 : 3 + (int) (this.getHealth() - 1.0F);
-    }
-
-    @Override
-    protected void fall(float par1) {
-        super.fall(par1);
-        this.timeSinceIgnited = (int) (this.timeSinceIgnited + par1 * 1.5F);
+    public void fall(float distance, float damageMultiplier) {
+        super.fall(distance, damageMultiplier);
+        this.timeSinceIgnited = (int) (this.timeSinceIgnited + distance * 1.5F);
 
         if (this.timeSinceIgnited > this.fuseTime - 5)
             this.timeSinceIgnited = this.fuseTime - 5;

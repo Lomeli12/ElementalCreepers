@@ -8,6 +8,7 @@ import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 import net.lomeli.ec.lib.ECVars;
@@ -24,19 +25,20 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
         for (float x = -radius; x <= radius; x++)
             for (float y = -radius; y <= radius; y++)
                 for (float z = -radius; z <= radius; z++) {
-                    if (rand.nextInt(100) < 2 && worldObj.isAirBlock((int) (posX + x), (int) (posY + y), (int) (posZ + z)))
-                        worldObj.setBlock((int) (posX + x), (int) (posY + y), (int) (posZ + z), Blocks.web);
+                    BlockPos pos = new BlockPos((int) (posX + x), (int) (posY + y), (int) (posZ + z));
+                    if (rand.nextInt(100) < 2 && worldObj.isAirBlock(pos))
+                        worldObj.setBlockState(pos, Blocks.web.getDefaultState());
                 }
 
         @SuppressWarnings("unchecked")
-        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(radius, radius, radius));
+        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(radius, radius, radius));
 
         byte difficulty = 0;
-        if (this.worldObj.difficultySetting.getDifficultyId() == 1)
+        if (this.worldObj.getDifficulty().getDifficultyId() == 1)
             difficulty = 7;
-        else if (this.worldObj.difficultySetting.getDifficultyId() == 2)
+        else if (this.worldObj.getDifficulty().getDifficultyId() == 2)
             difficulty = 10;
-        else if (this.worldObj.difficultySetting.getDifficultyId() == 3)
+        else if (this.worldObj.getDifficulty().getDifficultyId() == 3)
             difficulty = 15;
 
         if (difficulty > 0) {
@@ -77,17 +79,6 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
             b0 &= -2;
 
         this.dataWatcher.updateObject(20, Byte.valueOf(b0));
-    }
-
-    @Override
-    protected Entity findPlayerToAttack() {
-        float f = this.getBrightness(1.0F);
-
-        if (f < 0.5F) {
-            double d0 = 16.0D;
-            return this.worldObj.getClosestVulnerablePlayerToEntity(this, d0);
-        } else
-            return null;
     }
 
     @Override

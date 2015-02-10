@@ -7,14 +7,14 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S04PacketEntityEquipment;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
 import net.minecraftforge.common.ForgeHooks;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class EntityBaseCreeper extends EntityCreeper {
 
@@ -23,7 +23,6 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
     protected int fuseTime = 30;
     protected int explosionRadius = 3;
     protected boolean explosionSound;
-    protected boolean startIgnight;
 
     public EntityBaseCreeper(World par1World) {
         this(par1World, true);
@@ -35,8 +34,8 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
     }
 
     @Override
-    protected void fall(float par1) {
-        super.fall(par1);
+    public void fall(float par1, float par2) {
+        super.fall(par1, par2);
         this.timeSinceIgnited = (int) (this.timeSinceIgnited + par1 * 1.5F);
 
         if (this.timeSinceIgnited > this.fuseTime - 5)
@@ -93,7 +92,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
                 ItemStack itemstack1 = this.getEquipmentInSlot(j);
 
                 if (!ItemStack.areItemStacksEqual(itemstack1, itemstack)) {
-                    ((WorldServer) this.worldObj).getEntityTracker().func_151247_a(this, new S04PacketEntityEquipment(this.getEntityId(), j, itemstack1));
+                    ((WorldServer) this.worldObj).getEntityTracker().sendToAllTrackingEntity(this, new S04PacketEntityEquipment(this.getEntityId(), j, itemstack1));
 
                     if (itemstack != null)
                         this.getAttributeMap().removeAttributeModifiers(itemstack.getAttributeModifiers());
@@ -106,7 +105,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
             }
 
             if (this.ticksExisted % 20 == 0)
-                this.func_110142_aN().func_94549_h();
+                this.getCombatTracker().func_94549_h();
         }
 
         this.onLivingUpdate();
@@ -174,7 +173,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
         if (!this.worldObj.isRemote)
             this.updateLeashedState();
 
-        if (!this.worldObj.isRemote && this.worldObj.difficultySetting == EnumDifficulty.PEACEFUL)
+        if (!this.worldObj.isRemote && this.worldObj.getDifficulty() == EnumDifficulty.PEACEFUL)
             this.setDead();
     }
 
@@ -249,9 +248,10 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {
-                    if (block.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z) && Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)) <= radius) {
+                    BlockPos pos = new BlockPos((int) posX + x, (int) posY + y, (int) posZ + z);
+                    if (block.canPlaceBlockAt(worldObj, pos) && Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)) <= radius) {
                         if (rand.nextInt(4) < 3)//
-                            worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, block, meta, 2);
+                            worldObj.setBlockState(pos, block.getStateFromMeta(meta), 2);
                     }
                 }
 
@@ -265,10 +265,10 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {
-                    if (block.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z)
-                            && !block.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y - 1, (int) posZ + z)) {
+                    BlockPos pos = new BlockPos((int) posX + x, (int) posY + y, (int) posZ + z);
+                    if (block.canPlaceBlockAt(worldObj, pos) && !block.canPlaceBlockAt(worldObj, new BlockPos((int) posX + x, (int) posY + y - 1, (int) posZ + z))) {
                         if (rand.nextBoolean())
-                            worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, block, meta, 2);
+                            worldObj.setBlockState(pos, block.getStateFromMeta(meta), 2);
                     }
                 }
     }

@@ -1,11 +1,14 @@
 package net.lomeli.ec.entity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
@@ -27,12 +30,15 @@ public class EntityStoneCreeper extends EntityBaseCreeper {
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {
-                    Block bk = worldObj.getBlock((int) posX + x, (int) posY + y, (int) posZ + z);
-                    int meta = this.worldObj.getBlockMetadata((int) posX + x, (int) posY + y, (int) posZ + z);
-                    if (bk != null && this.blockList.contains(bk) && Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)) <= radius) {
-                        bk.dropBlockAsItem(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z, meta, 0);
-                        worldObj.setBlockToAir((int) posX + x, (int) posY + y, (int) posZ + z);
-                        bk.onBlockDestroyedByExplosion(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z, new Explosion(worldObj, this, 0.0D, 0.0D, 0.0D, 0.0F));
+                    BlockPos pos = new BlockPos((int) posX + x, (int) posY + y, (int) posZ + z);
+                    IBlockState blockState = worldObj.getBlockState(pos);
+                    if (blockState != null && blockState.getBlock() != null) {
+                        Block bk = blockState.getBlock();
+                        if (bk != null && this.blockList.contains(bk) && Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)) <= radius) {
+                            bk.dropBlockAsItem(worldObj, pos, blockState, 0);
+                            worldObj.setBlockToAir(pos);
+                            bk.onBlockDestroyedByExplosion(worldObj, pos, new Explosion(worldObj, this, 0.0D, 0.0D, 0.0D, 0.0F, Collections.emptyList()));
+                        }
                     }
                 }
     }

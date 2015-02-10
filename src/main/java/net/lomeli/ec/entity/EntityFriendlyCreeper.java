@@ -1,5 +1,7 @@
 package net.lomeli.ec.entity;
 
+import com.google.common.base.Predicate;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.Entity;
@@ -20,8 +22,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import net.lomeli.ec.entity.ai.EntityAIFriendlyCreeperSwell;
 import net.lomeli.ec.entity.explosion.ExplosionFriendly;
@@ -38,11 +40,20 @@ public class EntityFriendlyCreeper extends EntityTameable {
     public EntityFriendlyCreeper(World world) {
         super(world);
         this.setSize(0.75F, 2.0F);
-        this.getNavigator().setAvoidsWater(true);
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, this.aiSit);
         this.tasks.addTask(3, new EntityAIFriendlyCreeperSwell(this));
-        this.tasks.addTask(4, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 0.25F, 0.3F));
+        this.tasks.addTask(3, new EntityAIAvoidEntity(this, new Predicate() {
+            private static final String __OBFID = "CL_00002224";
+
+            public boolean apply(Entity entity) {
+                return entity instanceof EntityOcelot;
+            }
+
+            public boolean apply(Object p_apply_1_) {
+                return this.apply((Entity) p_apply_1_);
+            }
+        }, 6.0F, 1.0D, 1.2D));
         this.tasks.addTask(5, new EntityAIAttackOnCollide(this, 1.0D, true));
         this.tasks.addTask(6, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
         this.tasks.addTask(7, new EntityAIMate(this, 1.0D));
@@ -94,8 +105,8 @@ public class EntityFriendlyCreeper extends EntityTameable {
         else
             this.field_70926_e += (0.0F - this.field_70926_e) * 0.4F;
 
-        if (this.func_70922_bv())
-            this.numTicksToChaseTarget = 10;
+        //if (this.func_70922_bv())
+        //    this.numTicksToChaseTarget = 10;
     }
 
     public void doFriendlyExplosion(float explodePower, boolean flag) {
@@ -115,11 +126,6 @@ public class EntityFriendlyCreeper extends EntityTameable {
             this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
         else
             this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
-    }
-
-    @Override
-    protected boolean isAIEnabled() {
-        return true;
     }
 
     public void setAttackTarget(EntityLivingBase p_70624_1_) {
@@ -164,9 +170,9 @@ public class EntityFriendlyCreeper extends EntityTameable {
     @Override
     public EntityAgeable createChild(EntityAgeable entityAgeable) {
         EntityFriendlyCreeper entity = new EntityFriendlyCreeper(this.worldObj);
-        String s = this.func_152113_b();
+        String s = this.getOwnerId();
         if (s != null && s.trim().length() > 0) {
-            entity.func_152115_b(s);
+            entity.setOwnerId(s);
             entity.setTamed(true);
         }
 
@@ -265,7 +271,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
     }
 
     public boolean attackEntityFrom(DamageSource par1DamageSource, int par2) {
-        if (this.isEntityInvulnerable())
+        if (this.isEntityInvulnerable(par1DamageSource))
             return false;
         else {
             Entity entity = par1DamageSource.getEntity();
@@ -302,9 +308,6 @@ public class EntityFriendlyCreeper extends EntityTameable {
             this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
     }
 
-    public void setOwnerByID(String p_152115_1_) {
-        this.dataWatcher.updateObject(17, p_152115_1_);
-    }
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
@@ -334,7 +337,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
     }
 
     public boolean isOwner(EntityLivingBase entityLivingBase) {
-        return entityLivingBase == this.getOwner();
+        return entityLivingBase == this.getOwnerEntity();
     }
 
     @Override
@@ -348,7 +351,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
                         if (!player.capabilities.isCreativeMode)
                             --stack.stackSize;
 
-                        this.heal(itemfood.func_150906_h(stack));
+                        this.heal(itemfood.getHealAmount(stack));
 
                         if (stack.stackSize <= 0)
                             player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
@@ -370,9 +373,8 @@ public class EntityFriendlyCreeper extends EntityTameable {
             if (isOwner(player) && !worldObj.isRemote && !isBreedingItem(stack)) {
                 this.aiSit.setSitting(!this.isSitting());
                 this.isJumping = false;
-                this.setPathToEntity(null);
-                this.setTarget(null);
                 this.setAttackTarget(null);
+                this.setRevengeTarget(null);
             }
         } else {
             if (stack != null && stack.getItem() != null) {
@@ -392,11 +394,10 @@ public class EntityFriendlyCreeper extends EntityTameable {
                     if (!worldObj.isRemote) {
                         if (this.rand.nextInt(3) == 0) {
                             this.setTamed(true);
-                            this.setPathToEntity(null);
                             this.setAttackTarget(null);
                             this.aiSit.setSitting(true);
                             this.setHealth(20.0F);
-                            this.setOwnerByID(player.getUniqueID().toString());
+                            this.setOwnerId(player.getUniqueID().toString());
                             this.playTameEffect(true);
                             this.worldObj.setEntityState(this, (byte) 7);
                         } else {

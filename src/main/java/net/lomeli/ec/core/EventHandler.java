@@ -8,8 +8,7 @@ import net.minecraft.util.DamageSource;
 
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import net.lomeli.ec.entity.EntityFriendlyCreeper;
 import net.lomeli.ec.entity.EntityGhostCreeper;
@@ -26,7 +25,7 @@ public class EventHandler {
             if (entity instanceof EntitySpringCreeper) {
                 EntitySpringCreeper creeper = (EntitySpringCreeper) entity;
                 if (source == DamageSource.fall && creeper.isSprung() && !creeper.worldObj.isRemote) {
-                    creeper.worldObj.createExplosion(creeper, creeper.posX, creeper.posY, creeper.posZ, creeper.getExplosionRadius(), creeper.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"));
+                    creeper.worldObj.createExplosion(creeper, creeper.posX, creeper.posY - 2, creeper.posZ, creeper.getExplosionRadius() * ((event.ammount < 6 ? 6 : event.ammount) / 6), creeper.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"));
                     creeper.setDead();
                 }
             }

@@ -19,7 +19,7 @@ public class EntityElectricCreeper extends EntityBaseCreeper {
     @Override
     public void explosion(int power, boolean flag) {
         int radius = getPowered() ? (int) (ECVars.electricCreeperRadius * 1.5F) : ECVars.electricCreeperRadius;
-        List<?> entityList = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX + 1.0D, posY + 1.0D, posZ + 1.0D).expand(radius, radius, radius));
+        List<?> entityList = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.fromBounds(posX, posY, posZ, posX + 1.0D, posY + 1.0D, posZ + 1.0D).expand(radius, radius, radius));
         for (int i = 0; i < entityList.size(); i++) {
             EntityLivingBase entity = (EntityLivingBase) entityList.get(i);
             if (entity != null && !(entity instanceof IMob)) {

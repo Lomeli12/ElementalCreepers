@@ -1,7 +1,9 @@
 package net.lomeli.ec.entity;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 import net.lomeli.ec.lib.ECVars;
@@ -19,9 +21,9 @@ public class EntityIceCreeper extends EntityBaseCreeper {
             for (int i = 0; i < 4; i++) {
                 if ((int) Math.round(posX + 0.5F) != (int) Math.round(prevPosX + 0.5F) || (int) Math.round(posY) != (int) Math.round(prevPosY)
                         || (int) Math.round(posZ + 0.5F) != (int) Math.round(prevPosZ + 0.5F)) {
-                    if (worldObj.isAirBlock((int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ))
-                            && Blocks.snow_layer.canPlaceBlockAt(worldObj, (int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ)))
-                        worldObj.setBlock((int) (prevPosX), (int) (prevPosY + 0.5), (int) (prevPosZ), Blocks.snow_layer);
+                    BlockPos pos = new BlockPos((int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ));
+                    if (worldObj.isAirBlock(pos) && Blocks.snow_layer.canPlaceBlockAt(worldObj, pos))
+                        worldObj.setBlockState(pos, Blocks.snow_layer.getDefaultState());
                 }
             }
         }
@@ -33,11 +35,15 @@ public class EntityIceCreeper extends EntityBaseCreeper {
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {
-                    Block block = worldObj.getBlock((int) posX + x, (int) posY + y, (int) posZ + z);
-                    if (block == Blocks.water || block == Blocks.flowing_water)
-                        worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.ice);
-                    else if (block == Blocks.lava || block == Blocks.flowing_lava)
-                        worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.obsidian);
+                    BlockPos pos = new BlockPos((int) posX + x, (int) posY + y, (int) posZ + z);
+                    IBlockState state = worldObj.getBlockState(pos);
+                    if (state != null && state.getBlock() != null) {
+                        Block block = state.getBlock();
+                        if (block == Blocks.water || block == Blocks.flowing_water)
+                            worldObj.setBlockState(pos, Blocks.ice.getDefaultState());
+                        else if (block == Blocks.lava || block == Blocks.flowing_lava)
+                            worldObj.setBlockState(pos, Blocks.obsidian.getDefaultState());
+                    }
                 }
         if (ECVars.domeExplosion)
             this.domeExplosion(radius, Blocks.snow);
@@ -45,11 +51,12 @@ public class EntityIceCreeper extends EntityBaseCreeper {
             for (int x = -radius; x <= radius; x++)
                 for (int y = -radius; y <= radius; y++)
                     for (int z = -radius; z <= radius; z++) {
-                        if (Blocks.dirt.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z) && !Blocks.dirt.canPlaceBlockAt(worldObj, (int) posX + x, (int) posY + y - 1, (int) posZ + z)) {
+                        BlockPos pos = new BlockPos((int) posX + x, (int) posY + y, (int) posZ + z);
+                        if (Blocks.dirt.canPlaceBlockAt(worldObj, pos) && !Blocks.dirt.canPlaceBlockAt(worldObj, new BlockPos((int) posX + x, (int) posY + y - 1, (int) posZ + z))) {
                             if (rand.nextBoolean())
-                                worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.snow_layer);
+                                worldObj.setBlockState(pos, Blocks.snow_layer.getDefaultState());
                             else
-                                worldObj.setBlock((int) posX + x, (int) posY + y, (int) posZ + z, Blocks.snow);
+                                worldObj.setBlockState(pos, Blocks.snow.getDefaultState());
                         }
                     }
         }

@@ -4,24 +4,18 @@ import net.minecraft.util.StatCollector;
 
 import net.minecraftforge.common.config.Configuration;
 
-import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.lomeli.lomlib.util.SimpleConfig;
 
-import net.lomeli.ec.ElementalCreepers;
 import net.lomeli.ec.lib.ECVars;
 import net.lomeli.ec.lib.Strings;
 
-public class Config {
-    private Configuration config;
+public class Config extends SimpleConfig {
 
     public Config(Configuration config) {
-        this.config = config;
+        super(Strings.MOD_ID, config);
     }
 
-    public Configuration getConfig() {
-        return config;
-    }
-
+    @Override
     public void loadConfig() {
         ECVars.cookieCreeperAmount = config.getInt("cookiesDropped", Configuration.CATEGORY_GENERAL, 5, 1, 64, StatCollector.translateToLocal(Strings.COOKIE));
         ECVars.domeExplosion = config.getBoolean("domeExplosion", Configuration.CATEGORY_GENERAL, false, StatCollector.translateToLocal(Strings.DOME));
@@ -85,7 +79,7 @@ public class Config {
         ECVars.stoneCreeperRadius = setGetInt(cat, "stoneCreeperRadius", 8);
         ECVars.fireworkCreeperRadius = setGetInt(cat, "fireworkCreeperRadius", 5);
         ECVars.bigBadAmount = setGetInt(cat, "bigBadAmount", 7);
-        ECVars.springCreeperPower = setGetInt(cat, "springCreeperPower", 3);
+        ECVars.springCreeperPower = setGetInt(cat, "springCreeperPower", 2);
 
         ECVars.euCreeperRadius = setGetInt(cat, "euCreeperRadius", 3);
         ECVars.rfCreeperRadius = setGetInt(cat, "rfCreeperRadius", 3);
@@ -97,11 +91,5 @@ public class Config {
 
     private int setGetInt(String cat, String tag, int id) {
         return config.getInt(tag, cat, id, 0, 100, "");
-    }
-
-    @SubscribeEvent
-    public void onConfigChange(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-        if (eventArgs.modID.equalsIgnoreCase(Strings.MOD_ID))
-            ElementalCreepers.config.loadConfig();
     }
 }

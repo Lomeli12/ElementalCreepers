@@ -1,6 +1,10 @@
 package net.lomeli.ec.entity;
 
+import java.util.Collections;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -17,9 +21,8 @@ public class EntityDarkCreeper extends EntityBaseCreeper {
     public void onLivingUpdate() {
         if (this.worldObj.isDaytime() && !this.worldObj.isRemote && !this.isChild()) {
             float f = this.getBrightness(1.0F);
-
             if (f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F
-                    && this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) && !this.getPowered())
+                    && this.worldObj.canSeeSky(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ))) && !this.getPowered())
                 this.setFire(8);
         }
         super.onLivingUpdate();
@@ -31,11 +34,15 @@ public class EntityDarkCreeper extends EntityBaseCreeper {
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {
-                    Block id = worldObj.getBlock((int) posX + x, (int) posY + y, (int) posZ + z);
-                    if (id != null && id.getLightValue() > 0.5F) {
-                        id.dropBlockAsItem(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z, worldObj.getBlockMetadata((int) posX + x, (int) posY + y, (int) posZ + z), 0);
-                        worldObj.setBlockToAir((int) posX + x, (int) posY + y, (int) posZ + z);
-                        id.onBlockDestroyedByExplosion(worldObj, (int) posX + x, (int) posY + y, (int) posZ + z, new Explosion(worldObj, this, 0.0D, 0.0D, 0.0D, 0.0F));
+                    BlockPos pos = new BlockPos((int) posX + x, (int) posY + y, (int) posZ + z);
+                    IBlockState state = worldObj.getBlockState(pos);
+                    if (state != null && state.getBlock() != null) {
+                        Block block = state.getBlock();
+                        if (block != null && block.getLightValue() > 0.5F) {
+                            block.dropBlockAsItem(worldObj, pos, state, 0);
+                            worldObj.setBlockToAir(pos);
+                            block.onBlockDestroyedByExplosion(worldObj, pos, new Explosion(worldObj, this, 0d, 0d, 0d, 0f, Collections.emptyList()));
+                        }
                     }
                 }
     }

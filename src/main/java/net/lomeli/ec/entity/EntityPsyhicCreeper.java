@@ -24,7 +24,6 @@ public class EntityPsyhicCreeper extends EntityBaseCreeper {
         explosion.isFlaming = false;
         explosion.isSmoking = flag;
         explosion.doExplosionA();
-        explosion.doExplosionB(true);
         return explosion;
     }
 }

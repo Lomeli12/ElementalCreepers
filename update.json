@@ -1,8 +1,10 @@
 {
-    "major" : 4,
-    "minor" : 2,
-    "revision" : 4,
+    "major" : 5,
+    "minor" : 0,
+    "revision" : 0,
     "downloadURL" : "http://minecraft.curseforge.com/mc-mods/71270-elemental-creepers/files/2216738",
     "direct" : false,
-    "changeLog" : "Fixed friendly creeper crash"
+    "changeLog" : [
+      "Update to 1.8"
+    ]
 }

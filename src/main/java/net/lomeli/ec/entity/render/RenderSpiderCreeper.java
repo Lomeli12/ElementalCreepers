@@ -1,130 +1,63 @@
 package net.lomeli.ec.entity.render;
 
-import org.lwjgl.opengl.GL11;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
+import net.lomeli.lomlib.util.ResourceUtil;
+
+import net.lomeli.ec.entity.EntityBaseCreeper;
 import net.lomeli.ec.entity.model.ModelSpiderCreeper;
 import net.lomeli.ec.lib.Strings;
 
 public class RenderSpiderCreeper extends RenderLiving {
-    private static final ResourceLocation armoredCreeperTextures = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
-    private ModelSpiderCreeper model = new ModelSpiderCreeper(2f);
-
     public RenderSpiderCreeper() {
-        super(new ModelSpiderCreeper(), 0.5f);
+        super(Minecraft.getMinecraft().getRenderManager(), new ModelSpiderCreeper(), 0.5f);
+        this.addLayer(new LayerSpecialEvent(this));
+        this.addLayer(new LayerSpiderCharge(this));
     }
 
-    protected void updateCreeperScale(EntityCreeper par1EntityCreeper, float par2) {
-        float f1 = par1EntityCreeper.getCreeperFlashIntensity(par2);
-        float f2 = 1.0F + MathHelper.sin(f1 * 100.0F) * f1 * 0.01F;
-
-        if (f1 < 0.0F)
-            f1 = 0.0F;
-
-        if (f1 > 1.0F)
-            f1 = 1.0F;
-
-        f1 *= f1;
-        f1 *= f1;
-        float f3 = (1.0F + f1 * 0.4F) * f2;
-        float f4 = (1.0F + f1 * 0.1F) / f2;
-        GL11.glScalef(f3, f4, f3);
-    }
-
-    protected int updateCreeperColorMultiplier(EntityCreeper par1EntityCreeper, float par2, float par3) {
-        float f2 = par1EntityCreeper.getCreeperFlashIntensity(par3);
-
-        if ((int) (f2 * 10.0F) % 2 == 0)
-            return 0;
-        else {
-            int i = (int) (f2 * 0.2F * 255.0F);
-
-            if (i < 0)
-                i = 0;
-
-            if (i > 255)
-                i = 255;
-
-            short short1 = 255;
-            short short2 = 255;
-            short short3 = 255;
-            return i << 24 | short1 << 16 | short2 << 8 | short3;
+    @Override
+    protected void preRenderCallback(EntityLivingBase p_77041_1_, float p_77041_2_) {
+        if (p_77041_1_ instanceof EntityBaseCreeper) {
+            EntityBaseCreeper creeper = (EntityBaseCreeper) p_77041_1_;
+            float f1 = creeper.getCreeperFlashIntensity(p_77041_2_);
+            float f2 = 1.0F + MathHelper.sin(f1 * 100.0F) * f1 * 0.01F;
+            f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
+            f1 *= f1;
+            f1 *= f1;
+            float f3 = (1.0F + f1 * 0.4F) * f2;
+            float f4 = (1.0F + f1 * 0.1F) / f2;
+            GlStateManager.scale(f3, f4, f3);
         }
+        super.preRenderCallback(p_77041_1_, p_77041_2_);
     }
 
-    protected int renderCreeperPassModel(EntityCreeper par1EntityCreeper, int par2, float par3) {
-        if (par1EntityCreeper.getPowered()) {
-            if (!par1EntityCreeper.getActivePotionEffects().isEmpty())
-                GL11.glDepthMask(false);
-            else
-                GL11.glDepthMask(true);
+    @Override
+    protected int getColorMultiplier(EntityLivingBase p_77030_1_, float p_77030_2_, float p_77030_3_) {
+        if (p_77030_1_ instanceof EntityBaseCreeper) {
+            EntityBaseCreeper creeper = (EntityBaseCreeper) p_77030_1_;
+            float f2 = creeper.getCreeperFlashIntensity(p_77030_3_);
 
-            if (par2 == 1) {
-                float f1 = par1EntityCreeper.ticksExisted + par3;
-                this.bindTexture(armoredCreeperTextures);
-                GL11.glMatrixMode(GL11.GL_TEXTURE);
-                GL11.glLoadIdentity();
-                float f2 = f1 * 0.01F;
-                float f3 = f1 * 0.01F;
-                GL11.glTranslatef(f2, f3, 0.0F);
-                this.setRenderPassModel(this.model);
-                GL11.glMatrixMode(GL11.GL_MODELVIEW);
-                GL11.glEnable(GL11.GL_BLEND);
-                float f4 = 0.5F;
-                GL11.glColor4f(f4, f4, f4, 1.0F);
-                GL11.glDisable(GL11.GL_LIGHTING);
-                GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-                return 1;
-            }
-
-            if (par2 == 2) {
-                GL11.glMatrixMode(GL11.GL_TEXTURE);
-                GL11.glLoadIdentity();
-                GL11.glMatrixMode(GL11.GL_MODELVIEW);
-                GL11.glEnable(GL11.GL_LIGHTING);
-                GL11.glDisable(GL11.GL_BLEND);
+            if ((int) (f2 * 10.0F) % 2 == 0) {
+                return 0;
+            } else {
+                int i = (int) (f2 * 0.2F * 255.0F);
+                i = MathHelper.clamp_int(i, 0, 255);
+                return i << 24 | 16777215;
             }
         }
-
-        return -1;
+        return super.getColorMultiplier(p_77030_1_, p_77030_2_, p_77030_3_);
     }
 
-    protected int func_77061_b(EntityCreeper par1EntityCreeper, int par2, float par3) {
-        return -1;
-    }
-
-    protected void preRenderCallback(EntityLiving par1EntityLiving, float par2) {
-        this.updateCreeperScale((EntityCreeper) par1EntityLiving, par2);
-    }
-
-    protected int getColorMultiplier(EntityLiving par1EntityLiving, float par2, float par3) {
-        return this.updateCreeperColorMultiplier((EntityCreeper) par1EntityLiving, par2, par3);
-    }
-
-    protected int shouldRenderPass(EntityLiving par1EntityLiving, int par2, float par3) {
-        return this.renderCreeperPassModel((EntityCreeper) par1EntityLiving, par2, par3);
-    }
-
-    protected int inheritRenderPass(EntityLiving par1EntityLiving, int par2, float par3) {
-        return this.func_77061_b((EntityCreeper) par1EntityLiving, par2, par3);
-    }
 
     @Override
     protected ResourceLocation getEntityTexture(Entity var1) {
-        return new ResourceLocation(Strings.MOD_ID.toLowerCase() + ":textures/entities/spidercreeper.png");
+        return ResourceUtil.getEntityTexture(Strings.MOD_ID.toLowerCase(), "spidercreeper.png");
     }
 
-
-    @Override
-    protected void renderEquippedItems(EntityLivingBase entity, float rendertick) {
-        super.renderEquippedItems(entity, rendertick);
-        RenderHelper.specialRender(entity, model, this.renderManager);
-    }
 }

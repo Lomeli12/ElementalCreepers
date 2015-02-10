@@ -8,6 +8,7 @@ import net.lomeli.ec.lib.ECVars;
 public class EntitySpringCreeper extends EntityBaseCreeper {
     private boolean isSprung;
     private int radius;
+
     public EntitySpringCreeper(World world) {
         super(world);
         this.explosionRadius = ECVars.springCreeperPower;

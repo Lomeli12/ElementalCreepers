@@ -1,8 +1,8 @@
 package net.lomeli.ec.lib;
 
 public class Strings {
-    public static final int MAJOR = 4, MINOR = 2, REVISION = 4;
-    public static final String VERSION = MAJOR + "." + MINOR + "." + REVISION;
+
+    public static final String VERSION = ECVars.MAJOR + "." + ECVars.MINOR + "." + ECVars.REVISION;
     public static final String MOD_ID = "ElementalCreepers", MOD_NAME = "Elemental Creepers";
     public static final String CORE = "net.lomeli.ec.core", CLIENT = CORE + ".ClientProxy", COMMON = CORE + ".CommonProxy";
     public static final String FACTORY = "net.lomeli.ec.core.ECFactory";
@@ -18,4 +18,6 @@ public class Strings {
     public static final String COOKIE = CONFIG + "cookies";
     public static final String DOME = CONFIG + "domeEx";
     public static final String SPECIAL = CONFIG + "specialEvents";
+
+    public static final String UPDATE_JSON = "https://raw.githubusercontent.com/Lomeli12/ElementalCreepers-4/master/update.json";
 }

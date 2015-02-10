@@ -2,16 +2,13 @@ package net.lomeli.ec.entity.explosion;
 
 import java.util.*;
 
-import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 
 public class ExplosionWind {
@@ -94,8 +91,8 @@ public class ExplosionWind {
         int l1 = MathHelper.floor_double(this.explosionY + this.explosionSize + 1.0D);
         int i2 = MathHelper.floor_double(this.explosionZ - this.explosionSize - 1.0D);
         int j2 = MathHelper.floor_double(this.explosionZ + this.explosionSize + 1.0D);
-        List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this.exploder, AxisAlignedBB.getBoundingBox(i, k, i2, j, l1, j2));
-        Vec3 vec3 = Vec3.createVectorHelper(this.explosionX, this.explosionY, this.explosionZ);
+        List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this.exploder, AxisAlignedBB.fromBounds(i, k, i2, j, l1, j2));
+        Vec3 vec3 = new Vec3(this.explosionX, this.explosionY, this.explosionZ);
 
         for (int k2 = 0; k2 < list.size(); ++k2) {
             Entity entity = (Entity) list.get(k2);
@@ -111,7 +108,7 @@ public class ExplosionWind {
                     d0 /= d8;
                     d1 /= d8;
                     d2 /= d8;
-                    double d9 = this.worldObj.getBlockDensity(vec3, entity.boundingBox);
+                    double d9 = this.worldObj.getBlockDensity(vec3, entity.getEntityBoundingBox());
                     double d10 = (1.0D - d7) * d9;
                     double d11 = EnchantmentProtection.func_92092_a(entity, d10);
                     entity.attackEntityFrom(DamageSource.generic, 0.0001F);
@@ -120,7 +117,7 @@ public class ExplosionWind {
                     entity.motionZ += (d2 * d11) * explosionPower;
 
                     if (entity instanceof EntityPlayer)
-                        this.field_77288_k.put(entity, Vec3.createVectorHelper(d0 * d10, d1 * d10, d2 * d10));
+                        this.field_77288_k.put(entity, new Vec3(d0 * d10, d1 * d10, d2 * d10));
                 }
             }
         }
@@ -128,67 +125,5 @@ public class ExplosionWind {
         this.explosionSize = f;
     }
 
-    @SuppressWarnings("rawtypes")
-    public void doExplosionB(boolean par1) {
-        if (this.explosionSize >= 2.0F && this.isSmoking)
-            this.worldObj.spawnParticle("hugeexplosion", this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
-        else
-            this.worldObj.spawnParticle("largeexplode", this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
-
-        Iterator iterator;
-        ChunkPosition chunkposition;
-        int i;
-        int j;
-        int k;
-        Block l;
-
-        if (this.isSmoking) {
-            iterator = this.affectedBlockPositions.iterator();
-
-            while (iterator.hasNext()) {
-                chunkposition = (ChunkPosition) iterator.next();
-                i = chunkposition.chunkPosX;
-                j = chunkposition.chunkPosY;
-                k = chunkposition.chunkPosZ;
-                l = this.worldObj.getBlock(i, j, k);
-
-                if (par1) {
-                    double d0 = i + this.worldObj.rand.nextFloat();
-                    double d1 = j + this.worldObj.rand.nextFloat();
-                    double d2 = k + this.worldObj.rand.nextFloat();
-                    double d3 = d0 - this.explosionX;
-                    double d4 = d1 - this.explosionY;
-                    double d5 = d2 - this.explosionZ;
-                    double d6 = MathHelper.sqrt_double(d3 * d3 + d4 * d4 + d5 * d5);
-                    d3 /= d6;
-                    d4 /= d6;
-                    d5 /= d6;
-                    double d7 = 0.5D / (d6 / this.explosionSize + 0.1D);
-                    d7 *= this.worldObj.rand.nextFloat() * this.worldObj.rand.nextFloat() + 0.3F;
-                    d3 *= d7;
-                    d4 *= d7;
-                    d5 *= d7;
-                    this.worldObj.spawnParticle("explode", (d0 + this.explosionX * 1.0D) / 2.0D, (d1 + this.explosionY * 1.0D) / 2.0D, (d2 + this.explosionZ * 1.0D) / 2.0D, d3, d4, d5);
-                    this.worldObj.spawnParticle("smoke", d0, d1, d2, d3, d4, d5);
-                }
-            }
-        }
-
-        if (this.isFlaming) {
-            iterator = this.affectedBlockPositions.iterator();
-
-            while (iterator.hasNext()) {
-                chunkposition = (ChunkPosition) iterator.next();
-                i = chunkposition.chunkPosX;
-                j = chunkposition.chunkPosY;
-                k = chunkposition.chunkPosZ;
-                l = this.worldObj.getBlock(i, j, k);
-                Block i1 = this.worldObj.getBlock(i, j - 1, k);
-
-                if (l == null && i1.isOpaqueCube() && this.explosionRNG.nextInt(3) == 0)
-                    this.worldObj.setBlock(i, j, k, Blocks.fire);
-            }
-        }
-    }
 
 }

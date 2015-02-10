@@ -1,6 +1,6 @@
 package net.lomeli.ec.entity;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -29,7 +29,7 @@ public class EntityFireworkCreeper extends EntityBaseCreeper {
             EntityFireworkRocket rocket = new EntityFireworkRocket(worldObj, posX, posY, posZ, this.firework.copy());
             worldObj.spawnEntityInWorld(rocket);
         }
-        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(radius, radius, radius));
+        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(radius, radius, radius));
         if (list != null && !list.isEmpty()) {
             for (Entity entity : list) {
                 if (entity instanceof EntityLivingBase) {
@@ -49,7 +49,7 @@ public class EntityFireworkCreeper extends EntityBaseCreeper {
 
     public void getRandomColorFireWork() {
         this.firework = new ItemStack(Items.fireworks, 1);
-        this.firework.stackTagCompound = new NBTTagCompound();
+        this.firework.setTagCompound(new NBTTagCompound());
         NBTTagCompound data = new NBTTagCompound();
         data.setByte("Flight", (byte) 1);
         NBTTagList list = new NBTTagList();

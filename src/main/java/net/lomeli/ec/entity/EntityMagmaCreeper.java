@@ -1,6 +1,7 @@
 package net.lomeli.ec.entity;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
@@ -18,9 +19,9 @@ public class EntityMagmaCreeper extends EntityBaseCreeper {
         super.onLivingUpdate();
         if (!worldObj.isRemote) {
             if ((int) Math.round(posX + 0.5F) != (int) Math.round(prevPosX + 0.5F) || (int) Math.round(posY) != (int) Math.round(prevPosY) || (int) Math.round(posZ + 0.5F) != (int) Math.round(prevPosZ + 0.5F)) {
-                if (worldObj.isAirBlock((int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ))
-                        && Blocks.fire.canPlaceBlockAt(worldObj, (int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ)))
-                    worldObj.setBlock((int) (prevPosX), (int) (Math.round(prevPosY) + 0.5), (int) (prevPosZ), Blocks.fire);
+                BlockPos pos = new BlockPos((int) Math.round(prevPosX), (int) Math.round(prevPosY), (int) Math.round(prevPosZ));
+                if (worldObj.isAirBlock(pos) && Blocks.fire.canPlaceBlockAt(worldObj, pos))
+                    worldObj.setBlockState(pos, Blocks.fire.getDefaultState());
             }
         }
         if (this.isWet())

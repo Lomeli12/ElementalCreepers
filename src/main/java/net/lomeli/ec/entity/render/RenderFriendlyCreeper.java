@@ -1,15 +1,15 @@
 package net.lomeli.ec.entity.render;
 
-import org.lwjgl.opengl.GL11;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import net.lomeli.ec.entity.EntityFriendlyCreeper;
 import net.lomeli.ec.entity.model.ModelFriendlyCreeper;
@@ -17,11 +17,11 @@ import net.lomeli.ec.lib.Strings;
 
 @SideOnly(Side.CLIENT)
 public class RenderFriendlyCreeper extends RenderLiving {
-    private static final ResourceLocation armoredCreeperTextures = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
-    private ModelFriendlyCreeper creeperModel = new ModelFriendlyCreeper(2f);
 
     public RenderFriendlyCreeper() {
-        super(new ModelFriendlyCreeper(), 0.5F);
+        super(Minecraft.getMinecraft().getRenderManager(), new ModelFriendlyCreeper(), 0.5F);
+        this.addLayer(new LayerSpecialEvent(this));
+        this.addLayer(new LayerCharge(this));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class RenderFriendlyCreeper extends RenderLiving {
             var4 *= var4;
             float var6 = (1.0F + var4 * 0.4F) * var5;
             float var7 = (1.0F + var4 * 0.1F) / var5;
-            GL11.glScalef(var6, var7, var6);
+            GlStateManager.scale(var6, var7, var6);
         }
     }
 
@@ -67,56 +67,7 @@ public class RenderFriendlyCreeper extends RenderLiving {
     }
 
     @Override
-    protected int inheritRenderPass(EntityLivingBase p_77035_1_, int p_77035_2_, float p_77035_3_) {
-        return -1;
-    }
-
-    @Override
-    protected int shouldRenderPass(EntityLivingBase p_77032_1_, int p_77032_2_, float p_77032_3_) {
-        if (((EntityFriendlyCreeper) p_77032_1_).getPowered()) {
-            if (p_77032_1_.isInvisible())
-                GL11.glDepthMask(false);
-            else
-                GL11.glDepthMask(true);
-
-            if (p_77032_2_ == 1) {
-                float f1 = (float) p_77032_1_.ticksExisted + p_77032_3_;
-                this.bindTexture(armoredCreeperTextures);
-                GL11.glMatrixMode(GL11.GL_TEXTURE);
-                GL11.glLoadIdentity();
-                float f2 = f1 * 0.01F;
-                float f3 = f1 * 0.01F;
-                GL11.glTranslatef(f2, f3, 0.0F);
-                this.setRenderPassModel(this.mainModel);
-                GL11.glMatrixMode(GL11.GL_MODELVIEW);
-                GL11.glEnable(GL11.GL_BLEND);
-                float f4 = 0.5F;
-                GL11.glColor4f(f4, f4, f4, 1.0F);
-                GL11.glDisable(GL11.GL_LIGHTING);
-                GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-                return 1;
-            }
-
-            if (p_77032_2_ == 2) {
-                GL11.glMatrixMode(GL11.GL_TEXTURE);
-                GL11.glLoadIdentity();
-                GL11.glMatrixMode(GL11.GL_MODELVIEW);
-                GL11.glEnable(GL11.GL_LIGHTING);
-                GL11.glDisable(GL11.GL_BLEND);
-            }
-        }
-
-        return -1;
-    }
-
-    @Override
     protected ResourceLocation getEntityTexture(Entity entity) {
         return new ResourceLocation(Strings.MOD_ID.toLowerCase(), ((EntityFriendlyCreeper) entity).tamedTexture());
-    }
-
-    @Override
-    protected void renderEquippedItems(EntityLivingBase entity, float rendertick) {
-        super.renderEquippedItems(entity, rendertick);
-        RenderHelper.specialRender(entity, creeperModel, this.renderManager);
     }
 }

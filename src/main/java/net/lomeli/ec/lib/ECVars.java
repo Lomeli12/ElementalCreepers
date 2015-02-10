@@ -1,6 +1,8 @@
 package net.lomeli.ec.lib;
 
 public class ECVars {
+    public static final int MAJOR = 5, MINOR = 0, REVISION = 0;
+
     public static int waterCreeperSpawn;
     public static int fireCreeperSpawn;
     public static int iceCreeperSpawn;

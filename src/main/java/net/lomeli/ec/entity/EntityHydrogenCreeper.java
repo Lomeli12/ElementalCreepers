@@ -49,7 +49,7 @@ public class EntityHydrogenCreeper extends EntityBaseCreeper {
     public void explosion(int power, boolean flag) {
         int exPower = this.explosionRadius * power;
         this.timeSinceIgnited = this.fuseTime;
-        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(this.explosionRadius * 5, this.explosionRadius * 5, this.explosionRadius * 5));
+        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(this.explosionRadius * 5, this.explosionRadius * 5, this.explosionRadius * 5));
 
         for (Entity ent : list) {
             if (ent instanceof EntityLivingBase) {

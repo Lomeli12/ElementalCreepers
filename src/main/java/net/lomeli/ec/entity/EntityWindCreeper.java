@@ -2,6 +2,7 @@ package net.lomeli.ec.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -63,7 +64,7 @@ public class EntityWindCreeper extends EntityBaseCreeper {
 
     private ExplosionWind createWindGust(Entity entity, double x, double y, double z, float strength, boolean flag) {
         ExplosionWind explosion = new ExplosionWind(worldObj, entity, x, y, z, strength, ECVars.windCreeperPower);
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords((int) x, (int) y);
+        BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos((int) x, (int) y, (int) z));
         boolean flammingFlag = false;
         if (biome != null) {
             if (BiomeDictionary.isBiomeRegistered(biome)) {
@@ -74,7 +75,6 @@ public class EntityWindCreeper extends EntityBaseCreeper {
         explosion.isFlaming = flammingFlag;
         explosion.isSmoking = flag;
         explosion.doExplosionA();
-        explosion.doExplosionB(true);
         return explosion;
     }
 }

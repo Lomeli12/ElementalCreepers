@@ -1,32 +1,28 @@
 package net.lomeli.ec.core;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EntityPortalFX;
+import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
+import net.lomeli.ec.ElementalCreepers;
 import net.lomeli.ec.entity.*;
-import net.lomeli.ec.entity.addon.AddonEntities;
-import net.lomeli.ec.entity.addon.EntityEUCreeper;
-import net.lomeli.ec.entity.addon.EntityMJCreeper;
-import net.lomeli.ec.entity.addon.EntityRFCreeper;
 import net.lomeli.ec.entity.render.*;
 
 public class ClientProxy extends CommonProxy {
     @Override
     public void registerEvents() {
         super.registerEvents();
-        FMLCommonHandler.instance().bus().register(new VersionChecker());
+        FMLCommonHandler.instance().bus().register(ElementalCreepers.checker);
+        FMLCommonHandler.instance().bus().register(ElementalCreepers.config);
     }
 
     @Override
     public void registerRenders() {
         super.registerRenders();
-        RenderingRegistry.registerEntityRenderingHandler(EntityCreeper.class, new RenderBasicCreeper().setTexture("textures/entity/creeper/creeper", false));
         registerEntityRendering(EntityFireCreeper.class, "firecreeper");
         registerEntityRendering(EntityWaterCreeper.class, "watercreeper");
         registerEntityRendering(EntityElectricCreeper.class, "electriccreeper");
@@ -53,14 +49,9 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityBigBadCreep.class, new RenderBigBadCreep());
         registerEntityRendering(EntitySpringCreeper.class, "springcreeper");
 
-        if (Loader.isModLoaded("IC2"))
-            registerEntityRendering(EntityEUCreeper.class, "eucreeper");
-
-        if (AddonEntities.doesRFExist())
-            registerEntityRendering(EntityRFCreeper.class, "rfcreeper");
-
-        if (Loader.isModLoaded("BuildCraft|Core"))
-            registerEntityRendering(EntityMJCreeper.class, "mjcreeper");
+        RenderLiving renderLiving = (RenderLiving) Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(EntityCreeper.class);
+        if (renderLiving != null)
+            renderLiving.addLayer(new LayerSpecialEvent(renderLiving));
     }
 
     private void registerEntityRendering(Class<? extends EntityBaseCreeper> clazz, String texture) {
@@ -70,12 +61,5 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void spawnIllusionCreepers(World worldObj, double posX, double posY, double posZ) {
         super.spawnIllusionCreepers(worldObj, posX, posY, posZ);
-    }
-
-    @Override
-    public void spawnPortalParticle(World world, double posX, double posY, double posZ, float r, float g, float b) {
-        EntityPortalFX effect = new EntityPortalFX(world, posX + 0.5, posY + 0.1 + world.rand.nextDouble() * 2.0D, posZ + 0.5, world.rand.nextGaussian(), 0.0D, world.rand.nextGaussian());
-        effect.setRBGColorF(r, g, b);
-        Minecraft.getMinecraft().effectRenderer.addEffect(effect);
     }
 }

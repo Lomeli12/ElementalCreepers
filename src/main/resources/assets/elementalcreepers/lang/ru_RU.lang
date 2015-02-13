@@ -22,6 +22,8 @@ entity.elementalcreepers:StoneCreeper.name=Каменный крипер
 entity.elementalcreepers:SolarCreeper.name=Солнечный крипер
 entity.elementalcreepers:CakeCreeper.name=Тортиковый крипер
 entity.elementalcreepers:FireworkCreeper.name=Фейерверковый крипер
+entity.elementalcreepers:BigBadCreep.name=Большой плохой крипер
+entity.elementalcreepers:SpringCreeper.name=Весенний крипер
 
 entity.elementalcreepers:EUCreeper.name=EU-крипер
 entity.elementalcreepers:RFCreeper.name=Флаксовый крипер
@@ -34,3 +36,4 @@ config.elementalcreepers.spawnRates=Скорость появления крип
 config.elementalcreepers.explosionConfig=Настройка взрывов криперов
 config.elementalcreepers.cookies=Количество печенек, которые даёт печеньковый крипер
 config.elementalcreepers.domeEx=Включить купольные взрывы (вместо случайных взрывов блоков)
+config.elementalcreepers.specialEvents=Разрешить особую отрисовку во время некоторых событий.

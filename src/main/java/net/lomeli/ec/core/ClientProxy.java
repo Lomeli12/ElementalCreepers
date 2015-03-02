@@ -11,6 +11,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
+import net.lomeli.lomlib.util.RenderUtils;
+
 import net.lomeli.ec.ElementalCreepers;
 import net.lomeli.ec.entity.*;
 import net.lomeli.ec.entity.render.*;
@@ -54,10 +56,10 @@ public class ClientProxy extends CommonProxy {
         registerEntityRendering(EntitySpringCreeper.class, "springcreeper");
         RenderingRegistry.registerEntityRenderingHandler(EntitySilverCreeper.class, new RenderSilverCreeper());
 
-        RenderLiving renderLiving = (RenderLiving) Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(EntityCreeper.class);
+        RenderLiving renderLiving = (RenderLiving) RenderUtils.getEntityRenderer(EntityCreeper.class);
         if (renderLiving != null)
-            renderLiving.addLayer(new LayerSpecialEvent(renderLiving));
-        
+            RenderUtils.addLayerToRenderer(renderLiving, new LayerSpecialEvent(renderLiving));
+
         registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 0, "stone");
         registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 1, "cobblestone");
         registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 2, "stonebrick");

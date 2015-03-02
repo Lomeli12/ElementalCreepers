@@ -3,7 +3,6 @@ package net.lomeli.ec.entity.render;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderCreeper;
 import net.minecraft.entity.EntityLiving;
@@ -68,5 +67,4 @@ public class RenderBasicCreeper extends RenderCreeper {
     protected ResourceLocation getEntityTexture(EntityCreeper entity) {
         return entityTexture;
     }
-
 }

@@ -1,4 +1,4 @@
-Elemental Creepers 4
+Elemental Creepers Rebooted
 ===
 A rewrite of the original Elemental Creepers. Adds new creepers to Minecraft
 

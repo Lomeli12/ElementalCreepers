@@ -20,6 +20,28 @@ entity.elementalcreepers:HydrogenCreeper.name=Creeper de Hidrógeno
 entity.elementalcreepers:EnderCreeper.name=Ender Creeper
 entity.elementalcreepers:StoneCreeper.name=Creeper de Piedra
 entity.elementalcreepers:SolarCreeper.name=Creeper Solar
+entity.elementalcreepers:CakeCreeper.name=Cake Creeper
+entity.elementalcreepers:FireworkCreeper.name=Firework Creeper
+entity.elementalcreepers:BigBadCreep.name=Big Bad Creep
+entity.elementalcreepers:SpringCreeper.name=Spring Creeper
+entity.elementalcreepers:SilverCreeper.name=Creeperfish
 
 entity.elementalcreepers:EUCreeper.name=Creeper de EU
 entity.elementalcreepers:RFCreeper.name=Creeper de Flux
+
+tile.elementalcreepers.silverCreep.stone.name=Huevo de Creeper en Piedra
+tile.elementalcreepers.silverCreep.cobble.name=Huevo de Creeper en Roca
+tile.elementalcreepers.silverCreep.brick.name=Huevo de Creeper en Ladrillos de Piedra
+tile.elementalcreepers.silverCreep.mossybrick.name=Huevo de Creeper en Ladrillos de Piedra con Musgo
+tile.elementalcreepers.silverCreep.crackedbrick.name=Huevo de Creeper en Ladrillos de Piedra Agrietados
+tile.elementalcreepers.silverCreep.chiseledbrick.name=Huevo de Creeper en Ladrillos de Piedra Cincelados
+
+update.elementalcreepers.message=Una nueva actualización para Elemental Creepers esta disponible!
+update.elementalcreepers.old=Vieja Version:
+update.elementalcreepers.new=Nueva Version:
+
+config.elementalcreepers.spawnRates=Probabilidad de Aparición de Creepers
+config.elementalcreepers.explosionConfig=Configuración de Explosión de Creeper
+config.elementalcreepers.cookies=El número de galletas que un Creeper Galleta da
+config.elementalcreepers.domeEx=Activar explosiones en domo (En vez de explosiones con colocaciones de bloques al azar)
+config.elementalcreepers.specialEvents=Permite renderización especial durante ciertos eventos.

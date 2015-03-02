@@ -11,14 +11,14 @@ import net.minecraft.util.ResourceLocation;
 import net.lomeli.lomlib.util.ResourceUtil;
 
 import net.lomeli.ec.entity.EntityBaseCreeper;
-import net.lomeli.ec.entity.model.ModelSpiderCreeper;
+import net.lomeli.ec.entity.model.ModelSilverCreeper;
 import net.lomeli.ec.lib.Strings;
 
-public class RenderSpiderCreeper extends RenderLiving {
-    public RenderSpiderCreeper() {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelSpiderCreeper(), 0.5f);
+public class RenderSilverCreeper extends RenderLiving {
+    public RenderSilverCreeper() {
+        super(Minecraft.getMinecraft().getRenderManager(), new ModelSilverCreeper(), 0.5f);
         this.addLayer(new LayerSpecialEvent(this));
-        this.addLayer(new LayerSpiderCharge(this));
+        this.addLayer(new LayerCharge(this));
     }
 
     @Override
@@ -54,9 +54,8 @@ public class RenderSpiderCreeper extends RenderLiving {
         return super.getColorMultiplier(p_77030_1_, p_77030_2_, p_77030_3_);
     }
 
-
     @Override
     protected ResourceLocation getEntityTexture(Entity var1) {
-        return ResourceUtil.getEntityTexture(Strings.MOD_ID.toLowerCase(), "spidercreeper.png");
+        return ResourceUtil.getEntityTexture(Strings.MOD_ID.toLowerCase(), "silvercreeper.png");
     }
 }

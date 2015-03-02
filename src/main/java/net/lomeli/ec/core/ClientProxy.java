@@ -2,7 +2,10 @@ package net.lomeli.ec.core;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -11,6 +14,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.lomeli.ec.ElementalCreepers;
 import net.lomeli.ec.entity.*;
 import net.lomeli.ec.entity.render.*;
+import net.lomeli.ec.lib.ECVars;
 
 public class ClientProxy extends CommonProxy {
     @Override
@@ -48,10 +52,23 @@ public class ClientProxy extends CommonProxy {
         registerEntityRendering(EntityFireworkCreeper.class, "fireworkcreeper");
         RenderingRegistry.registerEntityRenderingHandler(EntityBigBadCreep.class, new RenderBigBadCreep());
         registerEntityRendering(EntitySpringCreeper.class, "springcreeper");
+        RenderingRegistry.registerEntityRenderingHandler(EntitySilverCreeper.class, new RenderSilverCreeper());
 
         RenderLiving renderLiving = (RenderLiving) Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(EntityCreeper.class);
         if (renderLiving != null)
             renderLiving.addLayer(new LayerSpecialEvent(renderLiving));
+        
+        registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 0, "stone");
+        registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 1, "cobblestone");
+        registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 2, "stonebrick");
+        registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 3, "mossy_stonebrick");
+        registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 4, "cracked_stonebrick");
+        registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 5, "chiseled_stonebrick");
+        ModelBakery.addVariantName(Item.getItemFromBlock(ECVars.silverCreepBlock), "stone", "cobblestone", "stonebrick", "mossy_stonebrick", "cracked_stonebrick", "chiseled_stonebrick");
+    }
+
+    private void registerModel(Item item, int metaData, String name) {
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, metaData, new ModelResourceLocation(name, "inventory"));
     }
 
     private void registerEntityRendering(Class<? extends EntityBaseCreeper> clazz, String texture) {

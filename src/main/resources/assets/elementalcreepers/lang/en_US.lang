@@ -24,9 +24,17 @@ entity.elementalcreepers:CakeCreeper.name=Cake Creeper
 entity.elementalcreepers:FireworkCreeper.name=Firework Creeper
 entity.elementalcreepers:BigBadCreep.name=Big Bad Creep
 entity.elementalcreepers:SpringCreeper.name=Spring Creeper
+entity.elementalcreepers:SilverCreeper.name=Creeperfish
 
 entity.elementalcreepers:EUCreeper.name=EU Creeper
 entity.elementalcreepers:RFCreeper.name=Flux Creeper
+
+tile.elementalcreepers.silverCreep.stone.name=Stone Creeper Egg
+tile.elementalcreepers.silverCreep.cobble.name=Cobble Creeper Egg
+tile.elementalcreepers.silverCreep.brick.name=Stone Brick Creeper Egg
+tile.elementalcreepers.silverCreep.mossybrick.name=Mossy Stone Brick Creeper Egg
+tile.elementalcreepers.silverCreep.crackedbrick.name=Cracked Stone Brick Creeper Egg
+tile.elementalcreepers.silverCreep.chiseledbrick.name=Chiseled Stone Brick Creeper Egg
 
 update.elementalcreepers.message=A new update for Elemental Creepers is out now!
 update.elementalcreepers.old=Old Version:

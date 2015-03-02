@@ -20,10 +20,14 @@ import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import net.lomeli.lomlib.util.entity.EntityUtil;
+import net.lomeli.lomlib.util.entity.ItemCustomEgg;
 
 import net.lomeli.ec.entity.ai.EntityAIFriendlyCreeperSwell;
 import net.lomeli.ec.entity.explosion.ExplosionFriendly;
@@ -343,6 +347,25 @@ public class EntityFriendlyCreeper extends EntityTameable {
     @Override
     public boolean interact(EntityPlayer player) {
         ItemStack stack = player.getCurrentEquippedItem();
+        if (!worldObj.isRemote && stack != null && stack.getItem() == ItemCustomEgg.customEgg) {
+            EntityAgeable baby = this.createChild(this);
+            if (baby != null) {
+                baby.setGrowingAge(-24000);
+                baby.setLocationAndAngles(this.posX, this.posY, this.posZ, 0.0F, 0.0F);
+                this.worldObj.spawnEntityInWorld(baby);
+
+                if (stack.hasDisplayName())
+                    baby.setCustomNameTag(stack.getDisplayName());
+
+                if (!player.capabilities.isCreativeMode) {
+                    --stack.stackSize;
+
+                    if (stack.stackSize <= 0)
+                        player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+                }
+                return true;
+            }
+        }
         if (this.isTamed()) {
             if (stack != null && stack.getItem() != null) {
                 if (stack.getItem() instanceof ItemFood) {
@@ -422,5 +445,13 @@ public class EntityFriendlyCreeper extends EntityTameable {
     @SideOnly(Side.CLIENT)
     public String tamedTexture() {
         return this.isTamed() ? "textures/entities/friendlycreeper1.png" : "textures/entities/friendlycreeper0.png";
+    }
+
+    @Override
+    public ItemStack getPickedResult(MovingObjectPosition target) {
+        ItemStack stack = EntityUtil.getEntitySpawnEgg(this.getClass());
+        if (stack != null && stack.getItem() != null)
+            return stack;
+        return super.getPickedResult(target);
     }
 }

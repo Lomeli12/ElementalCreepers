@@ -6,12 +6,11 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import net.lomeli.lomlib.core.version.VersionChecker;
 
-import net.lomeli.ec.core.CommonProxy;
-import net.lomeli.ec.core.Config;
-import net.lomeli.ec.core.EntityRegistering;
+import net.lomeli.ec.core.*;
 import net.lomeli.ec.core.addon.AddonBase;
 import net.lomeli.ec.lib.ECVars;
 import net.lomeli.ec.lib.Strings;
@@ -34,6 +33,8 @@ public class ElementalCreepers {
         checker = new VersionChecker(Strings.UPDATE_JSON, Strings.MOD_ID, Strings.MOD_NAME, ECVars.MAJOR, ECVars.MINOR, ECVars.REVISION);
         checker.checkForUpdates();
         AddonBase.registerAddons();
+        ECVars.silverCreepBlock = new BlockSilverCreeper();
+        GameRegistry.registerBlock(ECVars.silverCreepBlock, ItemSilverBlock.class, "silverCreepBlock");
     }
 
     @Mod.EventHandler

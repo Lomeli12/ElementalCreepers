@@ -26,7 +26,7 @@ public class LayerSpecialEvent implements LayerRenderer {
 
     @Override
     public void doRenderLayer(EntityLivingBase entity, float f, float f1, float renderTick, float f2, float f3, float f4, float f5) {
-        if (entity != null) {
+        if (entity != null && !entity.isInvisible()) {
             int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             int month = Calendar.getInstance().get(Calendar.MONTH);
             ItemStack itemstack = null;

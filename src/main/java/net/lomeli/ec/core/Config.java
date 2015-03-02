@@ -49,10 +49,7 @@ public class Config extends SimpleConfig {
         ECVars.fireworkCreeperSpawn = setGetInt(cat, "fireworkCreeperSpawn", 8);
         ECVars.bigBadSpawn = setGetInt(cat, "bigBadSpawn", 1);
         ECVars.springCreeperSpawn = setGetInt(cat, "springCreeperSpawn", 7);
-
-        ECVars.euCreeperSpawn = setGetInt(cat, "euCreeperSpawn", 10);
-        ECVars.rfCreeperSpawn = setGetInt(cat, "rfCreeperSpawn", 10);
-        ECVars.mjCreeperSpawn = setGetInt(cat, "mjCreeperSpawn", 10);
+        ECVars.silverCreeperSpawn = setGetInt(cat, "silverCreeperSpawn", 4);
 
         cat = "explosion-configuration";
 
@@ -80,10 +77,7 @@ public class Config extends SimpleConfig {
         ECVars.fireworkCreeperRadius = setGetInt(cat, "fireworkCreeperRadius", 5);
         ECVars.bigBadAmount = setGetInt(cat, "bigBadAmount", 7);
         ECVars.springCreeperPower = setGetInt(cat, "springCreeperPower", 2);
-
-        ECVars.euCreeperRadius = setGetInt(cat, "euCreeperRadius", 3);
-        ECVars.rfCreeperRadius = setGetInt(cat, "rfCreeperRadius", 3);
-        ECVars.mjCreeperRadius = setGetInt(cat, "mjCreeperRadius", 3);
+        ECVars.silverCreeperRadius = setGetInt(cat, "silverCreeperRadius", 4);
 
         if (config.hasChanged())
             config.save();

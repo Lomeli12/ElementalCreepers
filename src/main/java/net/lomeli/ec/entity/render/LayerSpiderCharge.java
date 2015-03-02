@@ -20,7 +20,7 @@ public class LayerSpiderCharge implements LayerRenderer {
 
     @Override
     public void doRenderLayer(EntityLivingBase p_177141_1_, float p_177141_2_, float p_177141_3_, float p_177141_4_, float p_177141_5_, float p_177141_6_, float p_177141_7_, float p_177141_8_) {
-        if (p_177141_1_ != null && p_177141_1_ instanceof EntityBaseCreeper) {
+        if (p_177141_1_ != null && p_177141_1_ instanceof EntityBaseCreeper && !p_177141_1_.isInvisible()) {
             EntityBaseCreeper creep = (EntityBaseCreeper) p_177141_1_;
             if (creep.getPowered()) {
                 GlStateManager.depthMask(!creep.isInvisible());

@@ -17,10 +17,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import net.lomeli.lomlib.util.entity.EntityUtil;
 
 import net.lomeli.ec.core.EntityRegistering;
 import net.lomeli.ec.entity.ai.EntityAIBigBadSwell;
@@ -243,5 +246,13 @@ public class EntityBigBadCreep extends EntityMob {
 
     public void func_146079_cb() {
         this.dataWatcher.updateObject(18, Byte.valueOf((byte) 1));
+    }
+
+    @Override
+    public ItemStack getPickedResult(MovingObjectPosition target) {
+        ItemStack stack = EntityUtil.getEntitySpawnEgg(this.getClass());
+        if (stack != null && stack.getItem() != null)
+            return stack;
+        return super.getPickedResult(target);
     }
 }

@@ -52,6 +52,7 @@ public class EntityRegistering {
         registerEntity(EntityFireworkCreeper.class, getCreeperName("FireworkCreeper"), Color.BLUE.getRGB(), creeperEggGreen);
         registerEntity(EntityBigBadCreep.class, getCreeperName("BigBadCreep"), creeperEggGreen, creeperEggGreen, false, true);
         registerEntity(EntitySpringCreeper.class, getCreeperName("SpringCreeper"), creeperEggGreen, Color.PINK.getRGB());
+        registerEntity(EntitySilverCreeper.class, getCreeperName("SilverCreeper"), creeperEggGreen, Color.LIGHT_GRAY.getRGB());
 
         loadSpawn();
     }
@@ -81,6 +82,7 @@ public class EntityRegistering {
         addOverWorldSpawn(EntityBirthdayCreeper.class, ECVars.cakeCreeperSpawn, 1, 3);
         addOverWorldSpawn(EntityFireworkCreeper.class, ECVars.fireworkCreeperSpawn, 1, 3);
         addOverWorldSpawn(EntityBigBadCreep.class, ECVars.bigBadSpawn, 1, 1);
+        addOverWorldSpawn(EntitySpringCreeper.class, ECVars.springCreeperSpawn, 1, 3);
     }
 
     public static void addOverWorldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max, EnumCreatureType type) {
@@ -111,9 +113,9 @@ public class EntityRegistering {
         registerEntity(entityClass, entityName, bkEggColor, fgEggColor, true, true);
     }
 
-    public static void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor, boolean add, boolean addEgg) {
+    public static void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor, boolean addSpawnList, boolean addEgg) {
         EntityUtil.registerEntity(entityClass, entityName, ElementalCreepers.instance, bkEggColor, fgEggColor, count++, addEgg);
-        if (add)
+        if (addSpawnList)
             creeperClassList.add((Class<? extends EntityCreeper>) entityClass);
     }
 }

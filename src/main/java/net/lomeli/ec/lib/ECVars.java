@@ -1,5 +1,7 @@
 package net.lomeli.ec.lib;
 
+import net.minecraft.block.Block;
+
 public class ECVars {
     public static final int MAJOR = 5, MINOR = 0, REVISION = 0;
 
@@ -30,6 +32,7 @@ public class ECVars {
     public static int fireworkCreeperSpawn;
     public static int bigBadSpawn;
     public static int springCreeperSpawn;
+    public static int silverCreeperSpawn;
 
     public static int waterCreeperRadius;
     public static int fireCreeperRadius;
@@ -57,7 +60,10 @@ public class ECVars {
     public static int fireworkCreeperRadius;
     public static int bigBadAmount;
     public static int springCreeperPower;
+    public static int silverCreeperRadius;
 
     public static boolean domeExplosion;
     public static boolean special;
+    
+    public static Block silverCreepBlock;
 }

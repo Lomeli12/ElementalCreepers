@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "variant=stone" : {"model": "stone"},
+    "variant=cobblestone": {"model": "cobblestone"},
+    "variant=stone_brick" : {"model": "stonebrick_normal"},
+    "variant=mossy_brick": {"model": "stonebrick_mossy"},
+    "variant=cracked_brick" : {"model": "stonebrick_cracked"},
+    "variant=chiseled_brick": {"model": "stonebrick_chiseled"}
+  }
+}

@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S04PacketEntityEquipment;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -15,6 +16,8 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import net.lomeli.lomlib.util.entity.EntityUtil;
 
 public abstract class EntityBaseCreeper extends EntityCreeper {
 
@@ -275,5 +278,13 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 
     public void wildExplosion(int radius, Block block) {
         this.wildExplosion(radius, block, 0);
+    }
+
+    @Override
+    public ItemStack getPickedResult(MovingObjectPosition target) {
+        ItemStack stack = EntityUtil.getEntitySpawnEgg(this.getClass());
+        if (!worldObj.isRemote && stack != null && stack.getItem() != null)
+            return stack;
+        return super.getPickedResult(target);
     }
 }

@@ -55,6 +55,7 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityBigBadCreep.class, new RenderBigBadCreep());
         registerEntityRendering(EntitySpringCreeper.class, "springcreeper");
         RenderingRegistry.registerEntityRenderingHandler(EntitySilverCreeper.class, new RenderSilverCreeper());
+        registerEntityRendering(EntityFurnaceCreeper.class, "furnacecreeper");
 
         RenderLiving renderLiving = (RenderLiving) RenderUtils.getEntityRenderer(EntityCreeper.class);
         if (renderLiving != null)

@@ -9,6 +9,8 @@ public class AddonSpecialMobs extends AddonBase {
 
     @Override
     public void loadAddon() {
+        //TODO Update when father toasts' special mobs updates
+        /*
         EntityRegistering.creeperClassList.add(toast.specialMobs.entity.creeper.EntityArmorCreeper.class);
         EntityRegistering.creeperClassList.add(toast.specialMobs.entity.creeper.EntityDarkCreeper.class);
         EntityRegistering.creeperClassList.add(toast.specialMobs.entity.creeper.EntityDeathCreeper.class);
@@ -21,5 +23,6 @@ public class AddonSpecialMobs extends AddonBase {
         EntityRegistering.creeperClassList.add(toast.specialMobs.entity.creeper.EntityLightningCreeper.class);
         EntityRegistering.creeperClassList.add(toast.specialMobs.entity.creeper.EntityMiniCreeper.class);
         EntityRegistering.creeperClassList.add(toast.specialMobs.entity.creeper.EntitySplittingCreeper.class);
+        */
     }
 }

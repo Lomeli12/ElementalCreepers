@@ -134,7 +134,7 @@ public class BlockSilverCreeper extends Block {
                 return Blocks.stonebrick.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CHISELED);
             }
         };
-        private static final BlockSilverCreeper.EnumType[] META_LOOKUP = new BlockSilverCreeper.EnumType[values().length];
+        private static final EnumType[] META_LOOKUP = new EnumType[values().length];
         private final int meta;
         private final String name;
         private final String unlocalizedName;
@@ -158,9 +158,8 @@ public class BlockSilverCreeper extends Block {
         }
 
         public static BlockSilverCreeper.EnumType byMetadata(int meta) {
-            if (meta < 0 || meta >= META_LOOKUP.length) {
+            if (meta < 0 || meta >= META_LOOKUP.length)
                 meta = 0;
-            }
 
             return META_LOOKUP[meta];
         }

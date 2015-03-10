@@ -25,6 +25,7 @@ entity.elementalcreepers:FireworkCreeper.name=Firework Creeper
 entity.elementalcreepers:BigBadCreep.name=Big Bad Creep
 entity.elementalcreepers:SpringCreeper.name=Spring Creeper
 entity.elementalcreepers:SilverCreeper.name=Creeperfish
+entity.elementalcreepers:FurnaceCreeper.name=Furnace Creeper
 
 entity.elementalcreepers:EUCreeper.name=EU Creeper
 entity.elementalcreepers:RFCreeper.name=Flux Creeper

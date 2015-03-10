@@ -33,6 +33,7 @@ public class ECVars {
     public static int bigBadSpawn;
     public static int springCreeperSpawn;
     public static int silverCreeperSpawn;
+    public static int furnaceCreeperSpawn;
 
     public static int waterCreeperRadius;
     public static int fireCreeperRadius;
@@ -61,6 +62,7 @@ public class ECVars {
     public static int bigBadAmount;
     public static int springCreeperPower;
     public static int silverCreeperRadius;
+    public static int furnaceCreeperRadius;
 
     public static boolean domeExplosion;
     public static boolean special;

@@ -11,3 +11,4 @@ libs
 .classpath
 *.iml
 build.bat
+build.sh

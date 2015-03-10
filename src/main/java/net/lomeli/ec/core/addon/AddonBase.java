@@ -21,7 +21,7 @@ public abstract class AddonBase {
     public abstract void loadAddon();
 
     public static void registerAddons() {
-        addonList.add(new AddonSpecialMobs());
+        //addonList.add(new AddonSpecialMobs());
         //addonList.add(new AddonIC2());
         //addonList.add(new AddonRF());
     }

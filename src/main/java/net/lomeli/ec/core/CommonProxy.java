@@ -3,6 +3,8 @@ package net.lomeli.ec.core;
 import net.minecraft.world.World;
 
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import net.lomeli.ec.entity.EntityIllusionCreeper;
 
@@ -12,6 +14,7 @@ public class CommonProxy {
     public void registerEvents() {
         handler = new EventHandler();
         MinecraftForge.EVENT_BUS.register(handler);
+        GameRegistry.registerWorldGenerator(new SilverBlockGenerator(), 5);
     }
 
     public void registerRenders() {

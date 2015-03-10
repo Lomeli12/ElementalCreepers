@@ -53,6 +53,7 @@ public class EntityRegistering {
         registerEntity(EntityBigBadCreep.class, getCreeperName("BigBadCreep"), creeperEggGreen, creeperEggGreen, false, true);
         registerEntity(EntitySpringCreeper.class, getCreeperName("SpringCreeper"), creeperEggGreen, Color.PINK.getRGB());
         registerEntity(EntitySilverCreeper.class, getCreeperName("SilverCreeper"), creeperEggGreen, Color.LIGHT_GRAY.getRGB());
+        registerEntity(EntityFurnaceCreeper.class, getCreeperName("FurnaceCreeper"), Color.DARK_GRAY.getRGB(), creeperEggGreen);
 
         loadSpawn();
     }
@@ -83,6 +84,7 @@ public class EntityRegistering {
         addOverWorldSpawn(EntityFireworkCreeper.class, ECVars.fireworkCreeperSpawn, 1, 3);
         addOverWorldSpawn(EntityBigBadCreep.class, ECVars.bigBadSpawn, 1, 1);
         addOverWorldSpawn(EntitySpringCreeper.class, ECVars.springCreeperSpawn, 1, 3);
+        addOverWorldSpawn(EntityFurnaceCreeper.class, ECVars.furnaceCreeperSpawn, 1, 3);
     }
 
     public static void addOverWorldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max, EnumCreatureType type) {

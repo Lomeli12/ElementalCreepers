@@ -5,6 +5,7 @@
     "downloadURL" : "http://minecraft.curseforge.com/mc-mods/71270-elemental-creepers/files/2216738",
     "direct" : false,
     "changeLog" : [
-      "Update to 1.8"
+      "Update to 1.8",
+      "LomLib is required (again)"
     ]
 }

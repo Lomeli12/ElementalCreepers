@@ -1,7 +1,5 @@
 package net.lomeli.ec.core.addon;
 
-import net.lomeli.ec.core.EntityRegistering;
-
 public class AddonSpecialMobs extends AddonBase {
     public AddonSpecialMobs() {
         super("SpecialMobs");

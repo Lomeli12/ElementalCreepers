@@ -2,7 +2,7 @@ package net.lomeli.ec.entity;
 
 import net.minecraft.world.World;
 
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntityGhostCreeper extends EntityBaseCreeper {
 
@@ -12,8 +12,7 @@ public class EntityGhostCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int exPower = ECVars.ghostCreeperRadius * power;
+        int exPower = ModVars.ghostCreeperRadius * power;
         this.worldObj.createExplosion(this, posX, posY, posZ, exPower, false);
     }
-
 }

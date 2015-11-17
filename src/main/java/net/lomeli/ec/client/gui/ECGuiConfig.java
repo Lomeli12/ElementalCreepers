@@ -1,4 +1,4 @@
-package net.lomeli.ec.core;
+package net.lomeli.ec.client.gui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +11,11 @@ import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
 
 import net.lomeli.ec.ElementalCreepers;
-import net.lomeli.ec.lib.Strings;
+import net.lomeli.ec.lib.ModLib;
 
 public class ECGuiConfig extends GuiConfig {
     public ECGuiConfig(GuiScreen parent) {
-        super(parent, getConfigElements(), Strings.MOD_ID, false, false, GuiConfig.getAbridgedConfigPath(ElementalCreepers.config.getConfig().toString()));
+        super(parent, getConfigElements(), ModLib.MOD_ID, false, false, GuiConfig.getAbridgedConfigPath(ElementalCreepers.config.getConfig().toString()));
     }
 
     private static List<IConfigElement> getConfigElements() {

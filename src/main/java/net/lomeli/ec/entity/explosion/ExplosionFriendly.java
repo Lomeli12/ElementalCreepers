@@ -111,7 +111,7 @@ public class ExplosionFriendly extends Explosion {
         for (int l1 = 0; l1 < list.size(); ++l1) {
             Entity entity = (Entity) list.get(l1);
 
-            if (!entity.func_180427_aV()) {
+            if (!entity.isImmuneToExplosions()) {
                 double d12 = entity.getDistance(this.explosionX, this.explosionY, this.explosionZ) / (double) f3;
 
                 if (d12 <= 1.0D) {

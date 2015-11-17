@@ -2,10 +2,10 @@
 {
   "modid" : "ElementalCreepers",
   "name" : "Elemental Creepers",
+  "description": "Elemental Creepers updated!",
   "version" : "${version}",
   "mcversion": "${mcversion}",
   "url" : "http://www.lomeli12.net/",
-  "authorList": ["Lomeli12"],
-  "description": "Elemental Creepers updated!"
+  "authorList": ["Lomeli12"]
 }
 ]

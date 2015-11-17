@@ -10,8 +10,9 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-import net.lomeli.ec.core.BlockSilverCreeper;
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.ElementalCreepers;
+import net.lomeli.ec.core.block.BlockSilverCreeper;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntitySilverCreeper extends EntityBaseCreeper {
 
@@ -22,9 +23,9 @@ public class EntitySilverCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (ECVars.silverCreeperRadius * power) : ECVars.silverCreeperRadius;
+        int radius = getPowered() ? (ModVars.silverCreeperRadius * power) : ModVars.silverCreeperRadius;
         this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, radius, false);
-        
+
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {
@@ -33,7 +34,6 @@ public class EntitySilverCreeper extends EntityBaseCreeper {
                     if (state != null && state.getBlock() != null && BlockSilverfish.canContainSilverfish(state) && rand.nextInt(100) < 25)
                         this.worldObj.setBlockState(pos, Blocks.monster_egg.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.forModelBlock(state)), 3);
                 }
-        
     }
 
     class AIHideInStone extends EntityAIWander {
@@ -82,7 +82,7 @@ public class EntitySilverCreeper extends EntityBaseCreeper {
                 IBlockState iblockstate = world.getBlockState(blockpos);
 
                 if (BlockSilverfish.canContainSilverfish(iblockstate)) {
-                    world.setBlockState(blockpos, ECVars.silverCreepBlock.getDefaultState().withProperty(BlockSilverCreeper.VARIANT, BlockSilverCreeper.EnumType.forModelBlock(iblockstate)), 3);
+                    world.setBlockState(blockpos, ElementalCreepers.silverCreepBlock.getDefaultState().withProperty(BlockSilverCreeper.VARIANT, BlockSilverCreeper.EnumType.forModelBlock(iblockstate)), 3);
                     EntitySilverCreeper.this.spawnExplosionParticle();
                     EntitySilverCreeper.this.setDead();
                 }

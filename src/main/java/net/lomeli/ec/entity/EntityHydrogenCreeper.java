@@ -8,13 +8,13 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntityHydrogenCreeper extends EntityBaseCreeper {
 
     public EntityHydrogenCreeper(World par1World) {
         super(par1World);
-        this.explosionRadius = ECVars.hydrogenCreeperRadius;
+        this.explosionRadius = ModVars.hydrogenCreeperRadius;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class EntityHydrogenCreeper extends EntityBaseCreeper {
         if (this.isEntityAlive()) {
             this.lastActiveTime = this.timeSinceIgnited;
 
-            if (this.func_146078_ca())
+            if (this.hasIgnited())
                 this.setCreeperState(1);
 
             int i = this.getCreeperState();

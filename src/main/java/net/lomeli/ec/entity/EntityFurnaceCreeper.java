@@ -8,7 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntityFurnaceCreeper extends EntityBaseCreeper {
 
@@ -18,7 +18,7 @@ public class EntityFurnaceCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (ECVars.furnaceCreeperRadius * power) : ECVars.furnaceCreeperRadius;
+        int radius = getPowered() ? (ModVars.furnaceCreeperRadius * power) : ModVars.furnaceCreeperRadius;
         List entityList = worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(radius, radius, radius));
         if (entityList != null && !entityList.isEmpty()) {
             for (Object obj : entityList) {

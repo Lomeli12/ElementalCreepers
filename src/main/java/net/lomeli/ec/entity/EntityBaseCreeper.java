@@ -50,7 +50,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
         if (this.isEntityAlive()) {
             this.lastActiveTime = this.timeSinceIgnited;
 
-            if (this.func_146078_ca())
+            if (this.hasIgnited())
                 this.setCreeperState(1);
 
             int i = this.getCreeperState();
@@ -108,7 +108,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
             }
 
             if (this.ticksExisted % 20 == 0)
-                this.getCombatTracker().func_94549_h();
+                this.getCombatTracker().reset();
         }
 
         this.onLivingUpdate();
@@ -117,7 +117,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
         float f = (float) (d0 * d0 + d1 * d1);
         float f1 = this.renderYawOffset;
         float f2 = 0.0F;
-        this.field_70768_au = this.field_110154_aX;
+        this.prevOnGroundSpeedFactor = this.onGroundSpeedFactor;
         float f3 = 0.0F;
 
         if (f > 0.0025000002F) {
@@ -132,7 +132,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
         if (!this.onGround)
             f3 = 0.0F;
 
-        this.field_110154_aX += (f3 - this.field_110154_aX) * 0.3F;
+        this.onGroundSpeedFactor += (f3 - this.onGroundSpeedFactor) * 0.3F;
         this.worldObj.theProfiler.startSection("headTurn");
         f2 = this.func_110146_f(f1, f2);
         this.worldObj.theProfiler.endSection();
@@ -171,7 +171,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
         }
 
         this.worldObj.theProfiler.endSection();
-        this.field_70764_aw += f2;
+        this.movedDistance += f2;
 
         if (!this.worldObj.isRemote)
             this.updateLeashedState();
@@ -201,7 +201,6 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
     public boolean diesAfterExplosion() {
         return true;
     }
-
 
     @SideOnly(Side.CLIENT)
     @Override
@@ -240,7 +239,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
             player.swingItem();
             if (!worldObj.isRemote) {
                 stack.damageItem(1, player);
-                this.func_146079_cb();
+                this.ignite();
                 return true;
             }
         }
@@ -257,7 +256,6 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
                             worldObj.setBlockState(pos, block.getStateFromMeta(meta), 2);
                     }
                 }
-
     }
 
     public void domeExplosion(int radius, Block block) {

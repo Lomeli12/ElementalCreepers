@@ -11,7 +11,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntitySpiderCreeper extends EntityBaseCreeper {
 
@@ -21,7 +21,7 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        float radius = getPowered() ? (ECVars.spiderCreeperRadius * power) : ECVars.spiderCreeperRadius;
+        float radius = getPowered() ? (ModVars.spiderCreeperRadius * power) : ModVars.spiderCreeperRadius;
         for (float x = -radius; x <= radius; x++)
             for (float y = -radius; y <= radius; y++)
                 for (float z = -radius; z <= radius; z++) {
@@ -95,5 +95,4 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
     public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
         return par1PotionEffect.getPotionID() == Potion.poison.id ? false : super.isPotionApplicable(par1PotionEffect);
     }
-
 }

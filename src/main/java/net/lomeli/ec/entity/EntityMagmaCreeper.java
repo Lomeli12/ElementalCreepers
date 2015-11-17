@@ -5,7 +5,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntityMagmaCreeper extends EntityBaseCreeper {
 
@@ -30,11 +30,10 @@ public class EntityMagmaCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (ECVars.magmaCreeperRadius * power) : ECVars.magmaCreeperRadius;
-        if (ECVars.domeExplosion)
+        int radius = getPowered() ? (ModVars.magmaCreeperRadius * power) : ModVars.magmaCreeperRadius;
+        if (ModVars.domeExplosion)
             this.domeExplosion(radius, Blocks.lava);
         else
             this.wildExplosion(radius, Blocks.lava);
     }
-
 }

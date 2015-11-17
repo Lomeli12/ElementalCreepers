@@ -29,7 +29,7 @@ public class EntityEnderCreeper extends EntityBaseCreeper {
         this.tasks.taskEntries.clear();
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAICreeperSwell(this));
-        this.tasks.addTask(2, this.field_175455_a);
+        this.tasks.addTask(2, this.aiAvoidExplodingCreepers);
         this.tasks.addTask(3, new EntityAIAvoidEntity(this, new Predicate() {
             public boolean func_179958_a(Entity p_179958_1_) {
                 return p_179958_1_ instanceof EntityOcelot;

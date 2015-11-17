@@ -12,7 +12,7 @@ import net.lomeli.lomlib.util.ResourceUtil;
 
 import net.lomeli.ec.entity.EntityBaseCreeper;
 import net.lomeli.ec.entity.model.ModelSilverCreeper;
-import net.lomeli.ec.lib.Strings;
+import net.lomeli.ec.lib.ModLib;
 
 public class RenderSilverCreeper extends RenderLiving {
     public RenderSilverCreeper() {
@@ -56,6 +56,6 @@ public class RenderSilverCreeper extends RenderLiving {
 
     @Override
     protected ResourceLocation getEntityTexture(Entity var1) {
-        return ResourceUtil.getEntityTexture(Strings.MOD_ID.toLowerCase(), "silvercreeper.png");
+        return ResourceUtil.getEntityTexture(ModLib.MOD_ID.toLowerCase(), "silvercreeper.png");
     }
 }

@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import net.lomeli.lomlib.util.ResourceUtil;
 
-import net.lomeli.ec.lib.Strings;
+import net.lomeli.ec.lib.ModLib;
 
 @SideOnly(Side.CLIENT)
 public class RenderBasicCreeper extends RenderCreeper {
@@ -34,7 +34,7 @@ public class RenderBasicCreeper extends RenderCreeper {
     }
 
     public RenderCreeper setTexture(String entity) {
-        entityTexture = ResourceUtil.getEntityTexture(Strings.MOD_ID.toLowerCase(), entity + ".png");
+        entityTexture = ResourceUtil.getEntityTexture(ModLib.MOD_ID.toLowerCase(), entity + ".png");
         return this;
     }
 

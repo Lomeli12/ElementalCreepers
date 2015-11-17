@@ -312,7 +312,6 @@ public class EntityFriendlyCreeper extends EntityTameable {
             this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
     }
 
-
     @Override
     public boolean isBreedingItem(ItemStack stack) {
         if (stack != null && stack.getItem() != null) {
@@ -391,7 +390,6 @@ public class EntityFriendlyCreeper extends EntityTameable {
                     }
                 }
             }
-
 
             if (isOwner(player) && !worldObj.isRemote && !isBreedingItem(stack)) {
                 this.aiSit.setSitting(!this.isSitting());

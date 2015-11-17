@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import net.lomeli.ec.entity.EntityFriendlyCreeper;
 import net.lomeli.ec.entity.model.ModelFriendlyCreeper;
-import net.lomeli.ec.lib.Strings;
+import net.lomeli.ec.lib.ModLib;
 
 @SideOnly(Side.CLIENT)
 public class RenderFriendlyCreeper extends RenderLiving {
@@ -68,6 +68,6 @@ public class RenderFriendlyCreeper extends RenderLiving {
 
     @Override
     protected ResourceLocation getEntityTexture(Entity entity) {
-        return new ResourceLocation(Strings.MOD_ID.toLowerCase(), ((EntityFriendlyCreeper) entity).tamedTexture());
+        return new ResourceLocation(ModLib.MOD_ID.toLowerCase(), ((EntityFriendlyCreeper) entity).tamedTexture());
     }
 }

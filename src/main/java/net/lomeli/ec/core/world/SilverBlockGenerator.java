@@ -1,4 +1,4 @@
-package net.lomeli.ec.core;
+package net.lomeli.ec.core.world;
 
 import java.util.Random;
 
@@ -10,7 +10,8 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 
 import net.minecraftforge.fml.common.IWorldGenerator;
 
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.ElementalCreepers;
+import net.lomeli.ec.lib.ModVars;
 
 public class SilverBlockGenerator implements IWorldGenerator {
     @Override
@@ -21,12 +22,12 @@ public class SilverBlockGenerator implements IWorldGenerator {
                 int firstBlockZCoord = chunkZ + rand.nextInt(16);
                 int quisqueY = rand.nextInt(40);
                 BlockPos quisquePos = new BlockPos(firstBlockXCoord, quisqueY, firstBlockZCoord);
-                if (ECVars.silverCreeperSpawn > 0 && isValidBiome(world, quisquePos))
-                    new WorldGenMinable(ECVars.silverCreepBlock.getStateFromMeta(0), ECVars.silverCreeperSpawn).generate(world, rand, quisquePos);
+                if (ModVars.silverCreeperSpawn > 0 && isValidBiome(world, quisquePos))
+                    new WorldGenMinable(ElementalCreepers.silverCreepBlock.getStateFromMeta(0), ModVars.silverCreeperSpawn).generate(world, rand, quisquePos);
             }
         }
     }
-    
+
     public boolean isValidBiome(World world, BlockPos pos) {
         BiomeGenBase biome = world.getBiomeGenForCoords(pos);
         return biome != null && (biome == BiomeGenBase.extremeHills || biome == BiomeGenBase.extremeHillsEdge || biome == BiomeGenBase.extremeHillsPlus);

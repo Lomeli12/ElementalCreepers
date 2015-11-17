@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntityFireworkCreeper extends EntityBaseCreeper {
     private ItemStack firework;
@@ -23,7 +23,7 @@ public class EntityFireworkCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (ECVars.fireworkCreeperRadius * power) : ECVars.fireworkCreeperRadius;
+        int radius = getPowered() ? (ModVars.fireworkCreeperRadius * power) : ModVars.fireworkCreeperRadius;
         getRandomColorFireWork();
         if (!worldObj.isRemote) {
             EntityFireworkRocket rocket = new EntityFireworkRocket(worldObj, posX, posY, posZ, this.firework.copy());

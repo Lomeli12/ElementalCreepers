@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
 import net.lomeli.ec.entity.explosion.ExplosionPsychic;
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntityPsyhicCreeper extends EntityBaseCreeper {
 
@@ -14,13 +14,13 @@ public class EntityPsyhicCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int exPower = ECVars.psychicCreeperRadius * power;
+        int exPower = ModVars.psychicCreeperRadius * power;
         if (!worldObj.isRemote)
             createPsyhicBurst(this, posX, posY, posZ, exPower, true);
     }
 
     private ExplosionPsychic createPsyhicBurst(Entity entity, double x, double y, double z, float strength, boolean flag) {
-        ExplosionPsychic explosion = new ExplosionPsychic(worldObj, entity, x, y, z, strength, ECVars.psychicCreeperPower);
+        ExplosionPsychic explosion = new ExplosionPsychic(worldObj, entity, x, y, z, strength, ModVars.psychicCreeperPower);
         explosion.isFlaming = false;
         explosion.isSmoking = flag;
         explosion.doExplosionA();

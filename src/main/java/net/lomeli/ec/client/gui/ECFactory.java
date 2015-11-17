@@ -1,4 +1,4 @@
-package net.lomeli.ec.core;
+package net.lomeli.ec.client.gui;
 
 import java.util.Set;
 

@@ -1,15 +1,12 @@
 package net.lomeli.ec.entity;
 
-import java.util.Collections;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntityDarkCreeper extends EntityBaseCreeper {
 
@@ -30,7 +27,7 @@ public class EntityDarkCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (ECVars.darkCreeperRadius * power) : ECVars.darkCreeperRadius;
+        int radius = getPowered() ? (ModVars.darkCreeperRadius * power) : ModVars.darkCreeperRadius;
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {
@@ -41,10 +38,9 @@ public class EntityDarkCreeper extends EntityBaseCreeper {
                         if (block != null && block.getLightValue() > 0.5F) {
                             block.dropBlockAsItem(worldObj, pos, state, 0);
                             worldObj.setBlockToAir(pos);
-                            block.onBlockDestroyedByExplosion(worldObj, pos, new Explosion(worldObj, this, 0d, 0d, 0d, 0f, Collections.emptyList()));
+                            //block.onBlockDestroyedByExplosion(worldObj, pos, new Explosion(worldObj, this, 0d, 0d, 0d, 0f, Collections.emptyList()));
                         }
                     }
                 }
     }
-
 }

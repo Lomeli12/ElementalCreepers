@@ -8,7 +8,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntityFireCreeper extends EntityBaseCreeper {
 
@@ -19,7 +19,7 @@ public class EntityFireCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (ECVars.fireCreeperRadius * power) : ECVars.fireCreeperRadius;
+        int radius = getPowered() ? (ModVars.fireCreeperRadius * power) : ModVars.fireCreeperRadius;
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {

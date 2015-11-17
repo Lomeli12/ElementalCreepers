@@ -1,4 +1,4 @@
-package net.lomeli.ec.core;
+package net.lomeli.ec.core.block;
 
 import java.util.List;
 import java.util.Random;
@@ -23,7 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import net.lomeli.ec.entity.EntitySilverCreeper;
-import net.lomeli.ec.lib.Strings;
+import net.lomeli.ec.lib.ModLib;
 
 public class BlockSilverCreeper extends Block {
     public static final PropertyEnum VARIANT = PropertyEnum.create("variant", BlockSilverCreeper.EnumType.class);
@@ -34,7 +34,7 @@ public class BlockSilverCreeper extends Block {
         this.setHardness(0.0F);
         this.setCreativeTab(CreativeTabs.tabDecorations);
         this.setHardness(0.75F);
-        this.setUnlocalizedName(Strings.MOD_ID.toLowerCase() + ".silverCreep");
+        this.setUnlocalizedName(ModLib.MOD_ID.toLowerCase() + ".silverCreep");
     }
 
     @Override
@@ -135,6 +135,17 @@ public class BlockSilverCreeper extends Block {
             }
         };
         private static final EnumType[] META_LOOKUP = new EnumType[values().length];
+
+        static {
+            BlockSilverCreeper.EnumType[] var0 = values();
+            int var1 = var0.length;
+
+            for (int var2 = 0; var2 < var1; ++var2) {
+                BlockSilverCreeper.EnumType var3 = var0[var2];
+                META_LOOKUP[var3.getMetadata()] = var3;
+            }
+        }
+        
         private final int meta;
         private final String name;
         private final String unlocalizedName;
@@ -149,19 +160,20 @@ public class BlockSilverCreeper extends Block {
             this.unlocalizedName = unlocalizedName;
         }
 
+        EnumType(int meta, String name, BlockSilverCreeper.SwitchEnumType dummy) {
+            this(meta, name);
+        }
+
+        EnumType(int meta, String name, String unlocalizedName, BlockSilverCreeper.SwitchEnumType dummy) {
+            this(meta, name, unlocalizedName);
+        }
+
         public int getMetadata() {
             return this.meta;
         }
 
         public String toString() {
             return this.name;
-        }
-
-        public static BlockSilverCreeper.EnumType byMetadata(int meta) {
-            if (meta < 0 || meta >= META_LOOKUP.length)
-                meta = 0;
-
-            return META_LOOKUP[meta];
         }
 
         public String getName() {
@@ -173,6 +185,13 @@ public class BlockSilverCreeper extends Block {
         }
 
         public abstract IBlockState getModelBlock();
+
+        public static BlockSilverCreeper.EnumType byMetadata(int meta) {
+            if (meta < 0 || meta >= META_LOOKUP.length)
+                meta = 0;
+
+            return META_LOOKUP[meta];
+        }
 
         public static BlockSilverCreeper.EnumType forModelBlock(IBlockState model) {
             BlockSilverCreeper.EnumType[] aenumtype = values();
@@ -187,24 +206,6 @@ public class BlockSilverCreeper extends Block {
             }
 
             return STONE;
-        }
-
-        EnumType(int meta, String name, BlockSilverCreeper.SwitchEnumType dummy) {
-            this(meta, name);
-        }
-
-        EnumType(int meta, String name, String unlocalizedName, BlockSilverCreeper.SwitchEnumType dummy) {
-            this(meta, name, unlocalizedName);
-        }
-
-        static {
-            BlockSilverCreeper.EnumType[] var0 = values();
-            int var1 = var0.length;
-
-            for (int var2 = 0; var2 < var1; ++var2) {
-                BlockSilverCreeper.EnumType var3 = var0[var2];
-                META_LOOKUP[var3.getMetadata()] = var3;
-            }
         }
     }
 

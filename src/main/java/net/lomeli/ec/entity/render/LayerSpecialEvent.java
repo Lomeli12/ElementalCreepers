@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 
 import net.lomeli.ec.entity.model.ModelFriendlyCreeper;
 import net.lomeli.ec.entity.model.ModelSpiderCreeper;
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class LayerSpecialEvent implements LayerRenderer {
     private final RenderLiving renderer;
@@ -39,7 +39,7 @@ public class LayerSpecialEvent implements LayerRenderer {
             if (month == Calendar.DECEMBER && day == 25)
                 itemstack = new ItemStack(Blocks.snow);
 
-            if (itemstack != null && ECVars.special)
+            if (itemstack != null && ModVars.special)
                 renderItem(entity, itemstack, renderer.getMainModel());
         }
     }

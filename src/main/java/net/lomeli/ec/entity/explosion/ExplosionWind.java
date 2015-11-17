@@ -124,6 +124,4 @@ public class ExplosionWind {
 
         this.explosionSize = f;
     }
-
-
 }

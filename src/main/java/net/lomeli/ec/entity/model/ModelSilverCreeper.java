@@ -45,7 +45,7 @@ public class ModelSilverCreeper extends ModelBase {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         this.head.render(f5);
         this.frontRightFoot.render(f5);
         this.frontLeftFoot.render(f5);
@@ -54,7 +54,7 @@ public class ModelSilverCreeper extends ModelBase {
         this.fuzz.render(f5);
         this.torso.render(f5);
     }
-    
+
     public void render(float f) {
         this.render(null, 0f, 0f, 0f, 0f, 0f, f);
     }

@@ -3,7 +3,7 @@ package net.lomeli.ec.entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntityLightCreeper extends EntityBaseCreeper {
 
@@ -13,8 +13,8 @@ public class EntityLightCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (ECVars.lightCreeperRadius * power) : ECVars.lightCreeperRadius;
-        if (ECVars.domeExplosion)
+        int radius = getPowered() ? (ModVars.lightCreeperRadius * power) : ModVars.lightCreeperRadius;
+        if (ModVars.domeExplosion)
             this.domeExplosion(radius, Blocks.glowstone);
         else
             this.wildExplosion(radius, Blocks.glowstone);

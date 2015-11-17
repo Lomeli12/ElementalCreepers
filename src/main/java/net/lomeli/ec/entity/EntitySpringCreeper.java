@@ -3,7 +3,7 @@ package net.lomeli.ec.entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntitySpringCreeper extends EntityBaseCreeper {
     private boolean isSprung;
@@ -11,7 +11,7 @@ public class EntitySpringCreeper extends EntityBaseCreeper {
 
     public EntitySpringCreeper(World world) {
         super(world);
-        this.explosionRadius = ECVars.springCreeperPower;
+        this.explosionRadius = ModVars.springCreeperPower;
     }
 
     @Override

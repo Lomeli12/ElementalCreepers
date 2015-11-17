@@ -7,7 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntityReverseCreeper extends EntityBaseCreeper {
 
@@ -18,7 +18,7 @@ public class EntityReverseCreeper extends EntityBaseCreeper {
     @Override
     public void explosion(int power, boolean flag) {
         if (flag) {
-            double radius = getPowered() ? (int) (ECVars.reverseCreeperRadius * 1.5F) : ECVars.reverseCreeperRadius;
+            double radius = getPowered() ? (int) (ModVars.reverseCreeperRadius * 1.5F) : ModVars.reverseCreeperRadius;
             IBlockState[][][] states = new IBlockState[((int) radius) * 2 + 2][((int) radius) * 2 + 2][((int) radius) * 2 + 2];
             TileEntity[][][] TEs = new TileEntity[((int) radius) * 2 + 2][((int) radius) * 2 + 2][((int) radius) * 2 + 2];
             for (int x = (int) -radius - 1; x <= radius; x++) {
@@ -64,5 +64,4 @@ public class EntityReverseCreeper extends EntityBaseCreeper {
             }
         }
     }
-
 }

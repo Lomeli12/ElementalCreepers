@@ -1,4 +1,4 @@
-package net.lomeli.ec.core;
+package net.lomeli.ec.core.item;
 
 import com.google.common.base.Function;
 
@@ -7,6 +7,8 @@ import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemMultiTexture;
 import net.minecraft.item.ItemStack;
+
+import net.lomeli.ec.core.block.BlockSilverCreeper;
 
 public class ItemSilverBlock extends ItemMultiTexture {
     public ItemSilverBlock(Block block) {

@@ -10,7 +10,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
 import net.lomeli.ec.entity.explosion.ExplosionWind;
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntityWindCreeper extends EntityBaseCreeper {
 
@@ -58,12 +58,12 @@ public class EntityWindCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int exPower = ECVars.windCreeperRadius * power;
+        int exPower = ModVars.windCreeperRadius * power;
         createWindGust(this, posX, posY, posZ, exPower, true);
     }
 
     private ExplosionWind createWindGust(Entity entity, double x, double y, double z, float strength, boolean flag) {
-        ExplosionWind explosion = new ExplosionWind(worldObj, entity, x, y, z, strength, ECVars.windCreeperPower);
+        ExplosionWind explosion = new ExplosionWind(worldObj, entity, x, y, z, strength, ModVars.windCreeperPower);
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos((int) x, (int) y, (int) z));
         boolean flammingFlag = false;
         if (biome != null) {

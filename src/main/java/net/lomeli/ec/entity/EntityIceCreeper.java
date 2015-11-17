@@ -6,7 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntityIceCreeper extends EntityBaseCreeper {
 
@@ -31,7 +31,7 @@ public class EntityIceCreeper extends EntityBaseCreeper {
 
     @Override
     public void explosion(int power, boolean flag) {
-        int radius = getPowered() ? (ECVars.iceCreeperRadius * power) : ECVars.iceCreeperRadius;
+        int radius = getPowered() ? (ModVars.iceCreeperRadius * power) : ModVars.iceCreeperRadius;
         for (int x = -radius; x <= radius; x++)
             for (int y = -radius; y <= radius; y++)
                 for (int z = -radius; z <= radius; z++) {
@@ -45,7 +45,7 @@ public class EntityIceCreeper extends EntityBaseCreeper {
                             worldObj.setBlockState(pos, Blocks.obsidian.getDefaultState());
                     }
                 }
-        if (ECVars.domeExplosion)
+        if (ModVars.domeExplosion)
             this.domeExplosion(radius, Blocks.snow);
         else {
             for (int x = -radius; x <= radius; x++)
@@ -61,5 +61,4 @@ public class EntityIceCreeper extends EntityBaseCreeper {
                     }
         }
     }
-
 }

@@ -1,4 +1,4 @@
-package net.lomeli.ec.core;
+package net.lomeli.ec.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -11,18 +11,20 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
+import net.lomeli.lomlib.client.BasicItemMesh;
 import net.lomeli.lomlib.util.RenderUtils;
 
 import net.lomeli.ec.ElementalCreepers;
+import net.lomeli.ec.core.CommonProxy;
 import net.lomeli.ec.entity.*;
 import net.lomeli.ec.entity.render.*;
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModLib;
 
 public class ClientProxy extends CommonProxy {
     @Override
     public void registerEvents() {
         super.registerEvents();
-        FMLCommonHandler.instance().bus().register(ElementalCreepers.checker);
+        FMLCommonHandler.instance().bus().register(ElementalCreepers.updater);
         FMLCommonHandler.instance().bus().register(ElementalCreepers.config);
     }
 
@@ -61,13 +63,14 @@ public class ClientProxy extends CommonProxy {
         if (renderLiving != null)
             RenderUtils.addLayerToRenderer(renderLiving, new LayerSpecialEvent(renderLiving));
 
-        registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 0, "stone");
-        registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 1, "cobblestone");
-        registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 2, "stonebrick");
-        registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 3, "mossy_stonebrick");
-        registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 4, "cracked_stonebrick");
-        registerModel(Item.getItemFromBlock(ECVars.silverCreepBlock), 5, "chiseled_stonebrick");
-        ModelBakery.addVariantName(Item.getItemFromBlock(ECVars.silverCreepBlock), "stone", "cobblestone", "stonebrick", "mossy_stonebrick", "cracked_stonebrick", "chiseled_stonebrick");
+        registerModel(Item.getItemFromBlock(ElementalCreepers.silverCreepBlock), 0, "stone");
+        registerModel(Item.getItemFromBlock(ElementalCreepers.silverCreepBlock), 1, "cobblestone");
+        registerModel(Item.getItemFromBlock(ElementalCreepers.silverCreepBlock), 2, "stonebrick");
+        registerModel(Item.getItemFromBlock(ElementalCreepers.silverCreepBlock), 3, "mossy_stonebrick");
+        registerModel(Item.getItemFromBlock(ElementalCreepers.silverCreepBlock), 4, "cracked_stonebrick");
+        registerModel(Item.getItemFromBlock(ElementalCreepers.silverCreepBlock), 5, "chiseled_stonebrick");
+        ModelBakery.addVariantName(Item.getItemFromBlock(ElementalCreepers.silverCreepBlock), "stone", "cobblestone", "stonebrick", "mossy_stonebrick", "cracked_stonebrick", "chiseled_stonebrick");
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ElementalCreepers.creepapedia, new BasicItemMesh(ModLib.MOD_ID.toLowerCase() + ":creepapedia"));
     }
 
     private void registerModel(Item item, int metaData, String name) {

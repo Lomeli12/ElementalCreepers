@@ -27,7 +27,7 @@ import net.lomeli.lomlib.util.entity.EntityUtil;
 
 import net.lomeli.ec.core.EntityRegistering;
 import net.lomeli.ec.entity.ai.EntityAIBigBadSwell;
-import net.lomeli.ec.lib.ECVars;
+import net.lomeli.ec.lib.ModVars;
 
 public class EntityBigBadCreep extends EntityMob {
     protected int lastActiveTime;
@@ -126,7 +126,7 @@ public class EntityBigBadCreep extends EntityMob {
 
     public void explosion(int power, boolean flag) {
         this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 10 * power, flag);
-        for (int i = 0; i < ECVars.bigBadAmount * power; i++) {
+        for (int i = 0; i < ModVars.bigBadAmount * power; i++) {
             try {
                 Class<? extends EntityCreeper> creepClass = EntityRegistering.creeperClassList.get(this.rand.nextInt(EntityRegistering.creeperClassList.size()));
                 if (creepClass != null) {

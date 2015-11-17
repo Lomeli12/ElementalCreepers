@@ -17,9 +17,11 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import net.lomeli.lomlib.util.LangUtil;
 import net.lomeli.lomlib.util.entity.EntityUtil;
 
 import net.lomeli.ec.ElementalCreepers;
+import net.lomeli.ec.client.CreeperEntry;
 import net.lomeli.ec.entity.*;
 import net.lomeli.ec.lib.ModVars;
 
@@ -95,6 +97,8 @@ public class EventHandler {
             tag.setTag("creepers", list);
             stack.setTagCompound(tag);
             player.inventory.setInventorySlotContents(slot, stack);
+            if (list.tagCount() >= CreeperEntry.entryList.size())
+                player.addChatComponentMessage(new ChatComponentText(LangUtil.translate("book.entry.allentries")));
             return flag;
         }
         return false;

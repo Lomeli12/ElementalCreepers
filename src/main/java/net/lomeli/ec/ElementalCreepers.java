@@ -19,13 +19,14 @@ import net.lomeli.ec.client.handler.ECGuiHandler;
 import net.lomeli.ec.core.CommonProxy;
 import net.lomeli.ec.core.EntityRegistering;
 import net.lomeli.ec.core.addon.AddonBase;
+import net.lomeli.ec.core.block.BlockRadiation;
 import net.lomeli.ec.core.block.BlockSilverCreeper;
 import net.lomeli.ec.core.item.ItemCreepapedia;
 import net.lomeli.ec.core.item.ItemSilverBlock;
 import net.lomeli.ec.lib.ModVars;
 import net.lomeli.ec.lib.ModLib;
 
-@Mod(modid = ModLib.MOD_ID, name = ModLib.MOD_NAME, version = ModLib.VERSION, guiFactory = ModLib.FACTORY, dependencies = "required-after:LomLib")
+@Mod(modid = ModLib.MOD_ID, name = ModLib.MOD_NAME, version = ModLib.VERSION, guiFactory = ModLib.FACTORY, dependencies = ModLib.DEPENDENCIES)
 public class ElementalCreepers {
     @Mod.Instance
     public static ElementalCreepers instance;
@@ -37,7 +38,7 @@ public class ElementalCreepers {
     public static VersionChecker updater;
     public static LogHelper logger;
 
-    public static Block silverCreepBlock;
+    public static Block silverCreepBlock, radiation;
     public static Item creepapedia;
 
     @Mod.EventHandler
@@ -50,9 +51,11 @@ public class ElementalCreepers {
             new Thread(updater).start();
         AddonBase.registerAddons();
         silverCreepBlock = new BlockSilverCreeper();
+        radiation = new BlockRadiation();
         creepapedia = new ItemCreepapedia();
 
         GameRegistry.registerBlock(silverCreepBlock, ItemSilverBlock.class, "silverCreepBlock");
+        GameRegistry.registerBlock(radiation, "radiation");
         GameRegistry.registerItem(creepapedia, "creepapedia");
     }
 

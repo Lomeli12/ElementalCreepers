@@ -1,19 +1,19 @@
-entity.ElementalCreepers.FireCreeper.name=Огненный крипер
-entity.ElementalCreepers.WaterCreeper.name=Водяной крипер
-entity.ElementalCreepers.ElectricCreeper.name=Электрический крипер
-entity.ElementalCreepers.CookieCreeper.name=Печеньковый крипер
-entity.ElementalCreepers.DarkCreeper.name=Тёмный крипер
-entity.ElementalCreepers.LightCreeper.name=Светящийся крипер
-entity.ElementalCreepers.EarthCreeper.name=Земляной крипер
-entity.ElementalCreepers.MagmaCreeper.name=Магматический крипер
-entity.ElementalCreepers.ReverseCreeper.name=Перевёрнутый крипер
-entity.ElementalCreepers.IceCreeper.name=Ледяной крипер
-entity.ElementalCreepers.FriendlyCreeper.name=Дружелюбный крипер
-entity.ElementalCreepers.GhostCreeper.name=Призрачный крипер
-entity.ElementalCreepers.FakeIllusionCreeper.name=Крипер-иллюзионист
-entity.ElementalCreepers.IllusionCreeper.name=Крипер-иллюзионист
-entity.ElementalCreepers.PsychicCreeper.name=Психованный крипер
-entity.ElementalCreepers.SpiderCreeper.name=Крипер-паук
+entity.elementalcreepers.FireCreeper.name=Огненный крипер
+entity.elementalcreepers.WaterCreeper.name=Водяной крипер
+entity.elementalcreepers.ElectricCreeper.name=Электрический крипер
+entity.elementalcreepers.CookieCreeper.name=Печеньковый крипер
+entity.elementalcreepers.DarkCreeper.name=Тёмный крипер
+entity.elementalcreepers.LightCreeper.name=Светящийся крипер
+entity.elementalcreepers.EarthCreeper.name=Земляной крипер
+entity.elementalcreepers.MagmaCreeper.name=Магматический крипер
+entity.elementalcreepers.ReverseCreeper.name=Перевёрнутый крипер
+entity.elementalcreepers.IceCreeper.name=Ледяной крипер
+entity.elementalcreepers.FriendlyCreeper.name=Дружелюбный крипер
+entity.elementalcreepers.GhostCreeper.name=Призрачный крипер
+entity.elementalcreepers.FakeIllusionCreeper.name=Крипер-иллюзионист
+entity.elementalcreepers.IllusionCreeper.name=Крипер-иллюзионист
+entity.elementalcreepers.PsychicCreeper.name=Психованный крипер
+entity.elementalcreepers.SpiderCreeper.name=Крипер-паук
 
 entity.elementalcreepers:WindCreeper.name=Ветряной крипер
 entity.elementalcreepers:HydrogenCreeper.name=Водородный крипер
@@ -27,8 +27,8 @@ entity.elementalcreepers:SpringCreeper.name=Пружинистый крипер
 entity.elementalcreepers:SilverCreeper.name=Крипер-чешуйница
 entity.elementalcreepers:FurnaceCreeper.name=Печной крипер
 
-entity.ElementalCreepers.EUCreeper.name=EU-крипер
-entity.ElementalCreepers.RFCreeper.name=Флаксовый крипер
+entity.elementalcreepers.EUCreeper.name=EU-крипер
+entity.elementalcreepers.RFCreeper.name=Флаксовый крипер
 
 tile.elementalcreepers.silverCreep.stone.name=Призвать существо - Каменный крипер
 tile.elementalcreepers.silverCreep.cobble.name=Призвать существо - Булыжниковый крипер

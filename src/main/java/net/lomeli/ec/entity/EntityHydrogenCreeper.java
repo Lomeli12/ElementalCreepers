@@ -4,10 +4,13 @@ import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import net.lomeli.ec.ElementalCreepers;
 import net.lomeli.ec.lib.ModVars;
 
 public class EntityHydrogenCreeper extends EntityBaseCreeper {
@@ -64,6 +67,18 @@ public class EntityHydrogenCreeper extends EntityBaseCreeper {
 
         this.worldObj.createExplosion(this, posX, posY, posZ, exPower, flag);
         worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 4F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+
+        // TODO: Get radiation blocks working properly before hydrogen creeper can place them
+        /*int radius = exPower / 2;
+        for (int x = -radius; x <= radius; x++)
+            for (int y = -radius; y <= radius; y++)
+                for (int z = -radius; z <= radius; z++) {
+                    BlockPos pos = new BlockPos((int) posX + x, (int) posY + y, (int) posZ + z);
+                    if (Blocks.dirt.canPlaceBlockAt(worldObj, pos) && !Blocks.dirt.canPlaceBlockAt(worldObj, new BlockPos((int) posX + x, (int) posY + y - 1, (int) posZ + z))) {
+                        worldObj.setBlockState(pos, ElementalCreepers.radiation.getDefaultState());
+                    }
+                }*/
+
         spawnExplosionParticle();
     }
 }

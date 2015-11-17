@@ -19,8 +19,12 @@ public class ECGuiHandler implements IGuiHandler {
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         ItemStack stack = player.getCurrentEquippedItem();
-        if (stack != null && stack.getItem() != null && stack.getItem() == ElementalCreepers.creepapedia)
-            return new GuiItemList(CreeperEntry.generatePages(stack.getTagCompound()));
+        if (stack != null && stack.getItem() != null && stack.getItem() == ElementalCreepers.creepapedia) {
+            boolean ghostClear = false;
+            if (stack.hasTagCompound() && stack.getTagCompound().getBoolean("ghostClear"))
+                ghostClear = true;
+            return new GuiItemList(CreeperEntry.generatePages(stack.getTagCompound()), ghostClear);
+        }
         return null;
     }
 }

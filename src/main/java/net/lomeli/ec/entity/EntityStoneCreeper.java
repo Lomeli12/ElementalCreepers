@@ -35,7 +35,6 @@ public class EntityStoneCreeper extends EntityBaseCreeper {
                         if (bk != null && this.blockList.contains(bk) && Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)) <= radius) {
                             bk.dropBlockAsItem(worldObj, pos, blockState, 0);
                             worldObj.setBlockToAir(pos);
-                            //bk.onBlockDestroyedByExplosion(worldObj, pos, new Explosion(worldObj, this, 0.0D, 0.0D, 0.0D, 0.0F, Collections.emptyList()));
                         }
                     }
                 }
@@ -43,11 +42,17 @@ public class EntityStoneCreeper extends EntityBaseCreeper {
 
     public void genList() {
         blockList.clear();
-        for (ItemStack stack : OreDictionary.getOres("cobblestone")) {
-            blockList.add(Block.getBlockFromItem(stack.getItem()));
+        List<ItemStack> list = OreDictionary.getOres("cobblestone");
+        if (list != null && !list.isEmpty()) {
+            for (ItemStack stack : list) {
+                blockList.add(Block.getBlockFromItem(stack.getItem()));
+            }
         }
-        for (ItemStack stack : OreDictionary.getOres("stone")) {
-            blockList.add(Block.getBlockFromItem(stack.getItem()));
+        list = OreDictionary.getOres("stone");
+        if (list != null && !list.isEmpty()) {
+            for (ItemStack stack : list) {
+                blockList.add(Block.getBlockFromItem(stack.getItem()));
+            }
         }
         blockList.add(Blocks.mossy_cobblestone);
         blockList.add(Blocks.stone_brick_stairs);

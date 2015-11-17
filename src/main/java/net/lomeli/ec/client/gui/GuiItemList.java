@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.EntityList;
 import net.minecraft.util.ResourceLocation;
 
 import net.lomeli.ec.client.CreeperEntry;
@@ -26,11 +27,13 @@ public class GuiItemList extends GuiScreen {
     private int bookImageHeight = 192;
     public GuiPageButton buttonNextPage;
     public GuiPageButton buttonPreviousPage;
+    public boolean ghostClear;
 
-    public GuiItemList(List<CreeperEntry> list) {
+    public GuiItemList(List<CreeperEntry> list, boolean ghostClear) {
         this.entries = list;
         this.pages = Lists.newArrayList();
         this.selected = 0;
+        this.ghostClear = ghostClear;
     }
 
     @Override

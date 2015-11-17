@@ -68,6 +68,7 @@ public class ItemCreepapedia extends Item {
             list.appendTag(new NBTTagString(entry.getEntityClass().getCanonicalName()));
         }
         tag.setTag("creepers", list);
+        tag.setBoolean("complete", true);
         tag.setBoolean("fullList", true);
         tag.setBoolean("ghostClear", true);
         stack.setTagCompound(tag);

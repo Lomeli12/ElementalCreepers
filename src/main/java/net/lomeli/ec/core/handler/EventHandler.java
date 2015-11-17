@@ -97,8 +97,10 @@ public class EventHandler {
             tag.setTag("creepers", list);
             stack.setTagCompound(tag);
             player.inventory.setInventorySlotContents(slot, stack);
-            if (list.tagCount() >= CreeperEntry.entryList.size())
+            if (!tag.getBoolean("complete") && list.tagCount() >= CreeperEntry.entryList.size()) {
+                tag.setBoolean("complete", true);
                 player.addChatComponentMessage(new ChatComponentText(LangUtil.translate("book.entry.allentries")));
+            }
             return flag;
         }
         return false;

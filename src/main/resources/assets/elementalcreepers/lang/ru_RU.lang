@@ -15,18 +15,27 @@ entity.ElementalCreepers.IllusionCreeper.name=Крипер-иллюзионис�
 entity.ElementalCreepers.PsychicCreeper.name=Психованный крипер
 entity.ElementalCreepers.SpiderCreeper.name=Крипер-паук
 
-entity.ElementalCreepers.WindCreeper.name=Ветряной крипер
-entity.ElementalCreepers.HydrogenCreeper.name=Водородный крипер
-entity.ElementalCreepers.EnderCreeper.name=Крипер Края
-entity.ElementalCreepers.StoneCreeper.name=Каменный крипер
-entity.ElementalCreepers.SolarCreeper.name=Солнечный крипер
-entity.ElementalCreepers.CakeCreeper.name=Тортиковый крипер
-entity.ElementalCreepers.FireworkCreeper.name=Фейерверковый крипер
-entity.ElementalCreepers.BigBadCreep.name=Большой плохой крипер
-entity.ElementalCreepers.SpringCreeper.name=Весенний крипер
+entity.elementalcreepers:WindCreeper.name=Ветряной крипер
+entity.elementalcreepers:HydrogenCreeper.name=Водородный крипер
+entity.elementalcreepers:EnderCreeper.name=Крипер Края
+entity.elementalcreepers:StoneCreeper.name=Каменный крипер
+entity.elementalcreepers:SolarCreeper.name=Солнечный крипер
+entity.elementalcreepers:CakeCreeper.name=Тортиковый крипер
+entity.elementalcreepers:FireworkCreeper.name=Фейерверковый крипер
+entity.elementalcreepers:BigBadCreep.name=Большой плохой крипер
+entity.elementalcreepers:SpringCreeper.name=Пружинистый крипер
+entity.elementalcreepers:SilverCreeper.name=Крипер-чешуйница
+entity.elementalcreepers:FurnaceCreeper.name=Печной крипер
 
 entity.ElementalCreepers.EUCreeper.name=EU-крипер
 entity.ElementalCreepers.RFCreeper.name=Флаксовый крипер
+
+tile.elementalcreepers.silverCreep.stone.name=Призвать существо - Каменный крипер
+tile.elementalcreepers.silverCreep.cobble.name=Призвать существо - Булыжниковый крипер
+tile.elementalcreepers.silverCreep.brick.name=Призвать существо - Крипер каменного кирпича
+tile.elementalcreepers.silverCreep.mossybrick.name=Призвать существо - Крипер замшелого каменного кирпича
+tile.elementalcreepers.silverCreep.crackedbrick.name=Призвать существо - Крипер потрескавшегося каменного кирпича
+tile.elementalcreepers.silverCreep.chiseledbrick.name=Призвать существо - Крипер резного каменного кирпича
 
 update.elementalcreepers.message=Новое обновление для Elemental Creepers доступно!
 update.elementalcreepers.old=Старая версия:
@@ -34,6 +43,6 @@ update.elementalcreepers.new=Новая версия:
 
 config.elementalcreepers.spawnRates=Скорость появления криперов
 config.elementalcreepers.explosionConfig=Настройка взрывов криперов
-config.elementalcreepers.cookies=Количество печенек, которые даёт печеньковый крипер
+config.elementalcreepers.cookies=Количество печенек, которое даёт печеньковый крипер
 config.elementalcreepers.domeEx=Включить купольные взрывы (вместо случайных взрывов блоков)
 config.elementalcreepers.specialEvents=Разрешить особую отрисовку во время некоторых событий.

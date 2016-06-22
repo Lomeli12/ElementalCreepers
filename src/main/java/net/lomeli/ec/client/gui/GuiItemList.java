@@ -9,7 +9,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.EntityList;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
 import net.lomeli.ec.client.CreeperEntry;
@@ -49,14 +49,21 @@ public class GuiItemList extends GuiScreen {
             CreeperEntry entry = entries.get(i);
             if (entry != null) {
                 pages.add(new GuiCreeperEntry(this, entry));
-                GuiItemButton itemButton = new GuiItemButton(2 + i, left + 40, top + 15 + (12 * (i % listSize)), bookImageWidth - 6, entry.getEntity(mc.theWorld).getCommandSenderName());
+                Entity entity = entry.getEntity(mc.theWorld);
+                String name = entry.getEntityClass().getCanonicalName();
+                if (entity != null)
+                    name = entity.getName();
+                GuiItemButton itemButton = new GuiItemButton(2 + i, left + 40, top + 15 + (11 * (i % listSize)), bookImageWidth / 2, name);
                 if (i >= listSize) {
                     itemButton.visible = false;
                     itemButton.enabled = false;
                 }
+                if (entity == null)
+                    itemButton.enabled = false;
                 this.buttonList.add(itemButton);
             }
         }
+        resetButtons();
     }
 
     @Override

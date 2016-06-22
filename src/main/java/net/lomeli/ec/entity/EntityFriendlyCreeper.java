@@ -1,7 +1,5 @@
 package net.lomeli.ec.entity;
 
-import com.google.common.base.Predicate;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.Entity;
@@ -26,8 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import net.lomeli.lomlib.util.entity.EntityUtil;
-import net.lomeli.lomlib.util.entity.ItemCustomEgg;
+import net.lomeli.lomlib.util.EntityUtil;
 
 import net.lomeli.ec.entity.ai.EntityAIFriendlyCreeperSwell;
 import net.lomeli.ec.entity.explosion.ExplosionFriendly;
@@ -47,17 +44,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, this.aiSit);
         this.tasks.addTask(3, new EntityAIFriendlyCreeperSwell(this));
-        this.tasks.addTask(3, new EntityAIAvoidEntity(this, new Predicate() {
-            private static final String __OBFID = "CL_00002224";
-
-            public boolean apply(Entity entity) {
-                return entity instanceof EntityOcelot;
-            }
-
-            public boolean apply(Object p_apply_1_) {
-                return this.apply((Entity) p_apply_1_);
-            }
-        }, 6.0F, 1.0D, 1.2D));
+        this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
         this.tasks.addTask(5, new EntityAIAttackOnCollide(this, 1.0D, true));
         this.tasks.addTask(6, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
         this.tasks.addTask(7, new EntityAIMate(this, 1.0D));
@@ -90,7 +77,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
             if (this.timeSinceIgnited >= this.fuseTime) {
                 this.timeSinceIgnited = this.fuseTime;
                 if (!this.worldObj.isRemote) {
-                    boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
+                    boolean flag = this.worldObj.getGameRules().getBoolean("mobGriefing");
                     this.doFriendlyExplosion((float) this.explosionRadius * (this.getPowered() ? 2 : 1), flag);
                 }
 
@@ -340,13 +327,13 @@ public class EntityFriendlyCreeper extends EntityTameable {
     }
 
     public boolean isOwner(EntityLivingBase entityLivingBase) {
-        return entityLivingBase == this.getOwnerEntity();
+        return entityLivingBase == this.getOwner();
     }
 
     @Override
     public boolean interact(EntityPlayer player) {
         ItemStack stack = player.getCurrentEquippedItem();
-        if (!worldObj.isRemote && stack != null && stack.getItem() == ItemCustomEgg.customEgg) {
+        if (!worldObj.isRemote && stack != null && stack.getItem() == Items.spawn_egg) {
             EntityAgeable baby = this.createChild(this);
             if (baby != null) {
                 baby.setGrowingAge(-24000);
@@ -447,9 +434,6 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
     @Override
     public ItemStack getPickedResult(MovingObjectPosition target) {
-        ItemStack stack = EntityUtil.getEntitySpawnEgg(this.getClass());
-        if (stack != null && stack.getItem() != null)
-            return stack;
         return super.getPickedResult(target);
     }
 }

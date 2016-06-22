@@ -1,11 +1,8 @@
 package net.lomeli.ec.entity;
 
-import com.google.common.base.Predicate;
-
 import java.util.Collections;
 import java.util.List;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityOcelot;
@@ -19,7 +16,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-import net.lomeli.lomlib.util.entity.EntityUtil;
+import net.lomeli.lomlib.util.EntityUtil;
 
 public class EntityEnderCreeper extends EntityBaseCreeper {
     private int teleportDelay;
@@ -29,20 +26,11 @@ public class EntityEnderCreeper extends EntityBaseCreeper {
         this.tasks.taskEntries.clear();
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAICreeperSwell(this));
-        this.tasks.addTask(2, this.aiAvoidExplodingCreepers);
-        this.tasks.addTask(3, new EntityAIAvoidEntity(this, new Predicate() {
-            public boolean func_179958_a(Entity p_179958_1_) {
-                return p_179958_1_ instanceof EntityOcelot;
-            }
-
-            public boolean apply(Object p_apply_1_) {
-                return this.func_179958_a((Entity) p_apply_1_);
-            }
-        }, 6.0F, 1.0D, 1.2D));
+        this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
         this.tasks.addTask(4, new EntityAIAttackOnCollide(this, 1.0D, false));
         this.tasks.addTask(5, new EntityAIWander(this, 0.8D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(6, new EntityAILookIdle(this));
+        this.tasks.addTask(7, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityEnderCreeper.AIFindPlayer());
         this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false, new Class[0]));
         this.explosionRadius = 3;

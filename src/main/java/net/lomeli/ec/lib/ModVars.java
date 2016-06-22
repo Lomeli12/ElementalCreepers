@@ -55,6 +55,8 @@ public class ModVars {
     public static int silverCreeperSpawn;
     @ConfigInt(defaultValue = 10, minValue = 0, category = "spawn-rates")
     public static int furnaceCreeperSpawn;
+    @ConfigInt(defaultValue = 1, minValue = 0, category = "spawn-rates")
+    public static int warpCreeperSpawn;
 
     @ConfigInt(defaultValue = 4, minValue = 0, category = "explosion-configuration", categoryComment = ModLib.EXPLOSION)
     public static int waterCreeperRadius;
@@ -105,6 +107,8 @@ public class ModVars {
     public static int silverCreeperRadius;
     @ConfigInt(defaultValue = 3, minValue = 0, category = "explosion-configuration")
     public static int furnaceCreeperRadius;
+    @ConfigInt(defaultValue = 7, minValue = 0, category = "explosion-configuration")
+    public static int warpCreeperRadius;
 
     @ConfigBoolean(defaultValue = false, comment = ModLib.DOME)
     public static boolean domeExplosion;

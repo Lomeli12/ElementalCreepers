@@ -1,8 +1,9 @@
-package net.lomeli.ec.entity.render;
+package net.lomeli.ec.client.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
@@ -10,15 +11,17 @@ import net.minecraft.util.ResourceLocation;
 
 import net.lomeli.lomlib.util.ResourceUtil;
 
+import net.lomeli.ec.client.render.layer.LayerCharge;
+import net.lomeli.ec.client.render.layer.LayerSpecialEvent;
 import net.lomeli.ec.entity.EntityBaseCreeper;
-import net.lomeli.ec.entity.model.ModelSpiderCreeper;
+import net.lomeli.ec.client.model.ModelSilverCreeper;
 import net.lomeli.ec.lib.ModLib;
 
-public class RenderSpiderCreeper extends RenderLiving {
-    public RenderSpiderCreeper() {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelSpiderCreeper(), 0.5f);
+public class RenderSilverCreeper extends RenderLiving {
+    public RenderSilverCreeper(RenderManager manager) {
+        super(manager, new ModelSilverCreeper(), 0.5f);
         this.addLayer(new LayerSpecialEvent(this));
-        this.addLayer(new LayerSpiderCharge(this));
+        this.addLayer(new LayerCharge(this));
     }
 
     @Override
@@ -43,9 +46,9 @@ public class RenderSpiderCreeper extends RenderLiving {
             EntityBaseCreeper creeper = (EntityBaseCreeper) p_77030_1_;
             float f2 = creeper.getCreeperFlashIntensity(p_77030_3_);
 
-            if ((int) (f2 * 10.0F) % 2 == 0) {
+            if ((int) (f2 * 10.0F) % 2 == 0)
                 return 0;
-            } else {
+            else {
                 int i = (int) (f2 * 0.2F * 255.0F);
                 i = MathHelper.clamp_int(i, 0, 255);
                 return i << 24 | 16777215;
@@ -56,6 +59,6 @@ public class RenderSpiderCreeper extends RenderLiving {
 
     @Override
     protected ResourceLocation getEntityTexture(Entity var1) {
-        return ResourceUtil.getEntityTexture(ModLib.MOD_ID.toLowerCase(), "spidercreeper.png");
+        return ResourceUtil.getEntityTexture(ModLib.MOD_ID.toLowerCase(), "silvercreeper.png");
     }
 }

@@ -23,8 +23,8 @@ import net.lomeli.ec.core.block.BlockRadiation;
 import net.lomeli.ec.core.block.BlockSilverCreeper;
 import net.lomeli.ec.core.item.ItemCreepapedia;
 import net.lomeli.ec.core.item.ItemSilverBlock;
-import net.lomeli.ec.lib.ModVars;
 import net.lomeli.ec.lib.ModLib;
+import net.lomeli.ec.lib.ModVars;
 
 @Mod(modid = ModLib.MOD_ID, name = ModLib.MOD_NAME, version = ModLib.VERSION, guiFactory = ModLib.FACTORY, dependencies = ModLib.DEPENDENCIES)
 public class ElementalCreepers {
@@ -57,12 +57,14 @@ public class ElementalCreepers {
         GameRegistry.registerBlock(silverCreepBlock, ItemSilverBlock.class, "silverCreepBlock");
         GameRegistry.registerBlock(radiation, "radiation");
         GameRegistry.registerItem(creepapedia, "creepapedia");
+        proxy.registerRenders();
     }
 
     @Mod.EventHandler
     public void Init(FMLInitializationEvent event) {
-        proxy.registerRenders();
         proxy.registerEvents();
+        proxy.registerItemRenders();
+        proxy.registerLayers();
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ECGuiHandler());
         EntityRegistering.loadEntities();
     }
@@ -70,5 +72,6 @@ public class ElementalCreepers {
     @Mod.EventHandler
     public void postLoad(FMLPostInitializationEvent event) {
         AddonBase.activateAddons();
+        EntityRegistering.loadSpawn();
     }
 }

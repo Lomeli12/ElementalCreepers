@@ -40,10 +40,7 @@ public class GuiCreeperEntry extends GuiScreen {
     protected void actionPerformed(GuiButton button) throws IOException {
         super.actionPerformed(button);
         if (button == null) return;
-        if (button.id == backButton.id) {
-            this.mc.displayGuiScreen(prevPage);
-            prevPage.resetButtons();
-        }
+        if (button.id == backButton.id) this.mc.displayGuiScreen(prevPage);
     }
 
     @Override
@@ -60,7 +57,7 @@ public class GuiCreeperEntry extends GuiScreen {
         if (entry == null) return;
         Entity entity = entry.getEntity(mc.theWorld);
         FontRenderer fontrenderer = mc.fontRendererObj;
-        fontrenderer.drawString(LangUtil.translate(entity.getCommandSenderName()), left + 60, top + 17, 894731);
+        fontrenderer.drawString(LangUtil.translate(entity.getName()), left + 60, top + 17, 894731);
         drawEntity(entity, left + 45, top + 30, 1f);
         boolean oldState = fontrenderer.getUnicodeFlag();
         fontrenderer.setUnicodeFlag(true);

@@ -1,4 +1,4 @@
-package net.lomeli.ec.entity.render;
+package net.lomeli.ec.client.render.layer;
 
 import java.util.Calendar;
 
@@ -13,8 +13,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
-import net.lomeli.ec.entity.model.ModelFriendlyCreeper;
-import net.lomeli.ec.entity.model.ModelSpiderCreeper;
+import net.lomeli.ec.client.model.ModelFriendlyCreeper;
+import net.lomeli.ec.client.model.ModelSpiderCreeper;
 import net.lomeli.ec.lib.ModVars;
 
 public class LayerSpecialEvent implements LayerRenderer {

@@ -1,11 +1,8 @@
-package net.lomeli.ec.entity.render;
+package net.lomeli.ec.client.render;
 
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderCreeper;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.ResourceLocation;
 
@@ -14,18 +11,24 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import net.lomeli.lomlib.util.ResourceUtil;
 
+import net.lomeli.ec.client.render.layer.LayerSpecialEvent;
 import net.lomeli.ec.lib.ModLib;
 
 @SideOnly(Side.CLIENT)
 public class RenderBasicCreeper extends RenderCreeper {
 
-    public ResourceLocation entityTexture;
+    public ResourceLocation entityTexture = new ResourceLocation("textures/entity/creeper/creeper.png");
     private boolean isTransparent;
 
-    public RenderBasicCreeper() {
-        super(Minecraft.getMinecraft().getRenderManager());
+    public RenderBasicCreeper(RenderManager renderManager) {
+        super(renderManager);
         this.addLayer(new LayerSpecialEvent(this));
         isTransparent = false;
+    }
+
+    public RenderBasicCreeper(RenderManager manager, String texture) {
+        this(manager);
+        this.setTexture(texture);
     }
 
     public RenderBasicCreeper setTransparent(boolean bool) {
@@ -34,27 +37,29 @@ public class RenderBasicCreeper extends RenderCreeper {
     }
 
     public RenderCreeper setTexture(String entity) {
-        entityTexture = ResourceUtil.getEntityTexture(ModLib.MOD_ID.toLowerCase(), entity + ".png");
+        entityTexture = ResourceUtil.getEntityTexture(ModLib.MOD_ID.toLowerCase(), entity);
         return this;
     }
 
     public RenderCreeper setTexture(String entity, boolean bool) {
         if (bool)
             return setTexture(entity);
-        entityTexture = new ResourceLocation(entity + ".png");
+        if (!entity.endsWith(".png") || !entity.endsWith(".PNG"))
+            entity += ".png";
+        entityTexture = new ResourceLocation(entity);
         return this;
     }
 
     @Override
-    public void doRender(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9) {
-        if (par1EntityLiving != null) {
+    public void doRender(EntityCreeper entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        if (entity != null) {
             if (this.isTransparent) {
                 GlStateManager.pushMatrix();
                 GlStateManager.enableBlend();
-                GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+                GlStateManager.blendFunc(0x302, 0x303);
                 GlStateManager.color(1f, 1f, 1f, 0.3f);
             }
-            super.doRender(par1EntityLiving, par2, par4, par6, par8, par9);
+            super.doRender(entity, x, y, z, entityYaw, partialTicks);
             if (this.isTransparent) {
                 GlStateManager.color(1f, 1f, 1f, 1f);
                 GlStateManager.disableBlend();

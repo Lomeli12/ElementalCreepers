@@ -27,6 +27,12 @@ public class CommonProxy {
     public void registerRenders() {
     }
 
+    public void registerItemRenders() {
+    }
+
+    public void registerLayers() {
+    }
+
     public void spawnIllusionCreepers(World worldObj, double posX, double posY, double posZ) {
         for (int i = 0; i < 4; i++) {
             EntityIllusionCreeper entity = new EntityIllusionCreeper(worldObj);

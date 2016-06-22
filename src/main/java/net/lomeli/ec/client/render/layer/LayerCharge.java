@@ -1,5 +1,6 @@
-package net.lomeli.ec.entity.render;
+package net.lomeli.ec.client.render.layer;
 
+import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -7,14 +8,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
 import net.lomeli.ec.entity.EntityBaseCreeper;
-import net.lomeli.ec.entity.model.ModelSpiderCreeper;
 
-public class LayerSpiderCharge implements LayerRenderer {
+public class LayerCharge implements LayerRenderer {
     private static final ResourceLocation LIGHTNING_TEXTURE = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
     private final RenderLiving creeperRenderer;
-    private final ModelSpiderCreeper creeperModel = new ModelSpiderCreeper(2.0F);
+    private final ModelCreeper creeperModel = new ModelCreeper(2.0F);
 
-    public LayerSpiderCharge(RenderLiving renderLiving) {
+    public LayerCharge(RenderLiving renderLiving) {
         this.creeperRenderer = renderLiving;
     }
 

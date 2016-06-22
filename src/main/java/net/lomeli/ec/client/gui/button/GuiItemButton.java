@@ -30,8 +30,9 @@ public class GuiItemButton extends GuiButton {
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GlStateManager.blendFunc(770, 771);
-        //fontrenderer.setUnicodeFlag(true);
+        boolean unicode = fontrenderer.getUnicodeFlag();
+        fontrenderer.setUnicodeFlag(true);
         fontrenderer.drawString(LangUtil.translate(displayString), xPosition, yPosition, hovered ? 0x00F200 : 0x009E00);
-        //fontrenderer.setUnicodeFlag(false);
+        fontrenderer.setUnicodeFlag(unicode);
     }
 }

@@ -1,7 +1,5 @@
 package net.lomeli.ec.entity;
 
-import com.google.common.base.Predicate;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -23,7 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import net.lomeli.lomlib.util.entity.EntityUtil;
+import net.lomeli.lomlib.util.EntityUtil;
 
 import net.lomeli.ec.core.EntityRegistering;
 import net.lomeli.ec.entity.ai.EntityAIBigBadSwell;
@@ -41,15 +39,7 @@ public class EntityBigBadCreep extends EntityMob {
         super(world);
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIBigBadSwell(this));
-        this.tasks.addTask(3, new EntityAIAvoidEntity(this, new Predicate() {
-            public boolean func_179958_a(Entity p_179958_1_) {
-                return p_179958_1_ instanceof EntityOcelot;
-            }
-
-            public boolean apply(Object p_apply_1_) {
-                return this.func_179958_a((Entity) p_apply_1_);
-            }
-        }, 6.0F, 1.0D, 1.2D));
+        this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
         this.tasks.addTask(4, new EntityAIAttackOnCollide(this, 1.0D, false));
         this.tasks.addTask(5, new EntityAIWander(this, 0.8D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
@@ -112,7 +102,7 @@ public class EntityBigBadCreep extends EntityMob {
 
     public void explode() {
         if (!this.worldObj.isRemote) {
-            boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
+            boolean flag = this.worldObj.getGameRules().getBoolean("mobGriefing");
 
             this.explosion(this.getPowered() ? 2 : 1, flag);
             this.setDead();
@@ -246,13 +236,5 @@ public class EntityBigBadCreep extends EntityMob {
 
     public void func_146079_cb() {
         this.dataWatcher.updateObject(18, Byte.valueOf((byte) 1));
-    }
-
-    @Override
-    public ItemStack getPickedResult(MovingObjectPosition target) {
-        ItemStack stack = EntityUtil.getEntitySpawnEgg(this.getClass());
-        if (stack != null && stack.getItem() != null)
-            return stack;
-        return super.getPickedResult(target);
     }
 }

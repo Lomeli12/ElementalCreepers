@@ -62,7 +62,7 @@ public class BlockSilverCreeper extends Block {
 
     @Override
     public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-        if (!worldIn.isRemote && worldIn.getGameRules().getGameRuleBooleanValue("doTileDrops")) {
+        if (!worldIn.isRemote && worldIn.getGameRules().getBoolean("doTileDrops")) {
             EntitySilverCreeper creeper = new EntitySilverCreeper(worldIn);
             creeper.setLocationAndAngles((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, 0.0F, 0.0F);
             worldIn.spawnEntityInWorld(creeper);

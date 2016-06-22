@@ -1,8 +1,9 @@
-package net.lomeli.ec.entity.render;
+package net.lomeli.ec.client.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
@@ -11,15 +12,17 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import net.lomeli.ec.client.render.layer.LayerCharge;
+import net.lomeli.ec.client.render.layer.LayerSpecialEvent;
 import net.lomeli.ec.entity.EntityFriendlyCreeper;
-import net.lomeli.ec.entity.model.ModelFriendlyCreeper;
+import net.lomeli.ec.client.model.ModelFriendlyCreeper;
 import net.lomeli.ec.lib.ModLib;
 
 @SideOnly(Side.CLIENT)
 public class RenderFriendlyCreeper extends RenderLiving {
 
-    public RenderFriendlyCreeper() {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelFriendlyCreeper(), 0.5F);
+    public RenderFriendlyCreeper(RenderManager renderManager) {
+        super(renderManager, new ModelFriendlyCreeper(), 0.5F);
         this.addLayer(new LayerSpecialEvent(this));
         this.addLayer(new LayerCharge(this));
     }

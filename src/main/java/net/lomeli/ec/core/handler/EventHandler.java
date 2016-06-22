@@ -18,7 +18,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import net.lomeli.lomlib.util.LangUtil;
-import net.lomeli.lomlib.util.entity.EntityUtil;
+import net.lomeli.lomlib.util.EntityUtil;
 
 import net.lomeli.ec.ElementalCreepers;
 import net.lomeli.ec.client.CreeperEntry;
@@ -34,7 +34,7 @@ public class EventHandler {
             if (entity instanceof EntitySpringCreeper) {
                 EntitySpringCreeper creeper = (EntitySpringCreeper) entity;
                 if (source == DamageSource.fall && creeper.isSprung() && !creeper.worldObj.isRemote) {
-                    creeper.worldObj.createExplosion(creeper, creeper.posX, creeper.posY - 2, creeper.posZ, creeper.getExplosionRadius() * ((event.ammount < 6 ? 6 : event.ammount) / 6), creeper.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"));
+                    creeper.worldObj.createExplosion(creeper, creeper.posX, creeper.posY - 2, creeper.posZ, creeper.getExplosionRadius() * ((event.ammount < 6 ? 6 : event.ammount) / 6), creeper.worldObj.getGameRules().getBoolean("mobGriefing"));
                     creeper.setDead();
                 }
             }
@@ -48,7 +48,7 @@ public class EventHandler {
 
         if (activate && event.entityLiving != null && (event.entityLiving instanceof EntityCreeper || event.entityLiving instanceof EntityFriendlyCreeper || event.entityLiving instanceof EntityBigBadCreep)) {
             if (source instanceof EntityPlayer && registerCreep((EntityPlayer) source, event.entityLiving.getClass()))
-                ((EntityPlayer) source).addChatComponentMessage(new ChatComponentText(String.format(EnumChatFormatting.GREEN + StatCollector.translateToLocal("book.entry.newEntry"), event.entityLiving.getCommandSenderName())));
+                ((EntityPlayer) source).addChatComponentMessage(new ChatComponentText(String.format(EnumChatFormatting.GREEN + StatCollector.translateToLocal("book.entry.newEntry"), event.entityLiving.getName())));
 
             if (!(event.entityLiving instanceof EntityGhostCreeper) && !(event.entityLiving instanceof EntityFriendlyCreeper)) {
                 if (event.entityLiving instanceof IIllusion) {

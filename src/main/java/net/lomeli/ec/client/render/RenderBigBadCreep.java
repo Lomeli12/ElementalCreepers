@@ -1,21 +1,23 @@
-package net.lomeli.ec.entity.render;
+package net.lomeli.ec.client.render;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
+import net.lomeli.ec.client.render.layer.LayerCharge;
+import net.lomeli.ec.client.render.layer.LayerSpecialEvent;
 import net.lomeli.ec.entity.EntityBigBadCreep;
 
 public class RenderBigBadCreep extends RenderLiving {
     private static final ResourceLocation creeperTextures = new ResourceLocation("textures/entity/creeper/creeper.png");
 
-    public RenderBigBadCreep() {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelCreeper(), 0.5F);
+    public RenderBigBadCreep(RenderManager renderManager) {
+        super(renderManager, new ModelCreeper(), 0.5F);
         this.addLayer(new LayerCharge(this));
         this.addLayer(new LayerSpecialEvent(this));
     }
@@ -34,9 +36,9 @@ public class RenderBigBadCreep extends RenderLiving {
     protected int func_180571_a(EntityBigBadCreep p_180571_1_, float p_180571_2_, float p_180571_3_) {
         float f2 = p_180571_1_.getCreeperFlashIntensity(p_180571_3_);
 
-        if ((int) (f2 * 10.0F) % 2 == 0) {
+        if ((int) (f2 * 10.0F) % 2 == 0)
             return 0;
-        } else {
+        else {
             int i = (int) (f2 * 0.2F * 255.0F);
             i = MathHelper.clamp_int(i, 0, 255);
             return i << 24 | 16777215;

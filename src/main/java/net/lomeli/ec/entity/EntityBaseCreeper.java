@@ -17,7 +17,7 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import net.lomeli.lomlib.util.entity.EntityUtil;
+import net.lomeli.lomlib.util.EntityUtil;
 
 public abstract class EntityBaseCreeper extends EntityCreeper {
 
@@ -34,6 +34,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
     public EntityBaseCreeper(World par1World, boolean playSound) {
         super(par1World);
         explosionSound = playSound;
+        this.setSize(0.75F, 2.0F);
     }
 
     @Override
@@ -182,7 +183,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 
     public void explode() {
         if (!this.worldObj.isRemote) {
-            boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
+            boolean flag = this.worldObj.getGameRules().getBoolean("mobGriefing");
 
             this.explosion(this.getPowered() ? 2 : 1, flag);
 
@@ -280,9 +281,6 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 
     @Override
     public ItemStack getPickedResult(MovingObjectPosition target) {
-        ItemStack stack = EntityUtil.getEntitySpawnEgg(this.getClass());
-        if (!worldObj.isRemote && stack != null && stack.getItem() != null)
-            return stack;
         return super.getPickedResult(target);
     }
 }

@@ -1,0 +1,39 @@
+entity.elementalcreepers.FireCreeper.name=Creeper del Fuoco
+entity.elementalcreepers.WaterCreeper.name=Creeper dell'Acqua
+entity.elementalcreepers.ElectricCreeper.name=Creeper Elettrico
+entity.elementalcreepers.CookieCreeper.name=Creeper di Biscotti
+entity.elementalcreepers.DarkCreeper.name=Creeper Oscuro
+entity.elementalcreepers.LightCreeper.name=Creeper della Luce
+entity.elementalcreepers.EarthCreeper.name=Creeper della Terra
+entity.elementalcreepers.MagmaCreeper.name=Creeper del Magma
+entity.elementalcreepers.ReverseCreeper.name=repeerC
+entity.elementalcreepers.IceCreeper.name=Creeper del Ghiaccio
+entity.elementalcreepers.FriendlyCreeper.name=Creeper Compagno
+entity.elementalcreepers.GhostCreeper.name=Creeper Fantasma
+entity.elementalcreepers.FakeIllusionCreeper.name=Creeper Illusorio
+entity.elementalcreepers.IllusionCreeper.name=Creeper Illusorio
+entity.elementalcreepers.PsychicCreeper.name=Creeper Psichico
+entity.elementalcreepers.SpiderCreeper.name=Creeper Ragno
+
+entity.elementalcreepers.WindCreeper.name=Creeper dell'Aria
+entity.elementalcreepers.HydrogenCreeper.name=Creeper H
+entity.elementalcreepers.EnderCreeper.name=Creeper Omega
+entity.elementalcreepers.StoneCreeper.name=Creeper di Pietra
+entity.elementalcreepers.SolarCreeper.name=Creeper Solare
+entity.elementalcreepers.CakeCreeper.name=Creeper delle Torte
+entity.elementalcreepers.FireworkCreeper.name=Creeper dei Fuochi
+entity.elementalcreepers.BigBadCreep.name=Creeperaccio
+entity.elementalcreepers.SpringCreeper.name=Creeper Primaverile
+
+entity.elementalcreepers.EUCreeper.name=Creeper dell'Energia
+entity.elementalcreepers.RFCreeper.name=Creeper del Flusso
+
+update.elementalcreepers.message=Elemental Creepers è stata aggiornata!
+update.elementalcreepers.old=Vecchia Versione:
+update.elementalcreepers.new=Nuova Versionr:
+
+config.elementalcreepers.spawnRates=Tasso di Spawn dei Creeper
+config.elementalcreepers.explosionConfig=Configura Esplosioni dei Creeper
+config.elementalcreepers.cookies=Quanti biscotti rilascia un Creeper di Biscotti
+config.elementalcreepers.domeEx=Abilita esplosioni a cupola (Sostituisce esplosioni casuali).
+config.elementalcreepers.specialEvents=Abilita rendering speciale durante alcuni eventi.
